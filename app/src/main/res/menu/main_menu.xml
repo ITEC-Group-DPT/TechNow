@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_icon"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profile_icon"
+            android:title="Account"
+            />
+
+
+    </group>
+        <item android:title="Shop">
+            <menu >
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/keyboard"
+                    android:title="Keyboard"
+        />
+                <item
+                    android:id="@+id/mouse"
+                    android:title="Mouse"
+                 />
+                <item
+                    android:id="@+id/screen"
+                    android:title="Monitor"
+                />
+                <item
+                    android:id="@+id/laptop"
+                    android:title="Laptop"
+               />
+                </group>
+            </menu>
+        </item>
+
+    <group android:fontFamily="@font/muli_black">
+        <item android:title="About &amp; Feedback"
+            >
+            <menu>
+                <item
+                    android:id="@+id/about"
+                    android:title="About" />
+                <item
+                    android:id="@+id/feedback"
+                    android:title="Feedback" />
+
+                <item
+                    android:id="@+id/Logout"
+                    android:title="Log out" />
+            </menu>
+        </item>
+    </group>
+
+</menu>

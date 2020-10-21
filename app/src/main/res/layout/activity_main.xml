@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_lo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSecondary"
+    android:fitsSystemWindows="true"
+    tools:context=".MainLayout">
+
+    <LinearLayout
+        android:id="@+id/lnlo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/appTheme"
+            android:minHeight="@android:dimen/app_icon_size"
+            android:paddingTop="6dp"
+            app:navigationIcon="@drawable/navigation_icon"
+            app:titleTextColor="@color/colorSecondary">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/muli_black"
+                android:text="TechNow"
+                android:textColor="@color/colorSecondary"
+                android:transitionName="trans_applogo"
+                android:textSize="23sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                android:layout_gravity="end">
+
+            <ImageButton
+                android:id="@+id/cart_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/appTheme"
+                android:src="@drawable/shoppingcart"
+                android:tint="@color/colorSecondary" />
+
+            <TextView
+                android:id="@+id/number_of_item_in_cart"
+                android:layout_width="16dp"
+                android:layout_height="19dp"
+                android:textColor="@color/colorSecondary"
+                android:fontFamily="@font/muli_black"
+                android:background="@drawable/color_red_circle_button"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="0"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#FFFFFF"
+        app:headerLayout="@layout/header"
+        app:itemIconSize="24dp"
+        app:menu="@menu/main_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

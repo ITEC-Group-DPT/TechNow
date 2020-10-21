@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.projectlogin">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/appicon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/appicon_round"
+        android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".FeedbackActivity"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".EditAccount" />
+        <activity android:name=".ReenterPassword" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".UserSignUp" />
+        <activity android:name=".UserLogin" />
+        <activity android:name=".Laptop_Catalog" />
+        <activity android:name=".Monitor_Catalog" />
+        <activity android:name=".Mouse_Catalog" />
+        <activity android:name=".Keyboard_Catalog" />
+        <activity android:name=".MainLayout" />
+        <activity android:name=".PaymentActivity"/>
+        <activity android:name=".MainUI" />
+
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

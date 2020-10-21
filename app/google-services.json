@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "618769040658",
+    "firebase_url": "https://technow-4b3ab.firebaseio.com",
+    "project_id": "technow-4b3ab",
+    "storage_bucket": "technow-4b3ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618769040658:android:bb69794c30f8f095675fcb",
+        "android_client_info": {
+          "package_name": "com.example.projectlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618769040658-oo41ivnna039k2ui58mjt0krdki22ar3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgtzOP-NqUjLdcjfD6SFGw3gDHjpw-AJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "618769040658-oo41ivnna039k2ui58mjt0krdki22ar3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,5 +35,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         }, SPLASH_TIMER);
+
+        Toast.makeText(this, "test Github", Toast.LENGTH_SHORT).show();
     }
 }

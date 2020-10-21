@@ -36,6 +36,6 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_TIMER);
 
-        Toast.makeText(this, "test Github 2", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "test Github 3", Toast.LENGTH_SHORT).show();
     }
 }

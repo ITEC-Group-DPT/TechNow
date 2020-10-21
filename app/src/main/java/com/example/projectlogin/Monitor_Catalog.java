@@ -39,10 +39,6 @@ public class Monitor_Catalog extends MainLayout {
         drawerLayout.setBackgroundColor(0xFFFFFF);
         navigationView.setCheckedItem(R.id.screen);
 
-        Toast.makeText(this, "ALO ALO DAO NGu", Toast.LENGTH_SHORT).show();
-
-        
-
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Log.d("@LOG", "bundle yes");

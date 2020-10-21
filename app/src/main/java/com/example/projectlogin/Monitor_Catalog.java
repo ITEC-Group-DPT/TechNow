@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -38,6 +39,9 @@ public class Monitor_Catalog extends MainLayout {
         drawerLayout.setBackgroundColor(0xFFFFFF);
         navigationView.setCheckedItem(R.id.screen);
 
+        Toast.makeText(this, "ALO ALO DAO NGu", Toast.LENGTH_SHORT).show();
+
+        
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -54,7 +58,7 @@ public class Monitor_Catalog extends MainLayout {
 
         changeToolbarTitle("Monitor");
         loadData();
-        //initComponents();
+               //initComponents();
     }
 
 

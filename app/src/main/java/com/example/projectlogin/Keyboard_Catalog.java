@@ -10,6 +10,15 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -17,6 +26,7 @@ public class Keyboard_Catalog extends MainLayout {
 
     private ArrayList<Product> keyboards;
     private ListView keyboard_lv;
+    DatabaseReference reff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,45 +55,40 @@ public class Keyboard_Catalog extends MainLayout {
 
         changeToolbarTitle("Keyboard");
         loadData();
-        initComponents();
-    }
-
-
-    private void initComponents() {
-        ProductListViewAdapter adapter = new ProductListViewAdapter(this, R.layout.product_listview_layout, keyboards);
-        adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
-            @Override
-            public void onAddToCart(ImageButton imageButtonAddToCart, int number) {
-                imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
-                cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-
-                noOfItem = number;
-                noOfItemInCart.setVisibility(View.VISIBLE);
-                noOfItemInCart.setText(String.valueOf(noOfItem));
-            }
-        });
-        keyboard_lv = findViewById(R.id.catalog_lv);
-        keyboard_lv.setAdapter(adapter);
     }
 
     private void loadData() {
-      /*  String[] name = {"DareU EK810 Queen", "AKKO 3108 v2", "E-Dra EK387 Pro Cherry Switch",
-                "Acer Predator Aethon", "AKKO Dragon Ball Super", "Mistel Sleeker X-VIII Gloaming",
-                "Akko Designer Studio MOD001", "AKKO 3087 Midnight", "E-DRA EK3087", "Leopold FC900RPD"};
-        int[] prices = {640000, 1690000, 1350000, 3290000, 2490000, 2650000, 4050000, 890000, 499000, 3350000};
-        int[] image = {R.drawable.dareu_ek810_queen, R.drawable.akko_3108_v2, R.drawable.edra_ek387_pro_cherryswitch,
-                R.drawable.acer_predator_aethon_300, R.drawable.akko_dragonball_super,
-                R.drawable.mistel_sleeker_gloaming, R.drawable.akko_designer_studio, R.drawable.akko_3087_midnight,
-                R.drawable.edra_ek3087, R.drawable.leopold_fc900rpd,};
-
         keyboards = new ArrayList<>();
-        for (int i = 0; i < name.length; i++) {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4;
+        reff = FirebaseDatabase.getInstance().getReference("Products").child("Keyboard");
+        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    keyboards.add(product);
+                }
+                ProductListViewAdapter adapter = new ProductListViewAdapter(Keyboard_Catalog.this, R.layout.product_listview_layout, keyboards);
+                adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
+                    @Override
+                    public void onAddToCart(ImageButton imageButtonAddToCart, int number) {
+                        imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
+                        cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
 
-            Product keyboard = new Product(BitmapFactory.decodeResource(getResources(), image[i], options), name[i], prices[i]);
-            keyboards.add(keyboard);
-        }*/
+                        noOfItem = number;
+                        noOfItemInCart.setVisibility(View.VISIBLE);
+                        noOfItemInCart.setText(String.valueOf(noOfItem));
+                    }
+                });
+                keyboard_lv = findViewById(R.id.catalog_lv);
+                keyboard_lv.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

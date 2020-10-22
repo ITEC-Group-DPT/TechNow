@@ -55,41 +55,13 @@ public class Laptop_Catalog extends MainLayout {
 
         changeToolbarTitle("Laptop");
         loadData();
-        //initComponents();
 
     }
 
 
-   /* private void initComponents() {
-        ProductListViewAdapter adapter = new ProductListViewAdapter(this, R.layout.product_listview_layout, listProduct);
-        adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
-            @Override
-            public void onAddToCart(ImageButton imageButtonAddToCart, int number) {
-                imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
-                cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-
-                noOfItem = number;
-                noOfItemInCart.setVisibility(View.VISIBLE);
-                noOfItemInCart.setText(String.valueOf(noOfItem));
-            }
-        });
-        listView.setAdapter(adapter);
-    }*/
 
     private void loadData() {
-       /* listProduct = new ArrayList<Product>();
-        int[] image = {R.drawable.acerswift3, R.drawable.aspire5, R.drawable.dellf3, R.drawable.hp13, R.drawable.macair13,
-                R.drawable.nitro5, R.drawable.pro2019, R.drawable.rogstrixg, R.drawable.vivobooks15, R.drawable.yogas740};
-        String[] name = {"Acer Swift 3", "Acer Aspire 5", "Dell G3 15", "HP 14s", "Apple MacBook Air 13",
-                "Acer Nitro 5", "Apple MacBook Pro 2019", "Asus ROG Strix G", "Asus Vivobook S15", "Lenovo Yoga S740"};
-        int[] price = {13000000, 15000000, 24000000, 18000000, 32000000, 16000000, 45000000, 30000000, 14000000, 17000000};
 
-        for (int i = 0; i < image.length; i++) {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4;
-
-            listProduct.add(new Product(BitmapFactory.decodeResource(getResources(), image[i], options), name[i], price[i]));
-        }*/
         laptopList = new ArrayList<>();
         databaseRef = FirebaseDatabase.getInstance().getReference("Products").child("Laptop");
         databaseRef.addValueEventListener(new ValueEventListener() {

@@ -2,7 +2,6 @@ package com.example.projectlogin;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +10,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class Laptop_Catalog extends MainLayout {
 
+    private ArrayList<Product> laptopList;
     private ListView listView;
-    private ArrayList<Product> listProduct;
+    private DatabaseReference databaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +55,12 @@ public class Laptop_Catalog extends MainLayout {
 
         changeToolbarTitle("Laptop");
         loadData();
-        initComponents();
+        //initComponents();
 
     }
 
 
-    private void initComponents() {
+   /* private void initComponents() {
         ProductListViewAdapter adapter = new ProductListViewAdapter(this, R.layout.product_listview_layout, listProduct);
         adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
             @Override
@@ -66,7 +74,7 @@ public class Laptop_Catalog extends MainLayout {
             }
         });
         listView.setAdapter(adapter);
-    }
+    }*/
 
     private void loadData() {
        /* listProduct = new ArrayList<Product>();
@@ -82,6 +90,37 @@ public class Laptop_Catalog extends MainLayout {
 
             listProduct.add(new Product(BitmapFactory.decodeResource(getResources(), image[i], options), name[i], price[i]));
         }*/
+        laptopList = new ArrayList<>();
+        databaseRef = FirebaseDatabase.getInstance().getReference("Products").child("Laptop");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Product product = postSnapshot.getValue(Product.class);
+                    laptopList.add(product);
+                }
+
+                ProductListViewAdapter adapter = new ProductListViewAdapter(Laptop_Catalog.this, R.layout.product_listview_layout, laptopList);
+                adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
+                    @Override
+                    public void onAddToCart(ImageButton imageButtonAddToCart, int number) {
+                        imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
+                        cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
+
+                        noOfItem = number;
+                        noOfItemInCart.setVisibility(View.VISIBLE);
+                        noOfItemInCart.setText(String.valueOf(noOfItem));
+                    }
+                });
+                listView = findViewById(R.id.catalog_lv);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

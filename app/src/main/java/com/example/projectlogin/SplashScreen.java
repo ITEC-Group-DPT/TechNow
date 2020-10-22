@@ -23,6 +23,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
+
+        Toast.makeText(this, "asjdgahjsd", Toast.LENGTH_SHORT).show();
         appLogo = findViewById(R.id.app_logo);
         anim1 = AnimationUtils.loadAnimation(this, R.anim.splash_screen_logo);
         appLogo.setAnimation(anim1);
@@ -35,6 +37,6 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         }, SPLASH_TIMER);
-
+        
     }
 }

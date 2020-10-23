@@ -39,9 +39,11 @@ public class UserLogin extends AppCompatActivity {
         Map<String, ?> keys = sharedPreferences.getAll();
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
             if (entry.getValue().equals(true)) {
+
                 String username = entry.getKey();
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
                 intent.putExtra("username", username);
+                DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(username));
                 startActivity(intent);
                 return;
             }
@@ -69,13 +71,15 @@ public class UserLogin extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child(user.getUsername()).exists()) {
-                            String account_pass = (String) snapshot.child(name_str).child("password").getValue();
+                            String account_pass = (String) snapshot.child(name_str).child("Information").child("password").getValue();
+
                             if (account_pass.equals(user.getPassword())) {
                                 if (rememberMe.isChecked()) {
                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putBoolean(user.getUsername(), true);
                                     editor.commit();
+
                                 } else {
                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -85,6 +89,7 @@ public class UserLogin extends AppCompatActivity {
                                 Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
                                 intent1.putExtra("username", user.getUsername());
                                 startActivity(intent1);
+                                DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
                                 return;
                             }
 

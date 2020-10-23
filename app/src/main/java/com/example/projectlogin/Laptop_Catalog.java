@@ -60,9 +60,9 @@ public class Laptop_Catalog extends Fragment {
                         ((MainUI)getActivity()).noOfItemInCart.setText(String.valueOf(number));
                     }
                 });
+
                 laptop_lv = root.findViewById(R.id.catalog_lv);
                 laptop_lv.setAdapter(adapter);
-
             }
 
             @Override

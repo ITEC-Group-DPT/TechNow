@@ -84,26 +84,27 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*final Product temp1 = Products.get(position);
-                final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(User.getUsername()).child("Order");
+                final Product temp1 = Products.get(position);
+                final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Order");
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot: snapshot.getChildren())
                         {
-                            if (temp1 == dataSnapshot.getValue(Product.class)) {
+                            if (temp1.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
                                 Toast.makeText(getContext(), "Already added", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }
                         databaseReference.child(temp1.getName()).setValue(temp1);
+                        myListener.onAddToCart(btn_add, getCartArrList().size());
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });*/
+                });
                 /*if (getCartArrList() != null) {
                     for (int i = 0; i < getCartArrList().size(); i++) {
                         Product temp2 = getCartArrList().get(i);
@@ -116,7 +117,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                 Cart.addItem(new Product(temp1.getAvatarURL(), temp1.getName() ,temp1.getPrice()));
                 Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
 
-                myListener.onAddToCart(btn_add, getCartArrList().size());*/
+                */
             }
         });
         return convertView;

@@ -69,7 +69,7 @@ public class UserLogin extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child(user.getUsername()).exists()) {
-                            String account_pass = (String) snapshot.child(name_str).child("password").getValue();
+                            String account_pass = (String) snapshot.child(name_str).child("Information").child("password").getValue();
                             if (account_pass.equals(user.getPassword())) {
                                 if (rememberMe.isChecked()) {
                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -85,6 +85,7 @@ public class UserLogin extends AppCompatActivity {
                                 Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
                                 intent1.putExtra("username", user.getUsername());
                                 startActivity(intent1);
+                                DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
                                 return;
                             }
 

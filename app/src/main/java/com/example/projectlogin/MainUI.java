@@ -94,35 +94,18 @@ public class MainUI extends AppCompatActivity {
         carouselView.setImageClickListener(new ImageClickListener() {
             @Override
             public void onClick(int position) {
-                Intent intent;
-                ActivityOptions options;
                 switch (position) {
                     case 0:
-                        intent = new Intent(MainUI.this, Mouse_Catalog.class);
-                        intent.putExtra("name", username);
-                        intent.putExtra("noItem", noOfItem);
-                        options = ActivityOptions.makeSceneTransitionAnimation(MainUI.this, findViewById(R.id.carouselView), "trans_catalog");
-                        startActivity(intent, options.toBundle());
+                        changeFragment("Mouse");
                         break;
                     case 1:
                         changeFragment("Keyboard");
                         break;
                     case 2:
-                        intent = new Intent(MainUI.this, Monitor_Catalog.class);
-                        intent.putExtra("name", username);
-                        intent.putExtra("noItem", noOfItem);
-                        options = ActivityOptions.makeSceneTransitionAnimation(MainUI.this, findViewById(R.id.carouselView), "trans_catalog");
-                        startActivity(intent, options.toBundle());
+                        changeFragment("Monitor");
                         break;
                     case 3:
-                        intent = new Intent(MainUI.this, Laptop_Catalog.class);
-                        intent.putExtra("name", username);
-                        intent.putExtra("noItem", noOfItem);
-                        options = ActivityOptions.makeSceneTransitionAnimation(MainUI.this, findViewById(R.id.carouselView), "trans_catalog");
-                        startActivity(intent, options.toBundle());
-                        break;
-
-                    case 4:
+                        changeFragment("Laptop");
                         break;
                 }
 
@@ -180,22 +163,13 @@ public class MainUI extends AppCompatActivity {
                         changeFragment("Keyboard");
                         break;
                     case (R.id.mouse):
-                        intent = new Intent(MainUI.this, Mouse_Catalog.class);
-                        intent.putExtra("name", username);
-                        intent.putExtra("noItem", noOfItem);
-                        startActivity(intent);
+                        changeFragment("Mouse");
                         break;
                     case (R.id.screen):
-                        intent = new Intent(MainUI.this, Monitor_Catalog.class);
-                        intent.putExtra("name", username);
-                        intent.putExtra("noItem", noOfItem);
-                        startActivity(intent);
+                        changeFragment("Monitor");
                         break;
                     case (R.id.laptop):
-                        intent = new Intent(MainUI.this, Laptop_Catalog.class);
-                        intent.putExtra("name", username);
-                        intent.putExtra("noItem", noOfItem);
-                        startActivity(intent);
+                        changeFragment("Laptop");
                         break;
                     case (R.id.nav_home):
                         intent = new Intent(MainUI.this, MainUI.class);
@@ -240,32 +214,18 @@ public class MainUI extends AppCompatActivity {
 
 
     public void Card_onClick(View view) {
-        Intent intent;
-        ActivityOptions options;
         switch (view.getId()) {
             case (R.id.keyboard_cv):
                 changeFragment("Keyboard");
                 break;
             case (R.id.mouse_cv):
-                intent = new Intent(this, Mouse_Catalog.class);
-                intent.putExtra("name", username);
-                intent.putExtra("noItem", noOfItem);
-                options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.mouse_cv), "trans_catalog");
-                startActivity(intent, options.toBundle());
+                changeFragment("Mouse");
                 break;
             case (R.id.screen_cv):
-                intent = new Intent(this, Monitor_Catalog.class);
-                intent.putExtra("name", username);
-                intent.putExtra("noItem", noOfItem);
-                options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.screen_cv), "trans_catalog");
-                startActivity(intent, options.toBundle());
+                changeFragment("Monitor");
                 break;
             case (R.id.laptop_cv):
-                intent = new Intent(this, Laptop_Catalog.class);
-                intent.putExtra("name", username);
-                intent.putExtra("noItem", noOfItem);
-                options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.laptop_cv), "trans_catalog");
-                startActivity(intent, options.toBundle());
+                changeFragment("Laptop");
                 break;
         }
 
@@ -273,8 +233,10 @@ public class MainUI extends AppCompatActivity {
 
     private void close_FrameLayout()
     {
-        if (frameLayout.getVisibility() != View.GONE)
+        if (frameLayout.getVisibility() != View.GONE) {
+            toolbar_title.setText("TechNow");
             frameLayout.setVisibility(View.GONE);
+        }
     }
 
     private void open_FrameLayout()
@@ -292,6 +254,21 @@ public class MainUI extends AppCompatActivity {
                 toolbar_title.setText("Keyboard");
                 navigationView.setCheckedItem(R.id.keyboard);
                 getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Keyboard_Catalog()).commit();
+                break;
+            case ("Mouse"):
+                toolbar_title.setText("Mouse");
+                navigationView.setCheckedItem(R.id.mouse);
+                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Mouse_Catalog()).commit();
+                break;
+            case ("Monitor"):
+                toolbar_title.setText("Monitor");
+                navigationView.setCheckedItem(R.id.screen);
+                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Monitor_Catalog()).commit();
+                break;
+            case ("Laptop"):
+                toolbar_title.setText("Laptop");
+                navigationView.setCheckedItem(R.id.laptop);
+                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Laptop_Catalog()).commit();
                 break;
 
         }

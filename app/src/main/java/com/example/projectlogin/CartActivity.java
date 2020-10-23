@@ -48,9 +48,6 @@ public class CartActivity extends MainLayout {
         else {
             for (int i = 0; i < getCartArrList().size(); i++) {
                 Product temp =  getCartArrList().get(i);
-               /* int _temp = temp.getPrice() * temp.getQuantity();
-                Cart.setTotalCash(Cart.getTotalCash() + _temp);
-                Log.d("!@", "price = " + temp.getPrice() + "\nquantity: " + temp.getQuantity());*/
             }
             intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);

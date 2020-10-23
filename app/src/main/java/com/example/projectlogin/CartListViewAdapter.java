@@ -1,6 +1,5 @@
 package com.example.projectlogin;
 
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -26,19 +30,21 @@ import static com.example.projectlogin.Cart.setCartArrList;
 public class CartListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
-    private NumberFormat format = new DecimalFormat("#,###");
+    private ArrayList<Product> productList;
+
     onListener myListener;
+    private NumberFormat format = new DecimalFormat("#,###");
 
     public CartListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
-        setCartArrList((ArrayList<Product>) objects);
+        this.productList = (ArrayList<Product>) objects;
     }
 
     @Override
     public int getCount() {
-        return getCartArrList().size();
+        return productList.size();
     }
 
     public interface onListener {
@@ -56,11 +62,46 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(layoutID, null, false);
         }
-        Log.d("!!@@", "position = " + position);
+
         ImageView ava = convertView.findViewById(R.id.iv_cart_ava);
         TextView name = convertView.findViewById(R.id.tv_cart_name);
         TextView price = convertView.findViewById(R.id.tv_cart_price);
-        ImageButton remove = convertView.findViewById(R.id.remove_product);
+        TextView quantity = convertView.findViewById(R.id.tv_cart_quantity);
+
+        Product temp = productList.get(position);
+
+        Glide.with(context).load(temp.getAvatarURL()).into(ava);
+        name.setText(temp.getName());
+
+        quantity.setText(Integer.toString(temp.getQuantity()));
+        temp.setQuantity(Integer.parseInt(quantity.getText().toString())); // ????
+
+        String formatedTotal = format.format(temp.getPrice()) + "₫";
+        price.setText("$" + formatedTotal);
+
+        //TODO
+        /*ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);
+        sub_quantity.setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (temp.getQuantity() > 1) {
+                    temp.setQuantity(temp.getQuantity() - 1);
+                    quantity.setText(String.valueOf(temp.getQuantity()));
+                }
+            }
+        });
+
+        ImageButton plus_quantity = convertView.findViewById(R.id.plus_quantity_btn);
+        plus_quantity.setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                temp.setQuantity(temp.getQuantity() + 1);
+                quantity.setText(String.valueOf(temp.getQuantity()));
+                Log.d("!!@@", "quantity = " + temp.getQuantity());
+            }
+        });*/
+
+        /*ImageButton remove = convertView.findViewById(R.id.remove_product);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,36 +115,8 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                     }
                 }
             }
-        });
-      /*  final TextView quantity = convertView.findViewById(R.id.tv_cart_quantity); // TODO
-
-        ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);
-        final Product temp =  getCartArrList().get(position);
-        quantity.setText(Integer.toString(temp.getQuantity()));
-
-        temp.setQuantity(Integer.parseInt(quantity.getText().toString()));
-        ava.setImageBitmap(temp.getAvatar());
-        name.setText(temp.getName());
-        String formatedTotal = format.format(temp.getPrice()) + "₫";
-        price.setText("Price: " + formatedTotal);
-        sub_quantity.setOnClickListener(new AdapterView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (temp.getQuantity() > 1) {
-                    temp.setQuantity(temp.getQuantity() - 1);
-                    quantity.setText(String.valueOf(temp.getQuantity()));
-                }
-            }
-        });
-        ImageButton plus_quantity = convertView.findViewById(R.id.plus_quantity_btn);
-        plus_quantity.setOnClickListener(new AdapterView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                temp.setQuantity(temp.getQuantity() + 1);
-                quantity.setText(String.valueOf(temp.getQuantity()));
-                Log.d("!!@@", "quantity = " + temp.getQuantity());
-            }
         });*/
+
         return convertView;
     }
 }

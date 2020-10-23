@@ -8,11 +8,19 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static com.example.projectlogin.Cart.getCartArrList;
 
 public class CartActivity extends MainLayout {
     protected CartListViewAdapter adapter;
+    private ArrayList<Product> productList;
     private Intent intent;
     protected ListView lv_cart;
 
@@ -29,16 +37,31 @@ public class CartActivity extends MainLayout {
     }
 
     private void initIntent() {
-        adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, getCartArrList());
-        adapter.setOnListenerInterface(new CartListViewAdapter.onListener() {
+        productList = new ArrayList<>();
+        DatabaseRef.getDatabaseReference().child("Cart").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onListener() {
-                noOfItem--;
-                Log.d("@LOG", "noOfItem in CartActivity after remove: " + String.valueOf(noOfItem));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, productList);
+                adapter.setOnListenerInterface(new CartListViewAdapter.onListener() {
+                    @Override
+                    public void onListener() {
+                        noOfItem--;
+                        Log.d("@LOG", "noOfItem in CartActivity after remove: " + String.valueOf(noOfItem));
+                    }
+                });
+                lv_cart = findViewById(R.id.lv_cart);
+                lv_cart.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-        lv_cart = findViewById(R.id.lv_cart);
-        lv_cart.setAdapter(adapter);
     }
 
     public void submit(View view) {

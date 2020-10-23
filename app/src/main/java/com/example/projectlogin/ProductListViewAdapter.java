@@ -71,12 +71,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
 
         Product temp = Products.get(position);
 
-        Glide.with(context)
-                .load(temp.getAvatarURL())
-                .into(imageView);
-
-        //imageView.setImageBitmap(temp.getAvatar());
-
+        Glide.with(context).load(temp.getAvatarURL()).into(imageView);
         tv_name.setText(temp.getName());
         String formattedPrice = "$" + format.format(temp.getPrice()) + "₫";
         tv_price.setText(formattedPrice);
@@ -97,6 +92,8 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                             }
                         }
                         databaseReference.child(temp1.getName()).setValue(temp1);
+                        databaseReference.child(temp1.getName()).child("quantity").setValue(1);
+                        Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                         myListener.onAddToCart(btn_add, getCartArrList().size());
                     }
 

@@ -15,5 +15,6 @@ public class DatabaseRef {
     public static void setDatabaseReference(DatabaseReference databaseReference) {
         DatabaseRef.databaseReference = databaseReference;
     }
+
 }
 

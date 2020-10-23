@@ -6,7 +6,7 @@ public class Product {
     private String avatarURL;
     private String name;
     private int price;
-    //private int quantity = 1;
+    private int quantity = 1;
 
     public Product() {};
 
@@ -28,13 +28,13 @@ public class Product {
     }
 
 
-   /* public void setQuantity(int _quantity) {
+    public void setQuantity(int _quantity) {
         this.quantity = _quantity;
-    }*/
+    }
 
-    /*public int getQuantity() {
+    public int getQuantity() {
         return quantity;
-    }*/
+    }
 
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;

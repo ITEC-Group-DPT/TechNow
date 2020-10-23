@@ -34,35 +34,35 @@
                 android:fontFamily="@font/muli_black"
                 android:text="TechNow"
                 android:textColor="@color/colorSecondary"
-                android:transitionName="trans_applogo"
-                android:textSize="23sp" />
+                android:textSize="23sp"
+                android:transitionName="trans_applogo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="end"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="5dp"
-                android:orientation="horizontal"
-                android:layout_gravity="end">
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/cart_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/appTheme"
-                android:src="@drawable/shoppingcart"
-                android:tint="@color/colorSecondary" />
+                <ImageButton
+                    android:id="@+id/cart_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/appTheme"
+                    android:src="@drawable/shoppingcart"
+                    android:tint="@color/colorSecondary" />
 
-            <TextView
-                android:id="@+id/number_of_item_in_cart"
-                android:layout_width="16dp"
-                android:layout_height="19dp"
-                android:textColor="@color/colorSecondary"
-                android:fontFamily="@font/muli_black"
-                android:background="@drawable/color_red_circle_button"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:text="0"/>
+                <TextView
+                    android:id="@+id/number_of_item_in_cart"
+                    android:layout_width="16dp"
+                    android:layout_height="19dp"
+                    android:background="@drawable/color_red_circle_button"
+                    android:fontFamily="@font/muli_black"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="12sp" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 

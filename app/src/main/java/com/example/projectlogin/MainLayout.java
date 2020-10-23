@@ -36,15 +36,11 @@ public class MainLayout extends AppCompatActivity {
     private AlertDialog.Builder confirmSignOutBuilder;
     protected Toolbar toolbar;
     private TextView toolbar_title;
-    protected CartListViewAdapter adapter;
     protected TextView noOfItemInCart;
     protected int noOfItem;
 
-    public int getNoOfItem() {
-        return noOfItem;
-    }
 
-    private ManageUser manageUser;
+
     public static final String SHARED_PREFS = "rememberMe";
     private SharedPreferences sharedPreferences;
     protected static String username;
@@ -67,7 +63,6 @@ public class MainLayout extends AppCompatActivity {
         noOfItemInCart = findViewById(R.id.number_of_item_in_cart);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         confirmSignOutBuilder = new AlertDialog.Builder(this);
-        manageUser = new ManageUser(this);
 
         initDrawerLayout();
         cart_btn = findViewById(R.id.cart_btn);

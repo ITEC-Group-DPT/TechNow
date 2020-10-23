@@ -85,7 +85,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View v) {
                 final Product temp1 = Products.get(position);
-                final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Order");
+                final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Cart");
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

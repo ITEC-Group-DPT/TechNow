@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserSignUp extends AppCompatActivity {
     private ScrollView scrollView;
-    private ManageUser manageUser;
+    //private ManageUser manageUser;
     private com.google.android.material.textfield.TextInputEditText et_usn;
     private com.google.android.material.textfield.TextInputEditText et_pw;
     private DatabaseReference databaseRef;

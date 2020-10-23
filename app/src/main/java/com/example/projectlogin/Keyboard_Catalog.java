@@ -1,17 +1,13 @@
 package com.example.projectlogin;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,11 +53,11 @@ public class Keyboard_Catalog extends Fragment {
                     @Override
                     public void onAddToCart(ImageButton imageButtonAddToCart, int number) {
                         imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_add_to_cart));
-                        /*cart_btn.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_shake));
+                        ((MainUI)getActivity()).cart_btn.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_shake));
 
-                        noOfItem = number;
-                        noOfItemInCart.setVisibility(View.VISIBLE);
-                        noOfItemInCart.setText(String.valueOf(noOfItem));*/
+                        ((MainUI)getActivity()).noOfItem = number;
+                        ((MainUI)getActivity()).noOfItemInCart.setVisibility(View.VISIBLE);
+                        ((MainUI)getActivity()).noOfItemInCart.setText(String.valueOf(number));
                     }
                 });
                 keyboard_lv = root.findViewById(R.id.catalog_lv);
@@ -75,14 +71,6 @@ public class Keyboard_Catalog extends Fragment {
             }
         });
     }
-    
-  /*  @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainUI.class);
-        Log.d("@LOG", "onBackPressed: " + String.valueOf(noOfItem));
-        intent.putExtra("noItem", noOfItem);
-        intent.putExtra("username", username);
-        startActivity(intent);
-    }*/
+
 
 }

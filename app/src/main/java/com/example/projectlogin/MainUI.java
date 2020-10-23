@@ -2,13 +2,10 @@ package com.example.projectlogin;
 
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -108,9 +105,7 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent, options.toBundle());
                         break;
                     case 1:
-                        close_openFrameLayout();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Keyboard_Catalog()).commit();
+                        changeFragment("Keyboard");
                         break;
                     case 2:
                         intent = new Intent(MainUI.this, Monitor_Catalog.class);
@@ -182,9 +177,7 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case (R.id.keyboard):
-                        close_openFrameLayout();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Keyboard_Catalog()).commit();
+                        changeFragment("Keyboard");
                         break;
                     case (R.id.mouse):
                         intent = new Intent(MainUI.this, Mouse_Catalog.class);
@@ -251,9 +244,7 @@ public class MainUI extends AppCompatActivity {
         ActivityOptions options;
         switch (view.getId()) {
             case (R.id.keyboard_cv):
-                close_openFrameLayout();
-                drawerLayout.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Keyboard_Catalog()).commit();
+                changeFragment("Keyboard");
                 break;
             case (R.id.mouse_cv):
                 intent = new Intent(this, Mouse_Catalog.class);
@@ -280,15 +271,35 @@ public class MainUI extends AppCompatActivity {
 
     }
 
-    private void close_openFrameLayout()
+    private void close_FrameLayout()
     {
-        if (frameLayout.getVisibility() == View.GONE)
-            frameLayout.setVisibility(View.VISIBLE);
-        else
+        if (frameLayout.getVisibility() != View.GONE)
             frameLayout.setVisibility(View.GONE);
     }
+
+    private void open_FrameLayout()
+    {
+        if (frameLayout.getVisibility() != View.VISIBLE)
+            frameLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void changeFragment(String Catalog)
+    {
+        open_FrameLayout();
+        drawerLayout.closeDrawer(GravityCompat.START);
+        switch (Catalog){
+            case ("Keyboard"):
+                toolbar_title.setText("Keyboard");
+                navigationView.setCheckedItem(R.id.keyboard);
+                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Keyboard_Catalog()).commit();
+                break;
+
+        }
+    }
+
     @Override
     public void onBackPressed() {
         drawerLayout.closeDrawer(GravityCompat.START);
+        close_FrameLayout();
     }
 }

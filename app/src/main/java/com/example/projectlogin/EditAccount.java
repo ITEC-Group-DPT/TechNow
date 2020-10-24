@@ -54,14 +54,12 @@ public class EditAccount extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.save_btn):
-
-                //TODO
-                /*String newPassword = et_new_pw.getText().toString();
-                manageUser.changePassword(username, newPassword,this);*/
-                /*Intent intent = new Intent(getApplicationContext(), MainUI.class);
+                String newPassword = et_new_pw.getText().toString();
+                DatabaseRef.getDatabaseReference().child("Information").child("password").setValue(newPassword);
+                Intent intent = new Intent(getApplicationContext(), MainUI.class);
                 startActivity(intent);
-*/
                 break;
+
             case(R.id.delacc_btn):
                 confirmSignOutBuilder.setTitle("Confirmation");
                 confirmSignOutBuilder.setMessage("Do you want to delete this account?");

@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 import static com.example.projectlogin.Cart.getCartArrList;
 
-public class CartActivity extends MainLayout {
+public class CartActivity extends AppCompatActivity {
     protected CartListViewAdapter adapter;
     private Intent intent;
     protected ListView lv_cart;
@@ -30,7 +31,6 @@ public class CartActivity extends MainLayout {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             noOfItem = bundle.getInt("noItem");
-            Log.d("@LOG", "noOfItem in CartActivity: " + String.valueOf(noOfItem));
         }
         initIntent();
     }

@@ -74,6 +74,8 @@ public class MainUI extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.getKey();
                 tv_username.setText(username);
+                noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+                noOfItemInCart.setText(String.valueOf(noOfItem));
             }
 
             @Override

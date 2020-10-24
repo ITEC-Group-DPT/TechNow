@@ -30,7 +30,7 @@ public class ReenterPassword extends AppCompatActivity {
         tv_username = findViewById(R.id.et_usn);
         et_pw = findViewById(R.id.et_pw);
 
-        DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
+        DatabaseRef.getDatabaseReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.getKey();
@@ -63,7 +63,7 @@ public class ReenterPassword extends AppCompatActivity {
 
         }*/
 
-        DatabaseRef.getDatabaseReference().child("Information").child("password").addValueEventListener(new ValueEventListener() {
+        DatabaseRef.getDatabaseReference().child("Information").child("password").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String passwordDTB = (String) snapshot.getValue();
@@ -79,6 +79,5 @@ public class ReenterPassword extends AppCompatActivity {
 
             }
         });
-
     }
 }

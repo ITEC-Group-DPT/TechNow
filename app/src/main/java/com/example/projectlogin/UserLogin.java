@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ScrollView;
@@ -29,7 +30,6 @@ public class UserLogin extends AppCompatActivity {
     private DatabaseReference databaseRef;
     public static final String SHARED_PREFS = "rememberMe";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class UserLogin extends AppCompatActivity {
         Map<String, ?> keys = sharedPreferences.getAll();
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
             if (entry.getValue().equals(true)) {
-
+                Log.d("!LOG", "sharedpreferences TRUE");
                 String username = entry.getKey();
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
                 DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(username));

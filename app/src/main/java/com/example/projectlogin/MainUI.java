@@ -119,7 +119,6 @@ public class MainUI extends AppCompatActivity {
                         changeFragment("Laptop");
                         break;
                 }
-
             }
         });
     }
@@ -192,7 +191,6 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case (R.id.Logout):
-
                         confirmSignOutBuilder.setTitle("Confirmation");
                         confirmSignOutBuilder.setMessage("Do you want to sign out?");
                         confirmSignOutBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

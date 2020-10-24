@@ -51,6 +51,7 @@ public class UserSignUp extends AppCompatActivity {
 
                         if (!snapshot.exists()) {
                             databaseRef.child("Information").setValue(user);
+                            Log.d("!LOG", "intent USERLOGIN");
                             Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
                             startActivity(intent1, options.toBundle());

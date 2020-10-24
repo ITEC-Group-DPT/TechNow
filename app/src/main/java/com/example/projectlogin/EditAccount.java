@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class EditAccount extends AppCompatActivity {
@@ -36,8 +37,10 @@ public class EditAccount extends AppCompatActivity {
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                username = snapshot.getKey();
-                tv_username.setHint(username);
+                if(snapshot.exists()) {
+                    username = snapshot.getKey();
+                    tv_username.setHint(username);
+                }
             }
 
             @Override
@@ -72,7 +75,6 @@ public class EditAccount extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(username, false);
                         editor.commit();
-
                         Intent intent = new Intent(getApplicationContext(), UserLogin.class);
                         startActivity(intent);
                     }

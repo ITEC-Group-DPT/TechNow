@@ -61,6 +61,7 @@
                     android:fontFamily="@font/muli_black"
                     android:gravity="center"
                     android:text="0"
+                    android:visibility="gone"
                     android:textColor="@color/colorSecondary"
                     android:textSize="12sp" />
 

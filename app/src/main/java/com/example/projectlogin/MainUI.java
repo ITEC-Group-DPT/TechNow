@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -22,13 +23,15 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 
-import static com.example.projectlogin.Cart.clearAll;
 
 public class MainUI extends AppCompatActivity {
     private int[] sampleImages = {R.drawable.carousel_image_0, R.drawable.carousel_image_1,
@@ -43,7 +46,6 @@ public class MainUI extends AppCompatActivity {
     private AlertDialog.Builder confirmSignOutBuilder;
     protected Toolbar toolbar;
     private TextView toolbar_title;
-    protected CartListViewAdapter adapter;
     protected TextView noOfItemInCart;
     protected int noOfItem;
 
@@ -51,8 +53,6 @@ public class MainUI extends AppCompatActivity {
     public static final String SHARED_PREFS = "rememberMe";
     private SharedPreferences sharedPreferences;
     protected static String username;
-
-    static protected ArrayList<Product> cartItems = new ArrayList<Product>();
     protected ImageButton cart_btn;
 
     @Override
@@ -61,24 +61,30 @@ public class MainUI extends AppCompatActivity {
         setContentView(R.layout.activity_main_u_i);
 
         onCreateDrawerLayout();
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            username = bundle.getString("username");
-        } else {
-            username = savedInstanceState.getString("name");
-        }
-        
-        Bundle bundle = getIntent().getExtras();
-        noOfItem = bundle.getInt("noItem");
-
-        if(noOfItem == 0) noOfItemInCart.setVisibility(View.GONE);
-        else {
-            noOfItemInCart.setVisibility(View.VISIBLE);
-            noOfItemInCart.setText(String.valueOf(noOfItem));
-        }
         View newview = navigationView.getHeaderView(0);
         tv_username = newview.findViewById(R.id.username);
-        tv_username.setText(username);
+
+        DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = snapshot.getKey();
+                tv_username.setText(username);
+
+                noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+                if(noOfItem == 0){
+                    noOfItemInCart.setVisibility(View.GONE);
+                }
+                else {
+                    noOfItemInCart.setVisibility(View.VISIBLE);
+                    noOfItemInCart.setText(String.valueOf(noOfItem));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -108,7 +114,6 @@ public class MainUI extends AppCompatActivity {
                         changeFragment("Laptop");
                         break;
                 }
-
             }
         });
     }
@@ -130,8 +135,7 @@ public class MainUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-                intent.putExtra("noItem", noOfItem);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
 
@@ -155,8 +159,6 @@ public class MainUI extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case (R.id.nav_profile):
                         intent = new Intent(MainUI.this, ReenterPassword.class);
-                        intent.putExtra("username_reenter", username);
-                        intent.putExtra("noItem", noOfItem);
                         startActivity(intent);
                         break;
                     case (R.id.keyboard):
@@ -173,8 +175,6 @@ public class MainUI extends AppCompatActivity {
                         break;
                     case (R.id.nav_home):
                         intent = new Intent(MainUI.this, MainUI.class);
-                        intent.putExtra("username", username);
-                        intent.putExtra("noItem", noOfItem);
                         startActivity(intent);
                         break;
                     case (R.id.about):
@@ -186,7 +186,6 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case (R.id.Logout):
-
                         confirmSignOutBuilder.setTitle("Confirmation");
                         confirmSignOutBuilder.setMessage("Do you want to sign out?");
                         confirmSignOutBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -195,7 +194,6 @@ public class MainUI extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean(username, false);
                                 editor.commit();
-                                clearAll();
                                 Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
                                 startActivity(intent1);
                             }

@@ -3,31 +3,41 @@ package com.example.projectlogin;
 import java.util.ArrayList;
 
 public class Cart {
-    private static ArrayList<Product> CartArrList = new ArrayList<>();
+    private ArrayList<Product> CartArrList = new ArrayList<>();
+    private int totalCash = 0;
 
-    public static int getTotalCash() {
+    public int getTotalCash() {
         return totalCash;
     }
 
-    public static void setTotalCash(int _totalCash) {
-        Cart.totalCash = _totalCash;
+    public void setTotalCash(int _totalCash) {
+       totalCash = _totalCash;
     }
 
-    private static int totalCash = 0;
+    public int calTotalCash()
+    {
+        int _totalCash = 0;
+        for (int i = 0;i < CartArrList.size();i++)
+        {
+            _totalCash+= CartArrList.get(i).getPrice() * CartArrList.get(i).getQuantity();
+        }
+        return _totalCash;
+    }
 
-    public static ArrayList<Product> getCartArrList() {
+
+    public ArrayList<Product> getCartArrList() {
         return CartArrList;
     }
-    public static int getNoOfItem() {
+    public int getNoOfItem() {
         return CartArrList.size();
     }
-    public static void setCartArrList(ArrayList<Product> _cartArrList) {
+    public  void setCartArrList(ArrayList<Product> _cartArrList) {
         CartArrList = _cartArrList;
     }
 
-    public static void addItem(Product item){
+    public void addItem(Product item){
         CartArrList.add(item);
     }
-    public static void clearAll() {CartArrList.clear();}
+    public  void clearAll() {CartArrList.clear();}
     Cart() {};
 }

@@ -25,13 +25,11 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.projectlogin.Cart.getCartArrList;
 
 public class ProductListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
     private ArrayList<Product> Products;
-    ImageButton btn_add;
     onAddToCart myListener;
     private NumberFormat format = new DecimalFormat("#,###");
 
@@ -48,7 +46,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
     }
 
     public interface onAddToCart {
-        void onAddToCart(ImageButton btn_add, int noOfItem);
+        void onAddToCart(ImageButton btn_add);
     }
 
     public void setOnAddtoCartInterface(onAddToCart callback) {
@@ -92,9 +90,8 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                             }
                         }
                         databaseReference.child(temp1.getName()).setValue(temp1);
-                        databaseReference.child(temp1.getName()).child("quantity").setValue(1);
                         Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-                        myListener.onAddToCart(btn_add, getCartArrList().size());
+                        myListener.onAddToCart(btn_add);
                     }
 
                     @Override
@@ -102,19 +99,6 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
 
                     }
                 });
-                /*if (getCartArrList() != null) {
-                    for (int i = 0; i < getCartArrList().size(); i++) {
-                        Product temp2 = getCartArrList().get(i);
-                        if (temp1.getName().equals(temp2.getName())) {
-                            Toast.makeText(getContext(), "Already added", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                }
-                Cart.addItem(new Product(temp1.getAvatarURL(), temp1.getName() ,temp1.getPrice()));
-                Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-
-                */
             }
         });
         return convertView;

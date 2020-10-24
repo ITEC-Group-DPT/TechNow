@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,43 +17,33 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.projectlogin.Cart.getCartArrList;
 
-public class CartActivity extends MainLayout {
+public class CartActivity extends AppCompatActivity {
     protected CartListViewAdapter adapter;
-    private ArrayList<Product> productList;
     private Intent intent;
     protected ListView lv_cart;
+    private Cart cart = new Cart();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            noOfItem = bundle.getInt("noItem");
-            Log.d("@LOG", "noOfItem in CartActivity: " + String.valueOf(noOfItem));
-        }
+
         initIntent();
     }
 
     private void initIntent() {
-        productList = new ArrayList<>();
-        DatabaseRef.getDatabaseReference().child("Cart").addValueEventListener(new ValueEventListener() {
+        DatabaseRef.getDatabaseReference().child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, productList);
-                adapter.setOnListenerInterface(new CartListViewAdapter.onListener() {
-                    @Override
-                    public void onListener() {
-                        noOfItem--;
-                        Log.d("@LOG", "noOfItem in CartActivity after remove: " + String.valueOf(noOfItem));
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Product product = dataSnapshot.getValue(Product.class);
+                        cart.addItem(product);
                     }
-                });
+                }
+                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, cart.getCartArrList());
+
                 lv_cart = findViewById(R.id.lv_cart);
                 lv_cart.setAdapter(adapter);
             }
@@ -69,21 +60,9 @@ public class CartActivity extends MainLayout {
             Toast.makeText(this,"There's nothing here",Toast.LENGTH_LONG).show();
         }
         else {
-            for (int i = 0; i < getCartArrList().size(); i++) {
-                Product temp =  getCartArrList().get(i);
-            }
             intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent returnIntent = new Intent();
-        Log.d("@LOG", "noOfItem in onBackPressed: " + noOfItem);
-        returnIntent.putExtra("noItem", noOfItem);
-        setResult(Activity.RESULT_OK,returnIntent);
-        finish();
     }
 
     public void Back_cart(View view) {

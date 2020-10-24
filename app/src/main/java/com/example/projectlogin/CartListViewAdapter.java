@@ -31,8 +31,6 @@ import static com.example.projectlogin.Cart.setCartArrList;
 public class CartListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
-
-    onListener myListener;
     private NumberFormat format = new DecimalFormat("#,###");
 
     public CartListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
@@ -47,13 +45,6 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         return getCartArrList().size();
     }
 
-    public interface onListener {
-        void onListener();
-    }
-
-    public void setOnListenerInterface(onListener callback) {
-        myListener = callback;
-    }
 
     @NonNull
     @Override
@@ -130,7 +121,6 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                     if (temp1.getName().equals(temp2.getName())) {
                         getCartArrList().remove(i);
                         notifyDataSetChanged();
-                        myListener.onListener();
                         databaseReference.child(temp1.getName()).removeValue();
                     }
                 }

@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class UserLogin extends AppCompatActivity {
-    private ManageUser manageUser;
     private com.google.android.material.textfield.TextInputEditText et_usn;
     private com.google.android.material.textfield.TextInputEditText et_pw;
     private CheckBox rememberMe;

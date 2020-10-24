@@ -43,7 +43,7 @@ public class PaymentActivity extends CartActivity {
                 public void onClick(DialogInterface dialogInterface, int id) {
                     clearAll();
                     Intent intent = new Intent(PaymentActivity.this, MainUI.class);
-                    intent.putExtra("username", username);
+                    /*intent.putExtra("username", username);*/
                     startActivity(intent);
                     Toast.makeText(getBaseContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
                 }

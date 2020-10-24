@@ -74,8 +74,15 @@ public class MainUI extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.getKey();
                 tv_username.setText(username);
+
                 noOfItem = (int) snapshot.child("Cart").getChildrenCount();
-                noOfItemInCart.setText(String.valueOf(noOfItem));
+                if(noOfItem == 0){
+                    noOfItemInCart.setVisibility(View.GONE);
+                }
+                else {
+                    noOfItemInCart.setVisibility(View.VISIBLE);
+                    noOfItemInCart.setText(String.valueOf(noOfItem));
+                }
             }
 
             @Override
@@ -83,23 +90,6 @@ public class MainUI extends AppCompatActivity {
 
             }
         });
-
-/*        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            username = bundle.getString("username");
-        } else {
-            username = savedInstanceState.getString("name");
-        }*/
-
-        //TODO
-/*        Bundle bundle = getIntent().getExtras();
-        noOfItem = bundle.getInt("noItem");
-
-        if(noOfItem == 0) noOfItemInCart.setVisibility(View.GONE);
-        else {
-            noOfItemInCart.setVisibility(View.VISIBLE);
-            noOfItemInCart.setText(String.valueOf(noOfItem));
-        }*/
 
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -151,8 +141,7 @@ public class MainUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-                intent.putExtra("noItem", noOfItem);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
 
@@ -176,8 +165,6 @@ public class MainUI extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case (R.id.nav_profile):
                         intent = new Intent(MainUI.this, ReenterPassword.class);
-                        intent.putExtra("username_reenter", username);
-                        intent.putExtra("noItem", noOfItem);
                         startActivity(intent);
                         break;
                     case (R.id.keyboard):
@@ -194,8 +181,6 @@ public class MainUI extends AppCompatActivity {
                         break;
                     case (R.id.nav_home):
                         intent = new Intent(MainUI.this, MainUI.class);
-                        //intent.putExtra("username", username);
-                        intent.putExtra("noItem", noOfItem);
                         startActivity(intent);
                         break;
                     case (R.id.about):

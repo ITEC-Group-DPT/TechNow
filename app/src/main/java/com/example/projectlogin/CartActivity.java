@@ -28,10 +28,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            noOfItem = bundle.getInt("noItem");
-        }
+
         initIntent();
     }
 
@@ -45,13 +42,7 @@ public class CartActivity extends AppCompatActivity {
                     Cart.addItem(product);
                 }
                 adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, getCartArrList());
-                adapter.setOnListenerInterface(new CartListViewAdapter.onListener() {
-                    @Override
-                    public void onListener() {
-                        noOfItem--;
-                        Log.d("@LOG", "noOfItem in CartActivity after remove: " + String.valueOf(noOfItem));
-                    }
-                });
+
                 lv_cart = findViewById(R.id.lv_cart);
                 lv_cart.setAdapter(adapter);
             }
@@ -74,15 +65,6 @@ public class CartActivity extends AppCompatActivity {
             intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent returnIntent = new Intent();
-        Log.d("@LOG", "noOfItem in onBackPressed: " + noOfItem);
-        returnIntent.putExtra("noItem", noOfItem);
-        setResult(Activity.RESULT_OK,returnIntent);
-        finish();
     }
 
     public void Back_cart(View view) {

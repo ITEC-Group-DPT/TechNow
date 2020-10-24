@@ -21,7 +21,6 @@
         <activity android:name=".Monitor_Catalog" />
         <activity android:name=".Mouse_Catalog" />
         <activity android:name=".Keyboard_Catalog" />
-        <activity android:name=".MainLayout" />
         <activity android:name=".PaymentActivity"/>
         <activity android:name=".MainUI" />
 

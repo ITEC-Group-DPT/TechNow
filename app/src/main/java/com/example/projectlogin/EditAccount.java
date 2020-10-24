@@ -1,23 +1,28 @@
 package com.example.projectlogin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ScrollView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 public class EditAccount extends AppCompatActivity {
     private ScrollView scrollView;
-    private ManageUser manageUser;
     private String username;
-    private int noOfItem;
     private com.google.android.material.textfield.TextInputEditText tv_username;
     private com.google.android.material.textfield.TextInputEditText et_new_pw;
     private AlertDialog.Builder confirmSignOutBuilder;
+    public static final String SHARED_PREFS = "rememberMe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,29 +30,34 @@ public class EditAccount extends AppCompatActivity {
         setContentView(R.layout.activity_edit_account);
 
         backgroundAnim();
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            username = bundle.getString("username_edit");
-            noOfItem = bundle.getInt("noItem");
-        }
-        confirmSignOutBuilder = new AlertDialog.Builder(this);
-        manageUser = new ManageUser(this);
-        tv_username = findViewById(R.id.et_usn);
-        tv_username.setHint(username);
         et_new_pw = findViewById(R.id.et_new_pw);
+        tv_username = findViewById(R.id.et_usn);
+
+        DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = snapshot.getKey();
+                tv_username.setHint(username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        confirmSignOutBuilder = new AlertDialog.Builder(this);
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.save_btn):
-                String newPassword = et_new_pw.getText().toString();
-                manageUser.changePassword(username, newPassword,this);
-                Intent intent = new Intent(getApplicationContext(), MainUI.class);
-                intent.putExtra("username",username);
-                intent.putExtra("noItem", noOfItem);
-                startActivity(intent);
 
+                //TODO
+                /*String newPassword = et_new_pw.getText().toString();
+                manageUser.changePassword(username, newPassword,this);*/
+                /*Intent intent = new Intent(getApplicationContext(), MainUI.class);
+                startActivity(intent);
+*/
                 break;
             case(R.id.delacc_btn):
                 confirmSignOutBuilder.setTitle("Confirmation");
@@ -55,8 +65,14 @@ public class EditAccount extends AppCompatActivity {
                 confirmSignOutBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        manageUser.deleteUser(username, getApplicationContext());
+                        DatabaseRef.getDatabaseReference().removeValue();
                         Cart.clearAll();
+
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(username, false);
+                        editor.commit();
+
                         Intent intent = new Intent(getApplicationContext(), UserLogin.class);
                         startActivity(intent);
                     }
@@ -67,7 +83,6 @@ public class EditAccount extends AppCompatActivity {
                     }
                 });
                 confirmSignOutBuilder.create().show();
-
                 break;
         }
     }
@@ -83,8 +98,6 @@ public class EditAccount extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), MainUI.class);
-        intent.putExtra("username",username);
-        intent.putExtra("noItem", noOfItem);
         startActivity(intent);
     }
 }

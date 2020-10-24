@@ -3,7 +3,9 @@ package com.example.projectlogin;
 import android.os.Bundle;
 import android.view.View;
 
-public class AboutActivity extends MainLayout {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

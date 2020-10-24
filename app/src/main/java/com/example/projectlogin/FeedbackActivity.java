@@ -7,10 +7,11 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class FeedbackActivity extends MainLayout {
+public class FeedbackActivity extends AppCompatActivity {
     private TextInputEditText feedback_text;
     private RatingBar ratingBar;
     private float num = 0;

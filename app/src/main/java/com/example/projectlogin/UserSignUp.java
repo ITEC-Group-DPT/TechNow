@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserSignUp extends AppCompatActivity {
     private ScrollView scrollView;
-    //private ManageUser manageUser;
     private com.google.android.material.textfield.TextInputEditText et_usn;
     private com.google.android.material.textfield.TextInputEditText et_pw;
     private DatabaseReference databaseRef;
@@ -70,13 +69,6 @@ public class UserSignUp extends AppCompatActivity {
                     }
                 });
 
-               /* manageUser = new ManageUser(this);
-                if (manageUser.signUpUser(user, this) == true) {
-
-                    Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.signup_btn), "trans_login");
-                    startActivity(intent1, options.toBundle());
-                }*/
                 break;
             case(R.id.tvLogin):
                 Intent intent2 = new Intent(getApplicationContext(), UserLogin.class);

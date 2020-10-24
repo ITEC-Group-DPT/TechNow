@@ -41,7 +41,6 @@ public class UserLogin extends AppCompatActivity {
 
                 String username = entry.getKey();
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
-                //intent.putExtra("username", username);
                 DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(username));
                 startActivity(intent);
                 return;
@@ -59,7 +58,6 @@ public class UserLogin extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.btnLogin):
-               // manageUser = new ManageUser(this);
                 final String name_str = et_usn.getText().toString();
                 String pass_str = et_pw.getText().toString();
                 final User user = new User(name_str, pass_str);
@@ -87,7 +85,6 @@ public class UserLogin extends AppCompatActivity {
                                 }
                                 DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
                                 Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
-                                //intent1.putExtra("username", user.getUsername());
                                 startActivity(intent1);
                                 return;
                             }
@@ -102,36 +99,12 @@ public class UserLogin extends AppCompatActivity {
                     }
                 });
 
-               /* if (manageUser.checkLoginUser(user) == true) {
-                    if (rememberMe.isChecked()) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(user.getUsername(), true);
-                        editor.commit();
-                    } else {
-                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(user.getUsername(), false);
-                        editor.commit();
-                    }
-
-                    Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
-                    intent1.putExtra("username", user.getUsername());
-                    startActivity(intent1);
-
-                } else
-                    Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();*/
-
                 break;
             case (R.id.tvSignUp):
                 Intent intent2 = new Intent(getApplicationContext(), UserSignUp.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.tvSignUp), "trans_signup");
                 startActivity(intent2, options.toBundle());
                 break;
-           /* case (R.id.getUserList):
-                manageUser = new ManageUser(this);
-                manageUser.getUsersList(this);
-                break;*/
         }
     }
 

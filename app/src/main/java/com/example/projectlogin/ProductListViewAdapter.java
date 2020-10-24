@@ -92,7 +92,6 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                             }
                         }
                         databaseReference.child(temp1.getName()).setValue(temp1);
-                        databaseReference.child(temp1.getName()).child("quantity").setValue(1);
                         Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                         myListener.onAddToCart(btn_add, getCartArrList().size());
                     }
@@ -102,19 +101,6 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
 
                     }
                 });
-                /*if (getCartArrList() != null) {
-                    for (int i = 0; i < getCartArrList().size(); i++) {
-                        Product temp2 = getCartArrList().get(i);
-                        if (temp1.getName().equals(temp2.getName())) {
-                            Toast.makeText(getContext(), "Already added", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                }
-                Cart.addItem(new Product(temp1.getAvatarURL(), temp1.getName() ,temp1.getPrice()));
-                Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-
-                */
             }
         });
         return convertView;

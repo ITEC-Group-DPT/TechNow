@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -30,7 +31,6 @@ import static com.example.projectlogin.Cart.setCartArrList;
 public class CartListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
-    private ArrayList<Product> productList;
 
     onListener myListener;
     private NumberFormat format = new DecimalFormat("#,###");
@@ -39,12 +39,12 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
-        this.productList = (ArrayList<Product>) objects;
+        Cart.setCartArrList((ArrayList<Product>) objects);
     }
 
     @Override
     public int getCount() {
-        return productList.size();
+        return getCartArrList().size();
     }
 
     public interface onListener {
@@ -66,27 +66,45 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         ImageView ava = convertView.findViewById(R.id.iv_cart_ava);
         TextView name = convertView.findViewById(R.id.tv_cart_name);
         TextView price = convertView.findViewById(R.id.tv_cart_price);
-        TextView quantity = convertView.findViewById(R.id.tv_cart_quantity);
+        final TextView quantity = convertView.findViewById(R.id.tv_cart_quantity);
 
-        Product temp = productList.get(position);
+        final Product temp = getCartArrList().get(position);
 
         Glide.with(context).load(temp.getAvatarURL()).into(ava);
         name.setText(temp.getName());
 
-        quantity.setText(Integer.toString(temp.getQuantity()));
-        temp.setQuantity(Integer.parseInt(quantity.getText().toString())); // ????
+        final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Cart");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+                    if (dataSnapshot.getValue(Product.class).getName().equals(temp.getName()))
+                    {
+                        quantity.setText(String.valueOf(dataSnapshot.child("quantity").getValue(Integer.class)));
+                        temp.setQuantity(Integer.parseInt(quantity.getText().toString()));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         String formatedTotal = format.format(temp.getPrice()) + "₫";
         price.setText("$" + formatedTotal);
 
         //TODO
-        /*ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);
+        ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);
         sub_quantity.setOnClickListener(new AdapterView.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (temp.getQuantity() > 1) {
                     temp.setQuantity(temp.getQuantity() - 1);
                     quantity.setText(String.valueOf(temp.getQuantity()));
+                    databaseReference.child(temp.getName()).child("quantity").setValue(temp.getQuantity());
                 }
             }
         });
@@ -97,11 +115,12 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
             public void onClick(View view) {
                 temp.setQuantity(temp.getQuantity() + 1);
                 quantity.setText(String.valueOf(temp.getQuantity()));
+                databaseReference.child(temp.getName()).child("quantity").setValue(temp.getQuantity());
                 Log.d("!!@@", "quantity = " + temp.getQuantity());
             }
-        });*/
+        });
 
-        /*ImageButton remove = convertView.findViewById(R.id.remove_product);
+        ImageButton remove = convertView.findViewById(R.id.remove_product);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,10 +131,11 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                         getCartArrList().remove(i);
                         notifyDataSetChanged();
                         myListener.onListener();
+                        databaseReference.child(temp1.getName()).removeValue();
                     }
                 }
             }
-        });*/
+        });
 
         return convertView;
     }

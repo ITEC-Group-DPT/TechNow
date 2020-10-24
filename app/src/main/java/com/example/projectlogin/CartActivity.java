@@ -20,7 +20,6 @@ import static com.example.projectlogin.Cart.getCartArrList;
 
 public class CartActivity extends MainLayout {
     protected CartListViewAdapter adapter;
-    private ArrayList<Product> productList;
     private Intent intent;
     protected ListView lv_cart;
 
@@ -37,15 +36,15 @@ public class CartActivity extends MainLayout {
     }
 
     private void initIntent() {
-        productList = new ArrayList<>();
         DatabaseRef.getDatabaseReference().child("Cart").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Cart.clearAll();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
+                    Cart.addItem(product);
                 }
-                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, productList);
+                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, getCartArrList());
                 adapter.setOnListenerInterface(new CartListViewAdapter.onListener() {
                     @Override
                     public void onListener() {

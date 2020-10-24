@@ -32,7 +32,6 @@ import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 
-import static com.example.projectlogin.Cart.clearAll;
 
 public class MainUI extends AppCompatActivity {
     private int[] sampleImages = {R.drawable.carousel_image_0, R.drawable.carousel_image_1,
@@ -47,7 +46,6 @@ public class MainUI extends AppCompatActivity {
     private AlertDialog.Builder confirmSignOutBuilder;
     protected Toolbar toolbar;
     private TextView toolbar_title;
-    protected CartListViewAdapter adapter;
     protected TextView noOfItemInCart;
     protected int noOfItem;
 
@@ -55,9 +53,6 @@ public class MainUI extends AppCompatActivity {
     public static final String SHARED_PREFS = "rememberMe";
     private SharedPreferences sharedPreferences;
     protected static String username;
-    protected static User user;
-
-    static protected ArrayList<Product> cartItems = new ArrayList<Product>();
     protected ImageButton cart_btn;
 
     @Override
@@ -199,7 +194,6 @@ public class MainUI extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean(username, false);
                                 editor.commit();
-                                clearAll();
                                 Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
                                 startActivity(intent1);
                             }

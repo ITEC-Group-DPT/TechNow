@@ -67,7 +67,6 @@ public class EditAccount extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DatabaseRef.getDatabaseReference().removeValue();
-                        Cart.clearAll();
 
                         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -9,25 +9,50 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.EventListener;
 
-import static com.example.projectlogin.Cart.clearAll;
 
-public class PaymentActivity extends CartActivity {
+public class PaymentActivity extends AppCompatActivity {
+    private Cart cart = new Cart();
     private TextView tv_total;
     private NumberFormat format = new DecimalFormat("#,###");
-    private String formattedTotalCash = format.format(Cart.getTotalCash()) + "₫";
+    private String formattedTotalCash;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        Cart.setTotalCash(0);
-        tv_total = findViewById(R.id.total_cash);
-        tv_total.setText(formattedTotalCash);
+        DatabaseRef.getDatabaseReference().child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Product product = dataSnapshot.getValue(Product.class);
+                        cart.addItem(product);
+                    }
+                }
+                int temp =  cart.calTotalCash();
+                formattedTotalCash = format.format(temp) + "₫";
+                tv_total = findViewById(R.id.total_cash);
+                tv_total.setText(formattedTotalCash);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 
@@ -41,9 +66,8 @@ public class PaymentActivity extends CartActivity {
             note.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
-                    clearAll();
+                    DatabaseRef.getDatabaseReference().child("Cart").removeValue();
                     Intent intent = new Intent(PaymentActivity.this, MainUI.class);
-                    /*intent.putExtra("username", username);*/
                     startActivity(intent);
                     Toast.makeText(getBaseContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
                 }

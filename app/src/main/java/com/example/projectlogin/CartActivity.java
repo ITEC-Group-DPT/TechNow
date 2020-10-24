@@ -17,12 +17,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.projectlogin.Cart.getCartArrList;
 
 public class CartActivity extends AppCompatActivity {
     protected CartListViewAdapter adapter;
     private Intent intent;
     protected ListView lv_cart;
+    private Cart cart = new Cart();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +33,16 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void initIntent() {
-        DatabaseRef.getDatabaseReference().child("Cart").addValueEventListener(new ValueEventListener() {
+        DatabaseRef.getDatabaseReference().child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Cart.clearAll();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    Cart.addItem(product);
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Product product = dataSnapshot.getValue(Product.class);
+                        cart.addItem(product);
+                    }
                 }
-                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, getCartArrList());
+                adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, cart.getCartArrList());
 
                 lv_cart = findViewById(R.id.lv_cart);
                 lv_cart.setAdapter(adapter);
@@ -59,9 +60,6 @@ public class CartActivity extends AppCompatActivity {
             Toast.makeText(this,"There's nothing here",Toast.LENGTH_LONG).show();
         }
         else {
-            for (int i = 0; i < getCartArrList().size(); i++) {
-                Product temp =  getCartArrList().get(i);
-            }
             intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
         }

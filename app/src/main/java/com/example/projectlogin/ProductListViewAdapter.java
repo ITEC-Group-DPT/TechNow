@@ -25,13 +25,11 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.projectlogin.Cart.getCartArrList;
 
 public class ProductListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
     private ArrayList<Product> Products;
-    ImageButton btn_add;
     onAddToCart myListener;
     private NumberFormat format = new DecimalFormat("#,###");
 
@@ -48,7 +46,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
     }
 
     public interface onAddToCart {
-        void onAddToCart(ImageButton btn_add, int noOfItem);
+        void onAddToCart(ImageButton btn_add);
     }
 
     public void setOnAddtoCartInterface(onAddToCart callback) {
@@ -93,7 +91,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                         }
                         databaseReference.child(temp1.getName()).setValue(temp1);
                         Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-                        myListener.onAddToCart(btn_add, getCartArrList().size());
+                        myListener.onAddToCart(btn_add);
                     }
 
                     @Override

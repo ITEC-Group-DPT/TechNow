@@ -25,24 +25,24 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.projectlogin.Cart.getCartArrList;
-import static com.example.projectlogin.Cart.setCartArrList;
 
 public class CartListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
+    private Cart cart = new Cart();
     private NumberFormat format = new DecimalFormat("#,###");
 
     public CartListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
-        Cart.setCartArrList((ArrayList<Product>) objects);
+
+        cart.setCartArrList((ArrayList<Product>) objects);
     }
 
     @Override
     public int getCount() {
-        return getCartArrList().size();
+        return cart.getCartArrList().size();
     }
 
 
@@ -59,7 +59,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         TextView price = convertView.findViewById(R.id.tv_cart_price);
         final TextView quantity = convertView.findViewById(R.id.tv_cart_quantity);
 
-        final Product temp = getCartArrList().get(position);
+        final Product temp = cart.getCartArrList().get(position);
 
         Glide.with(context).load(temp.getAvatarURL()).into(ava);
         name.setText(temp.getName());
@@ -115,11 +115,11 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Product temp1 = getCartArrList().get(position);
-                for (int i = 0; i < getCartArrList().size(); i++) {
-                    Product temp2 =  getCartArrList().get(i);
+                Product temp1 = cart.getCartArrList().get(position);
+                for (int i = 0; i < cart.getCartArrList().size(); i++) {
+                    Product temp2 =  cart.getCartArrList().get(i);
                     if (temp1.getName().equals(temp2.getName())) {
-                        getCartArrList().remove(i);
+                        cart.getCartArrList().remove(i);
                         notifyDataSetChanged();
                         databaseReference.child(temp1.getName()).removeValue();
                     }

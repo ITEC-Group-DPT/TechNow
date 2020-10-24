@@ -51,13 +51,10 @@ public class Mouse_Catalog extends Fragment {
                 ProductListViewAdapter adapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, mouses);
                 adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
                     @Override
-                    public void onAddToCart(ImageButton imageButtonAddToCart, int number) {
+                    public void onAddToCart(ImageButton imageButtonAddToCart) {
                         imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_add_to_cart));
                         ((MainUI)getActivity()).cart_btn.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_shake));
 
-                        ((MainUI)getActivity()).noOfItem = number;
-                        ((MainUI)getActivity()).noOfItemInCart.setVisibility(View.VISIBLE);
-                        ((MainUI)getActivity()).noOfItemInCart.setText(String.valueOf(number));
                     }
                 });
                 mouse_lv = root.findViewById(R.id.catalog_lv);

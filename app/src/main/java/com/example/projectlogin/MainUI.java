@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -22,6 +23,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -51,6 +55,7 @@ public class MainUI extends AppCompatActivity {
     public static final String SHARED_PREFS = "rememberMe";
     private SharedPreferences sharedPreferences;
     protected static String username;
+    protected static User user;
 
     static protected ArrayList<Product> cartItems = new ArrayList<Product>();
     protected ImageButton cart_btn;
@@ -61,24 +66,38 @@ public class MainUI extends AppCompatActivity {
         setContentView(R.layout.activity_main_u_i);
 
         onCreateDrawerLayout();
-        if (savedInstanceState == null) {
+        View newview = navigationView.getHeaderView(0);
+        tv_username = newview.findViewById(R.id.username);
+
+        DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = snapshot.getKey();
+                tv_username.setText(username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+/*        if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
             username = bundle.getString("username");
         } else {
             username = savedInstanceState.getString("name");
-        }
-        
-        Bundle bundle = getIntent().getExtras();
+        }*/
+
+        //TODO
+/*        Bundle bundle = getIntent().getExtras();
         noOfItem = bundle.getInt("noItem");
 
         if(noOfItem == 0) noOfItemInCart.setVisibility(View.GONE);
         else {
             noOfItemInCart.setVisibility(View.VISIBLE);
             noOfItemInCart.setText(String.valueOf(noOfItem));
-        }
-        View newview = navigationView.getHeaderView(0);
-        tv_username = newview.findViewById(R.id.username);
-        tv_username.setText(username);
+        }*/
 
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -173,7 +192,7 @@ public class MainUI extends AppCompatActivity {
                         break;
                     case (R.id.nav_home):
                         intent = new Intent(MainUI.this, MainUI.class);
-                        intent.putExtra("username", username);
+                        //intent.putExtra("username", username);
                         intent.putExtra("noItem", noOfItem);
                         startActivity(intent);
                         break;

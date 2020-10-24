@@ -42,7 +42,7 @@ public class UserLogin extends AppCompatActivity {
 
                 String username = entry.getKey();
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
-                intent.putExtra("username", username);
+                //intent.putExtra("username", username);
                 DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(username));
                 startActivity(intent);
                 return;
@@ -86,10 +86,10 @@ public class UserLogin extends AppCompatActivity {
                                     editor.putBoolean(user.getUsername(), false);
                                     editor.commit();
                                 }
-                                Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
-                                intent1.putExtra("username", user.getUsername());
-                                startActivity(intent1);
                                 DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
+                                Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
+                                //intent1.putExtra("username", user.getUsername());
+                                startActivity(intent1);
                                 return;
                             }
 

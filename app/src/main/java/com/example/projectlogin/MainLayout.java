@@ -38,16 +38,12 @@ public class MainLayout extends AppCompatActivity {
     private TextView toolbar_title;
     protected TextView noOfItemInCart;
     protected int noOfItem;
-
-
-
     public static final String SHARED_PREFS = "rememberMe";
     private SharedPreferences sharedPreferences;
     protected static String username;
 
     static protected ArrayList<Product> cartItems = new ArrayList<Product>();
     protected ImageButton cart_btn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

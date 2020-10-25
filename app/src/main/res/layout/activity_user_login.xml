@@ -2,13 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    style="@android:style/Widget.ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_list"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="30dp"
-    android:id="@+id/scrollView"
     android:transitionName="trans_login"
     tools:context=".UserLogin">
 
@@ -93,7 +94,17 @@
             android:text="Remember Me"
             android:textColor="@color/colorBlack" />
 
+        <ProgressBar
+            android:id="@+id/progress_login"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="#FFFFFF"
+            style="@style/Widget.AppCompat.ProgressBar" />
+
         <Button
+            android:visibility="visible"
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +113,7 @@
             android:fontFamily="@font/muli_black"
             android:onClick="onClick"
             android:text="@string/login"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -129,13 +140,14 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorSecondary" />
         </LinearLayout>
+
         <Button
-            android:visibility="gone"
             android:id="@+id/getUserList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="Get user list" />
+            android:text="Get user list"
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

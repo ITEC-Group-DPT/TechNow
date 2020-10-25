@@ -4,10 +4,13 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -66,6 +69,88 @@ public class UserLogin extends AppCompatActivity {
         rememberMe = findViewById(R.id.checkbox_rememberme);
     }
 
+    private class AsyncTaskLogin extends AsyncTask<User, String, String> {
+
+        @Override
+        protected String doInBackground(User... users) {
+            final User user = users[0];
+            databaseRef = FirebaseDatabase.getInstance().getReference("Users");
+
+            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child(user.getUsername()).exists()) {
+                        String account_pass = (String) snapshot.child(user.getUsername()).child("Information").child("password").getValue();
+
+                        if (account_pass.equals(user.getPassword())) {
+                            if (rememberMe.isChecked()) {
+                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean(user.getUsername(), true);
+                                editor.commit();
+
+                            } else {
+                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean(user.getUsername(), false);
+                                editor.commit();
+                            }
+                            DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
+                            DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    OrderHistory.setPos((int) snapshot.child("Order History").getChildrenCount());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
+                            startActivity(intent1);
+                            return;
+                        }
+                    }
+                    onPostExecute("NaN");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            return "do_NoThing";
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Button button = findViewById(R.id.btnLogin);
+            ProgressBar progressBar = findViewById(R.id.progress_login);
+
+            button.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String command) {
+            super.onPostExecute(command);
+
+            if (command.equals("NaN")) {
+                Toast.makeText(UserLogin.this, "Incorrect username or password", Toast.LENGTH_LONG).show();
+                Button button = findViewById(R.id.btnLogin);
+                ProgressBar progressBar = findViewById(R.id.progress_login);
+
+                button.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.btnLogin):
@@ -73,7 +158,8 @@ public class UserLogin extends AppCompatActivity {
                 String pass_str = et_pw.getText().toString();
                 final User user = new User(name_str, pass_str);
 
-                databaseRef = FirebaseDatabase.getInstance().getReference("Users");
+                new AsyncTaskLogin().execute(user);
+                /*databaseRef = FirebaseDatabase.getInstance().getReference("Users");
 
                 databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -119,7 +205,7 @@ public class UserLogin extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });
+                });*/
 
                 break;
             case (R.id.tvSignUp):
@@ -129,6 +215,7 @@ public class UserLogin extends AppCompatActivity {
                 break;
         }
     }
+
 
     public void backgroundAnim() {
         scrollView = findViewById(R.id.scrollView);

@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -36,6 +39,64 @@ public class UserSignUp extends AppCompatActivity {
         et_pw = findViewById(R.id.et_pw);
     }
 
+    private class AsyncTaskSignUp extends AsyncTask<User, String, String>
+    {
+
+        @Override
+        protected String doInBackground(User... users) {
+            final User user = users[0];
+            databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
+            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (!snapshot.exists()) {
+                        databaseRef.child("Information").setValue(user);
+                        Log.d("!LOG", "intent USERLOGIN");
+                        Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
+                        startActivity(intent1, options.toBundle());
+                    }
+
+                    else
+                    {
+                        onPostExecute(user.getUsername());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Button button = findViewById(R.id.signup_btn);
+            ProgressBar progressBar = findViewById(R.id.progress_signup);
+
+            button.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String command) {
+            super.onPostExecute(command);
+
+            if (command != null)
+            {
+                Toast.makeText(UserSignUp.this, "There's already a user with the username " + "'" + command + "'", Toast.LENGTH_SHORT).show();
+                Button button = findViewById(R.id.signup_btn);
+                ProgressBar progressBar = findViewById(R.id.progress_signup);
+
+                button.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+        }
+    }
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.signup_btn):
@@ -43,8 +104,8 @@ public class UserSignUp extends AppCompatActivity {
                 String pass_str = et_pw.getText().toString();
                 final User user = new User(name_str, pass_str);
 
-
-                databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
+                new AsyncTaskSignUp().execute(user);
+                /*databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
                 databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,7 +129,7 @@ public class UserSignUp extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });
+                });*/
 
                 break;
             case(R.id.tvLogin):

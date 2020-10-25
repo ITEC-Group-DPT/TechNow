@@ -92,6 +92,7 @@ public class MainUI extends AppCompatActivity {
                     noOfItemInCart.setText(String.valueOf(noOfItem));
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -143,8 +144,8 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case (R.id.order_history):
-                        /*intent = new Intent(MainUI.this, OrderHistoryActivity.class);
-                        startActivity(intent);*/
+                        intent = new Intent(MainUI.this, OrderHistoryActivity.class);
+                        startActivity(intent);
                     case (R.id.keyboard):
                         changeFragment("Keyboard");
                         break;

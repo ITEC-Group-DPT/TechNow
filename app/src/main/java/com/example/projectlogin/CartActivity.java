@@ -28,7 +28,6 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
         initIntent();
     }
 
@@ -43,7 +42,6 @@ public class CartActivity extends AppCompatActivity {
                     }
                 }
                 adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, cart.getCartArrList());
-
                 lv_cart = findViewById(R.id.lv_cart);
                 lv_cart.setAdapter(adapter);
             }

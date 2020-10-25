@@ -1,12 +1,10 @@
 package com.example.projectlogin;
 
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,21 +19,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class MainUI extends AppCompatActivity {
+    //TODO upload to database
     private int[] sampleImages = {R.drawable.carousel_image_0, R.drawable.carousel_image_1,
             R.drawable.carousel_image_2, R.drawable.carousel_image_3, R.drawable.carousel_image_4};
+
     private CarouselView carouselView;
     private FrameLayout frameLayout;
 
@@ -48,12 +55,15 @@ public class MainUI extends AppCompatActivity {
     private TextView toolbar_title;
     protected TextView noOfItemInCart;
     protected int noOfItem;
-
-
     public static final String SHARED_PREFS = "rememberMe";
     private SharedPreferences sharedPreferences;
     protected static String username;
     protected ImageButton cart_btn;
+
+    private RecyclerView recyclerView;
+    private ArrayList<Product> productList;
+    private ArrayList<Product> topSellerProductList;
+    DatabaseReference reff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +126,70 @@ public class MainUI extends AppCompatActivity {
                 }
             }
         });
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
+        loadTopSeller();
+    }
+
+    private void loadTopSeller() {
+        productList = new ArrayList<>();
+        topSellerProductList = new ArrayList<>();
+        reff = FirebaseDatabase.getInstance().getReference("Products");
+        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
+                for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                DataSnapshot snapshotLaptop = snapshot.child("Laptop");
+                for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                DataSnapshot snapshotMonitor = snapshot.child("Monitor");
+                for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                DataSnapshot snapshotMouse = snapshot.child("Mouse");
+                for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                Collections.sort(productList, new Comparator<Product>() {
+                    public int compare(Product p1, Product p2) {
+                        if(p1.getSold() > p2.getSold()) return -1;
+                        else return 1;
+                    }
+                });
+
+                for (int i = 0; i < 10; i++) {
+                    topSellerProductList.add(productList.get(i));
+                }
+
+                TopSellerAdapter adapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
+                recyclerView = findViewById(R.id.recycler_view);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(adapter);
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     private void onCreateDrawerLayout() {
@@ -162,8 +236,8 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case(R.id.order_history):
-                        intent = new Intent(MainUI.this, OrderHistoryActivity.class);
-                        startActivity(intent);
+                        /*intent = new Intent(MainUI.this, OrderHistoryActivity.class);
+                        startActivity(intent);*/
                     case (R.id.keyboard):
                         changeFragment("Keyboard");
                         break;

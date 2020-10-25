@@ -77,10 +77,14 @@ public class PaymentActivity extends AppCompatActivity {
             note.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
+<<<<<<< Updated upstream
                     DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History").child("Order" + OrderHistory.getPos());
                     for(int i = 0; i < cart.getNoOfItem(); i++){
                         tempOrder.child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                     }
+=======
+
+>>>>>>> Stashed changes
                     DatabaseRef.getDatabaseReference().child("Cart").removeValue();
                     Intent intent = new Intent(PaymentActivity.this, MainUI.class);
                     startActivity(intent);

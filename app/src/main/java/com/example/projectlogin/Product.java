@@ -7,6 +7,7 @@ public class Product {
     private String name;
     private int price;
     private int quantity = 1;
+    private int sold;
 
     public Product() {};
 
@@ -47,4 +48,17 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
 }

@@ -56,7 +56,6 @@ public class UserSignUp extends AppCompatActivity {
                         Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
                         startActivity(intent1, options.toBundle());
-                        onPostExecute("doNothing");
                     }
 
                     else
@@ -87,7 +86,7 @@ public class UserSignUp extends AppCompatActivity {
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
 
-            if (command != null && !command.equals("doNothing"))
+            if (command != null)
             {
                 Toast.makeText(UserSignUp.this, "There's already a user with the username " + "'" + command + "'", Toast.LENGTH_SHORT).show();
                 Button button = findViewById(R.id.signup_btn);

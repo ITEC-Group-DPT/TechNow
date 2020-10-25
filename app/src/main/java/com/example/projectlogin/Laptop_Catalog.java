@@ -46,6 +46,7 @@ public class Laptop_Catalog extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Product product = dataSnapshot.getValue(Product.class);
+                    product.setType("Laptop");
                     laptops.add(product);
                 }
                 ProductListViewAdapter adapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, laptops);

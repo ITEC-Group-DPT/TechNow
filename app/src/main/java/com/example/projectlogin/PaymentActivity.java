@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -83,10 +84,37 @@ public class PaymentActivity extends AppCompatActivity {
                         tempOrder.child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                     }
 
-                    DatabaseRef.getDatabaseReference().child("Cart").removeValue();
-                    Intent intent = new Intent(PaymentActivity.this, MainUI.class);
-                    startActivity(intent);
-                    Toast.makeText(getBaseContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
+                    DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
+                    for (int i = 0; i < cart.getNoOfItem(); i++) {
+                        final String type = cart.getCartArrList().get(i).getType();
+                        final String name = cart.getCartArrList().get(i).getName();
+                        final int quantity = cart.getCartArrList().get(i).getQuantity();
+                        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                DataSnapshot snapshotChild = snapshot.child(type);
+                                for (DataSnapshot dataSnapshot : snapshotChild.getChildren()) {
+                                    Product product = dataSnapshot.getValue(Product.class);
+                                    int oldSold = product.getSold();
+                                    String key = dataSnapshot.getKey();
+                                    if (product.getName().equals(name)) {
+                                        FirebaseDatabase.getInstance().getReference("Products").child(type).child(key).child("sold").setValue(oldSold + quantity);
+                                        break;
+                                    }
+                                }
+
+                                DatabaseRef.getDatabaseReference().child("Cart").removeValue();
+                                Intent intent = new Intent(PaymentActivity.this, MainUI.class);
+                                startActivity(intent);
+                                Toast.makeText(getBaseContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
                 }
             });
             note.setNegativeButton("No", new DialogInterface.OnClickListener() {

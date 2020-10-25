@@ -1,21 +1,29 @@
 package com.example.projectlogin;
 
-import android.graphics.Bitmap;
-
 public class Product {
+    private String type;
     private String avatarURL;
     private String name;
     private int price;
     private int quantity = 1;
     private int sold;
 
-    public Product() {};
+    public Product() {}
 
     public Product(String avatarURL, String name, int price) {
         this.avatarURL = avatarURL;
         this.name = name;
         this.price = price;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getAvatarURL() {
         return avatarURL;
     }
@@ -27,7 +35,6 @@ public class Product {
     public int getPrice() {
         return price;
     }
-
 
     public void setQuantity(int _quantity) {
         this.quantity = _quantity;
@@ -56,5 +63,4 @@ public class Product {
     public void setSold(int sold) {
         this.sold = sold;
     }
-
 }

@@ -163,7 +163,8 @@ public class MainUI extends AppCompatActivity {
                 Collections.sort(productList, new Comparator<Product>() {
                     public int compare(Product p1, Product p2) {
                         if(p1.getSold() > p2.getSold()) return -1;
-                        else return 1;
+                        else if(p1.getSold() < p2.getSold()) return 1;
+                        else return 0;
                     }
                 });
 
@@ -179,8 +180,6 @@ public class MainUI extends AppCompatActivity {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(adapter);
             }
-
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

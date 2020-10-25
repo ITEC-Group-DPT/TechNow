@@ -161,6 +161,9 @@ public class MainUI extends AppCompatActivity {
                         intent = new Intent(MainUI.this, ReenterPassword.class);
                         startActivity(intent);
                         break;
+                    case(R.id.order_history):
+                        intent = new Intent(MainUI.this, OrderHistoryActivity.class);
+                        startActivity(intent);
                     case (R.id.keyboard):
                         changeFragment("Keyboard");
                         break;

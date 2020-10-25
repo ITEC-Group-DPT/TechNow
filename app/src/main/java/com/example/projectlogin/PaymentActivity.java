@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -52,7 +53,17 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-
+//        DatabaseRef.getDatabaseReference().child("Order History").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                OrderHistory.setPos((int) snapshot.getChildrenCount());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
 
@@ -66,6 +77,10 @@ public class PaymentActivity extends AppCompatActivity {
             note.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
+                    DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History").child("Order" + OrderHistory.getPos());
+                    for(int i = 0; i < cart.getNoOfItem(); i++){
+                        tempOrder.child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
+                    }
                     DatabaseRef.getDatabaseReference().child("Cart").removeValue();
                     Intent intent = new Intent(PaymentActivity.this, MainUI.class);
                     startActivity(intent);

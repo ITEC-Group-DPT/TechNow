@@ -126,10 +126,6 @@ public class MainUI extends AppCompatActivity {
                 }
             }
         });
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         loadTopSeller();
     }
 

@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.EventListener;
 
 
 public class PaymentActivity extends AppCompatActivity {
@@ -29,6 +28,7 @@ public class PaymentActivity extends AppCompatActivity {
     private TextView tv_total;
     private NumberFormat format = new DecimalFormat("#,###");
     private String formattedTotalCash;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class PaymentActivity extends AppCompatActivity {
                         cart.addItem(product);
                     }
                 }
-                int temp =  cart.calTotalCash();
+                int temp = cart.calTotalCash();
                 formattedTotalCash = format.format(temp) + "₫";
                 tv_total = findViewById(R.id.total_cash);
                 tv_total.setText(formattedTotalCash);
@@ -77,14 +77,12 @@ public class PaymentActivity extends AppCompatActivity {
             note.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
-<<<<<<< Updated upstream
+
                     DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History").child("Order" + OrderHistory.getPos());
-                    for(int i = 0; i < cart.getNoOfItem(); i++){
+                    for (int i = 0; i < cart.getNoOfItem(); i++) {
                         tempOrder.child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                     }
-=======
 
->>>>>>> Stashed changes
                     DatabaseRef.getDatabaseReference().child("Cart").removeValue();
                     Intent intent = new Intent(PaymentActivity.this, MainUI.class);
                     startActivity(intent);

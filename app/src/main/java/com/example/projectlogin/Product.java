@@ -49,10 +49,6 @@ public class Product {
         this.price = price;
     }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     public int getSold() {
         return sold;
     }

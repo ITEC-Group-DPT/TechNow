@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,9 +41,7 @@ import java.util.Comparator;
 
 public class MainUI extends AppCompatActivity {
     //TODO upload to database
-    private int[] sampleImages = {R.drawable.carousel_image_0, R.drawable.carousel_image_1,
-            R.drawable.carousel_image_2, R.drawable.carousel_image_3, R.drawable.carousel_image_4};
-
+    private ArrayList<String> imageURLList;
     private CarouselView carouselView;
     private FrameLayout frameLayout;
 
@@ -71,9 +70,14 @@ public class MainUI extends AppCompatActivity {
         setContentView(R.layout.activity_main_u_i);
 
         onCreateDrawerLayout();
+        loadData();
+        loadCarouselView();
+        loadTopSeller();
+    }
+
+    private void loadData() {
         View newview = navigationView.getHeaderView(0);
         tv_username = newview.findViewById(R.id.username);
-
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,108 +85,16 @@ public class MainUI extends AppCompatActivity {
                 tv_username.setText(username);
 
                 noOfItem = (int) snapshot.child("Cart").getChildrenCount();
-                if(noOfItem == 0){
+                if (noOfItem == 0) {
                     noOfItemInCart.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     noOfItemInCart.setVisibility(View.VISIBLE);
                     noOfItemInCart.setText(String.valueOf(noOfItem));
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-        carouselView = findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
-        ImageListener imageListener = new ImageListener() {
-            @Override
-            public void setImageForPosition(int position, ImageView imageView) {
-                imageView.setImageResource(sampleImages[position]);
-            }
-        };
-
-        carouselView.setImageListener(imageListener);
-
-        carouselView.setImageClickListener(new ImageClickListener() {
-            @Override
-            public void onClick(int position) {
-                switch (position) {
-                    case 0:
-                        changeFragment("Mouse");
-                        break;
-                    case 1:
-                        changeFragment("Keyboard");
-                        break;
-                    case 2:
-                        changeFragment("Monitor");
-                        break;
-                    case 3:
-                        changeFragment("Laptop");
-                        break;
-                }
-            }
-        });
-        loadTopSeller();
-    }
-
-    private void loadTopSeller() {
-        productList = new ArrayList<>();
-        topSellerProductList = new ArrayList<>();
-        reff = FirebaseDatabase.getInstance().getReference("Products");
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
-                for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotLaptop = snapshot.child("Laptop");
-                for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotMonitor = snapshot.child("Monitor");
-                for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotMouse = snapshot.child("Mouse");
-                for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-
-                Collections.sort(productList, new Comparator<Product>() {
-                    public int compare(Product p1, Product p2) {
-                        if(p1.getSold() > p2.getSold()) return -1;
-                        else if(p1.getSold() < p2.getSold()) return 1;
-                        else return 0;
-                    }
-                });
-
-                for (int i = 0; i < 10; i++) {
-                    topSellerProductList.add(productList.get(i));
-                }
-
-                TopSellerAdapter adapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
-                recyclerView = findViewById(R.id.recycler_view);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
@@ -198,7 +110,7 @@ public class MainUI extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         confirmSignOutBuilder = new AlertDialog.Builder(this);
         frameLayout = findViewById(R.id.Frame_layout);
-        
+
         cart_btn = findViewById(R.id.cart_btn);
         cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +142,7 @@ public class MainUI extends AppCompatActivity {
                         intent = new Intent(MainUI.this, ReenterPassword.class);
                         startActivity(intent);
                         break;
-                    case(R.id.order_history):
+                    case (R.id.order_history):
                         /*intent = new Intent(MainUI.this, OrderHistoryActivity.class);
                         startActivity(intent);*/
                     case (R.id.keyboard):
@@ -282,6 +194,105 @@ public class MainUI extends AppCompatActivity {
         });
     }
 
+    private void loadCarouselView() {
+        carouselView = findViewById(R.id.carouselView);
+        imageURLList = new ArrayList<>();
+        imageURLList.add("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcarousel_image_0.jpg?alt=media&token=2c3a248a-4cbf-4a0a-a129-4fc6b3039b79");
+        imageURLList.add("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcarousel_image_1.jpg?alt=media&token=5796c932-9872-4c4a-9c2b-ec4cb5d845ca");
+        imageURLList.add("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcarousel_image_2.jpg?alt=media&token=3f944783-08b2-455d-86af-1b1286bc8b53");
+        imageURLList.add("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcarousel_image_3.jpg?alt=media&token=3b452493-3932-4604-b815-c691587678db");
+        imageURLList.add("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcarousel_image_4.jpg?alt=media&token=ff4d7758-27af-414e-87f0-c1270112d73a");
+
+        carouselView.setPageCount(imageURLList.size());
+        ImageListener imageListener = new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(getApplicationContext()).load(imageURLList.get(position)).into(imageView);
+            }
+        };
+
+        carouselView.setImageListener(imageListener);
+
+
+        carouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                switch (position) {
+                    case 0:
+                        changeFragment("Mouse");
+                        break;
+                    case 1:
+                        changeFragment("Keyboard");
+                        break;
+                    case 2:
+                        changeFragment("Monitor");
+                        break;
+                    case 3:
+                        changeFragment("Laptop");
+                        break;
+                }
+            }
+        });
+    }
+
+    private void loadTopSeller() {
+        productList = new ArrayList<>();
+        topSellerProductList = new ArrayList<>();
+        reff = FirebaseDatabase.getInstance().getReference("Products");
+        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
+                for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                DataSnapshot snapshotLaptop = snapshot.child("Laptop");
+                for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                DataSnapshot snapshotMonitor = snapshot.child("Monitor");
+                for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                DataSnapshot snapshotMouse = snapshot.child("Mouse");
+                for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+
+                Collections.sort(productList, new Comparator<Product>() {
+                    public int compare(Product p1, Product p2) {
+                        if (p1.getSold() > p2.getSold()) return -1;
+                        else if (p1.getSold() < p2.getSold()) return 1;
+                        else return 0;
+                    }
+                });
+
+                for (int i = 0; i < 10; i++) {
+                    topSellerProductList.add(productList.get(i));
+                }
+
+                TopSellerAdapter adapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
+                recyclerView = findViewById(R.id.recycler_view);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
 
     public void Card_onClick(View view) {
         switch (view.getId()) {
@@ -301,25 +312,22 @@ public class MainUI extends AppCompatActivity {
 
     }
 
-    private void close_FrameLayout()
-    {
+    private void close_FrameLayout() {
         if (frameLayout.getVisibility() != View.GONE) {
             toolbar_title.setText("TechNow");
             frameLayout.setVisibility(View.GONE);
         }
     }
 
-    private void open_FrameLayout()
-    {
+    private void open_FrameLayout() {
         if (frameLayout.getVisibility() != View.VISIBLE)
             frameLayout.setVisibility(View.VISIBLE);
     }
 
-    private void changeFragment(String Catalog)
-    {
+    private void changeFragment(String Catalog) {
         open_FrameLayout();
         drawerLayout.closeDrawer(GravityCompat.START);
-        switch (Catalog){
+        switch (Catalog) {
             case ("Keyboard"):
                 toolbar_title.setText("Keyboard");
                 navigationView.setCheckedItem(R.id.keyboard);

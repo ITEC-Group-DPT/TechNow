@@ -61,9 +61,9 @@
                     android:fontFamily="@font/muli_black"
                     android:gravity="center"
                     android:text="0"
-                    android:visibility="gone"
                     android:textColor="@color/colorSecondary"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
@@ -84,15 +84,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:isScrollContainer="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="8dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
                     app:cardCornerRadius="10dp">
 
                     <com.synnapps.carouselview.CarouselView
@@ -106,17 +105,33 @@
                         app:strokeWidth="1dp" />
                 </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/muli_black"
+                    android:text="Top Seller"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
-                    android:layout_marginTop="40dp"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"/>
+                    android:layout_height="150dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/muli_black"
+                    android:text="Categories"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginLeft="26dp"
-                    android:layout_marginTop="40dp"
                     android:layout_marginRight="26dp">
 
                     <androidx.cardview.widget.CardView

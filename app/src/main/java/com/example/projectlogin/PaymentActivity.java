@@ -79,7 +79,7 @@ public class PaymentActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
 
-                    DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History").child("Order" + OrderHistory.getPos());
+                    DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History").child("Order-" + OrderHistory.getPos());
                     for (int i = 0; i < cart.getNoOfItem(); i++) {
                         tempOrder.child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                     }

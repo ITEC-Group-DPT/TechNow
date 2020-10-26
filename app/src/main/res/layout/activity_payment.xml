@@ -102,89 +102,12 @@
                 app:endIconTint="@color/colorBlack"
                 app:hintTextColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/address_icon"
+                android:onClick="onasd"
                 app:startIconTint="@color/colorBlack">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/muli_black"
-                    android:hint="Street"
-                    android:inputType="text"
-                    android:textColor="@color/colorBlack"
-                    android:id="@+id/payment_street"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:textColorHint="@color/colorBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorBlack"
-                app:startIconDrawable="@drawable/address_icon"
-                app:startIconTint="@color/colorBlack">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/muli_black"
-                    android:hint="District/Ward"
-                    android:inputType="text"
-                    android:textColor="@color/colorBlack"
-                    android:id="@+id/payment_district"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:textColorHint="@color/colorBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorBlack"
-                app:startIconDrawable="@drawable/address_icon"
-                app:startIconTint="@color/colorBlack">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/muli_black"
-                    android:hint="City/Town"
-                    android:inputType="text"
-                    android:textColor="@color/colorBlack"
-                    android:id="@+id/payment_city"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:textColorHint="@color/colorBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorBlack"
-                app:startIconDrawable="@drawable/zipcode_icon"
-                app:startIconTint="@color/colorBlack">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/muli_black"
-                    android:hint="Zip Code"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/colorBlack"
-                    android:id="@+id/payment_zip"/>
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
 

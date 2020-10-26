@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<Product> CartArrList = new ArrayList<>();
     private int totalCash = 0;
-    private int ID;
+    private String ID;
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

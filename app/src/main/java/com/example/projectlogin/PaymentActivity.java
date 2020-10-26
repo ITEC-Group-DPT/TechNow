@@ -86,8 +86,8 @@ public class PaymentActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
-                                cart.setID((int) snapshot.getChildrenCount());
-                                tempOrder.child("Order - " + cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
+                                cart.setID("Order-" + snapshot.getChildrenCount());
+                                tempOrder.child(cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                             }
                         }
 

@@ -136,8 +136,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private boolean Check_null() {
-        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum, R.id.payment_street,
-                R.id.payment_district, R.id.payment_city, R.id.payment_zip};
+        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum};
         for (int j = 0; j < paymentInfo.length; j++) {
             TextInputEditText test = findViewById(paymentInfo[j]);
             if (test.getText().toString().isEmpty()) {
@@ -159,5 +158,25 @@ public class PaymentActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+
+    public void onasd(View view) {
+            Intent  intent = new Intent(getApplicationContext(),AddressMapsAPI.class);
+            startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if (!intent.hasExtra("Address")) return;
+        float x = 0;
+        x = intent.getFloatExtra("Distance", 0);
+        String a = null;
+        a = intent.getStringExtra("Address");
+        Toast.makeText(this, Float.toString(x), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
+
     }
 }

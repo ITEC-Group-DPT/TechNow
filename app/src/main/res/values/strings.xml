@@ -9,4 +9,18 @@
     <string name="final_app_name">App Name</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">close</string>
+    <string name="title_activity_address_maps">Map</string>
+
+    <string name="map_key" translatable="false">AIzaSyBb-bObjozfS_FxtiyGd3_9uX904AhGNQw</string>
+    <!-- ggmap -->
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_maps_address">Map</string>
 </resources>

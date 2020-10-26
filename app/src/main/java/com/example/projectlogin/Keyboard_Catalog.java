@@ -28,14 +28,13 @@ public class Keyboard_Catalog extends Fragment {
 
     private ArrayList<Product> keyboards;
     private ListView keyboard_lv;
-    DatabaseReference reff;
-    View root;
+    private DatabaseReference reff;
+    private View root;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.activity_catalog,container, false);
-
         keyboard_lv = root.findViewById(R.id.catalog_lv);
         loadData();
         return root;
@@ -47,7 +46,6 @@ public class Keyboard_Catalog extends Fragment {
         @Override
         protected String doInBackground(ArrayList... arrayLists) {
             final ArrayList<Product> keyboards = arrayLists[0];
-
             reff = FirebaseDatabase.getInstance().getReference("Products").child("Keyboard");
             reff.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -70,10 +68,8 @@ public class Keyboard_Catalog extends Fragment {
                     onPostExecute("completed");
 
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
             return null;
@@ -82,7 +78,6 @@ public class Keyboard_Catalog extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             keyboard_lv.setVisibility(View.GONE);
             ProgressBar progressBar = root.findViewById(R.id.progress_catalog);
             progressBar.setVisibility(View.VISIBLE);
@@ -91,7 +86,6 @@ public class Keyboard_Catalog extends Fragment {
         @Override
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
-
             if(command != null && command.equals("completed")){
                 keyboard_lv.setVisibility(View.VISIBLE);
                 ProgressBar progressBar = root.findViewById(R.id.progress_catalog);
@@ -101,7 +95,6 @@ public class Keyboard_Catalog extends Fragment {
     }
     private void loadData() {
         keyboards = new ArrayList<>();
-
         new AsyncTaskKeyboard().execute(keyboards);
         /*reff = FirebaseDatabase.getInstance().getReference("Products").child("Keyboard");
         reff.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,6 +125,4 @@ public class Keyboard_Catalog extends Fragment {
             }
         });*/
     }
-
-
 }

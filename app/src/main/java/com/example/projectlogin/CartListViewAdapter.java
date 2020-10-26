@@ -36,7 +36,6 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
-
         cart.setCartArrList((ArrayList<Product>) objects);
     }
 
@@ -44,7 +43,6 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
     public int getCount() {
         return cart.getCartArrList().size();
     }
-
 
     @NonNull
     @Override
@@ -68,26 +66,21 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
-                    if (dataSnapshot.getValue(Product.class).getName().equals(temp.getName()))
-                    {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    if (dataSnapshot.getValue(Product.class).getName().equals(temp.getName())) {
                         quantity.setText(String.valueOf(dataSnapshot.child("quantity").getValue(Integer.class)));
                         temp.setQuantity(Integer.parseInt(quantity.getText().toString()));
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
         String formatedTotal = format.format(temp.getPrice()) + "₫";
         price.setText("$" + formatedTotal);
 
-        //TODO
         ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);
         sub_quantity.setOnClickListener(new AdapterView.OnClickListener() {
             @Override
@@ -126,7 +119,6 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                 }
             }
         });
-
         return convertView;
     }
 }

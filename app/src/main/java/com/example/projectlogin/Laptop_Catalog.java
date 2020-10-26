@@ -27,14 +27,13 @@ public class Laptop_Catalog extends Fragment {
 
     private ArrayList<Product> laptops;
     private ListView laptop_lv;
-    DatabaseReference reff;
-    View root;
+    private DatabaseReference reff;
+    private View root;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.activity_catalog,container, false);
-
         laptop_lv = root.findViewById(R.id.catalog_lv);
         loadData();
         return root;
@@ -46,7 +45,6 @@ public class Laptop_Catalog extends Fragment {
         @Override
         protected String doInBackground(ArrayList... arrayLists) {
             final ArrayList<Product> laptops = arrayLists[0];
-
             reff = FirebaseDatabase.getInstance().getReference("Products").child("Laptop");
             reff.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -67,12 +65,10 @@ public class Laptop_Catalog extends Fragment {
                     });
                     laptop_lv.setAdapter(adapter);
                     onPostExecute("completed");
-
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
             return null;
@@ -81,7 +77,6 @@ public class Laptop_Catalog extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             laptop_lv.setVisibility(View.GONE);
             ProgressBar progressBar = root.findViewById(R.id.progress_catalog);
             progressBar.setVisibility(View.VISIBLE);
@@ -90,7 +85,6 @@ public class Laptop_Catalog extends Fragment {
         @Override
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
-
             if(command != null && command.equals("completed")){
                 laptop_lv.setVisibility(View.VISIBLE);
                 ProgressBar progressBar = root.findViewById(R.id.progress_catalog);
@@ -131,6 +125,4 @@ public class Laptop_Catalog extends Fragment {
             }
         });*/
     }
-
-
 }

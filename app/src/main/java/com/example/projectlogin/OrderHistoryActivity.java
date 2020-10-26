@@ -40,7 +40,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

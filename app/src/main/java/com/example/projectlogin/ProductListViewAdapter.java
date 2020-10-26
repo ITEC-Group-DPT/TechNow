@@ -30,7 +30,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
     private ArrayList<Product> Products;
-    onAddToCart myListener;
+    private onAddToCart myListener;
     private NumberFormat format = new DecimalFormat("#,###");
 
     public ProductListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
@@ -66,9 +66,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         TextView tv_name = convertView.findViewById(R.id.tv_name);
         TextView tv_price = convertView.findViewById(R.id.tv_price);
         final ImageButton btn_add = convertView.findViewById(R.id.btn_add);
-
         Product temp = Products.get(position);
-
         Glide.with(context).load(temp.getAvatarURL()).into(imageView);
         tv_name.setText(temp.getName());
         String formattedPrice = "$" + format.format(temp.getPrice()) + "₫";
@@ -82,8 +80,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
-                        {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                             if (temp1.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
                                 Toast.makeText(getContext(), "Already added", Toast.LENGTH_SHORT).show();
                                 return;
@@ -93,10 +90,8 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                         Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                         myListener.onAddToCart(btn_add);
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }

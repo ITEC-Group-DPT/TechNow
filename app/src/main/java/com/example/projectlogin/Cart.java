@@ -20,33 +20,37 @@ public class Cart {
     }
 
     public void setTotalCash(int _totalCash) {
-       totalCash = _totalCash;
+        totalCash = _totalCash;
     }
 
-    public int calTotalCash()
-    {
+    public int calTotalCash() {
         int _totalCash = 0;
-        for (int i = 0;i < CartArrList.size();i++)
-        {
-            _totalCash+= CartArrList.get(i).getPrice() * CartArrList.get(i).getQuantity();
+        for (int i = 0; i < CartArrList.size(); i++) {
+            _totalCash += CartArrList.get(i).getPrice() * CartArrList.get(i).getQuantity();
         }
         return _totalCash;
     }
 
-
     public ArrayList<Product> getCartArrList() {
         return CartArrList;
     }
+
     public int getNoOfItem() {
         return CartArrList.size();
     }
-    public  void setCartArrList(ArrayList<Product> _cartArrList) {
+
+    public void setCartArrList(ArrayList<Product> _cartArrList) {
         CartArrList = _cartArrList;
     }
 
-    public void addItem(Product item){
+    public void addItem(Product item) {
         CartArrList.add(item);
     }
-    public  void clearAll() {CartArrList.clear();}
-    Cart() {};
+
+    public void clearAll() {
+        CartArrList.clear();
+    }
+
+    Cart() {
+    }
 }

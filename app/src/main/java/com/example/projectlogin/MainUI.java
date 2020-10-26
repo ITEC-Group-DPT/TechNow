@@ -62,7 +62,7 @@ public class MainUI extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Product> productList;
     private ArrayList<Product> topSellerProductList;
-    DatabaseReference reff;
+    private DatabaseReference reff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,6 @@ public class MainUI extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.getKey();
                 tv_username.setText(username);
-
                 noOfItem = (int) snapshot.child("Cart").getChildrenCount();
                 if (noOfItem == 0) {
                     noOfItemInCart.setVisibility(View.GONE);
@@ -95,7 +94,6 @@ public class MainUI extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -123,7 +121,6 @@ public class MainUI extends AppCompatActivity {
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         toggle.setDrawerIndicatorEnabled(false);
         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
@@ -213,8 +210,6 @@ public class MainUI extends AppCompatActivity {
         };
 
         carouselView.setImageListener(imageListener);
-
-
         carouselView.setImageClickListener(new ImageClickListener() {
             @Override
             public void onClick(int position) {

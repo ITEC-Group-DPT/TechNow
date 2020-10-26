@@ -56,7 +56,6 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         TextView nameTV;
         TextView priceTV;
         TextView soldTV;
-
         MyViewHolder(View view) {
             super(view);
             avatar = view.findViewById(R.id.ava_iv);

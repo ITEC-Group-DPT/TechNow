@@ -81,7 +81,6 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 

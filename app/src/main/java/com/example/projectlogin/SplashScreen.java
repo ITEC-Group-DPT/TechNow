@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SplashScreen extends AppCompatActivity {
     private static int SPLASH_TIMER = 3000;
     private ImageView appLogo;
-
     private Animation anim1;
 
     @Override
@@ -26,7 +25,6 @@ public class SplashScreen extends AppCompatActivity {
         appLogo = findViewById(R.id.app_logo);
         anim1 = AnimationUtils.loadAnimation(this, R.anim.splash_screen_logo);
         appLogo.setAnimation(anim1);
-
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -35,6 +33,5 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         }, SPLASH_TIMER);
-        
     }
 }

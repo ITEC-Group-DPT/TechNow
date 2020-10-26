@@ -27,22 +27,19 @@ public class Mouse_Catalog extends Fragment {
 
     private ArrayList<Product> mouses;
     private ListView mouse_lv;
-    DatabaseReference reff;
-    View root;
+    private DatabaseReference reff;
+    private View root;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.activity_catalog,container, false);
-
         mouse_lv = root.findViewById(R.id.catalog_lv);
         loadData();
         return root;
     }
 
-    private class AsyncTaskMouse extends AsyncTask<ArrayList,String,String>
-    {
-
+    private class AsyncTaskMouse extends AsyncTask<ArrayList,String,String> {
         @Override
         protected String doInBackground(ArrayList... arrayLists) {
             final ArrayList<Product> mouses = arrayLists[0];
@@ -67,12 +64,9 @@ public class Mouse_Catalog extends Fragment {
                     });
                     mouse_lv.setAdapter(adapter);
                     onPostExecute("completed");
-
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
             return null;
@@ -81,7 +75,6 @@ public class Mouse_Catalog extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             mouse_lv.setVisibility(View.GONE);
             ProgressBar progressBar = root.findViewById(R.id.progress_catalog);
             progressBar.setVisibility(View.VISIBLE);
@@ -90,7 +83,6 @@ public class Mouse_Catalog extends Fragment {
         @Override
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
-
             if(command != null && command.equals("completed")){
                 mouse_lv.setVisibility(View.VISIBLE);
                 ProgressBar progressBar = root.findViewById(R.id.progress_catalog);
@@ -131,6 +123,4 @@ public class Mouse_Catalog extends Fragment {
             }
         });*/
     }
-
-
 }

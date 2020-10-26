@@ -24,7 +24,6 @@ public class EditAccount extends AppCompatActivity {
     private com.google.android.material.textfield.TextInputEditText et_new_pw;
     private AlertDialog.Builder confirmSignOutBuilder;
     public static final String SHARED_PREFS = "rememberMe";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +32,6 @@ public class EditAccount extends AppCompatActivity {
         backgroundAnim();
         et_new_pw = findViewById(R.id.et_new_pw);
         tv_username = findViewById(R.id.et_usn);
-
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -42,12 +40,10 @@ public class EditAccount extends AppCompatActivity {
                     tv_username.setHint(username);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
         confirmSignOutBuilder = new AlertDialog.Builder(this);
     }
 
@@ -59,7 +55,6 @@ public class EditAccount extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
                 startActivity(intent);
                 break;
-
             case(R.id.delacc_btn):
                 confirmSignOutBuilder.setTitle("Confirmation");
                 confirmSignOutBuilder.setMessage("Do you want to delete this account?");

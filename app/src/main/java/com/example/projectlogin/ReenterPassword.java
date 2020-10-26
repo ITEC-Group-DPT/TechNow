@@ -26,7 +26,6 @@ public class ReenterPassword extends AppCompatActivity {
         setContentView(R.layout.activity_reenter_password);
 
         backgroundAnim();
-
         tv_username = findViewById(R.id.et_usn);
         et_pw = findViewById(R.id.et_pw);
 
@@ -36,7 +35,6 @@ public class ReenterPassword extends AppCompatActivity {
                 username = snapshot.getKey();
                 tv_username.setHint(username);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -62,7 +60,6 @@ public class ReenterPassword extends AppCompatActivity {
             //intent.putExtra("noItem", noOfItem);
 
         }*/
-
         DatabaseRef.getDatabaseReference().child("Information").child("password").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,10 +70,8 @@ public class ReenterPassword extends AppCompatActivity {
                 }
                 else Toast.makeText(ReenterPassword.this, "Incorrect password", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

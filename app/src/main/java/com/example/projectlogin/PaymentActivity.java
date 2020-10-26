@@ -49,10 +49,8 @@ public class PaymentActivity extends AppCompatActivity {
                 tv_total = findViewById(R.id.total_cash);
                 tv_total.setText(formattedTotalCash);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 //        DatabaseRef.getDatabaseReference().child("Order History").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -79,7 +77,6 @@ public class PaymentActivity extends AppCompatActivity {
             note.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
-
                     final DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History");
                     tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -90,10 +87,8 @@ public class PaymentActivity extends AppCompatActivity {
                                 tempOrder.child("Order - " + cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
 
@@ -115,16 +110,13 @@ public class PaymentActivity extends AppCompatActivity {
                                         break;
                                     }
                                 }
-
                                 DatabaseRef.getDatabaseReference().child("Cart").removeValue();
                                 Intent intent = new Intent(PaymentActivity.this, MainUI.class);
                                 startActivity(intent);
                                 Toast.makeText(getBaseContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
                             }
                         });
                     }
@@ -164,7 +156,6 @@ public class PaymentActivity extends AppCompatActivity {
                         textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
                         textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
                     }
-
                 }
                 return true;
             }

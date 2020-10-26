@@ -23,7 +23,6 @@ public class ManageUser extends AppCompatActivity {
     }
 
     public User readFileToUser(String account) {
-
         String[] userInfo = account.split("∙");
         String name = userInfo[0];
         String password = userInfo[1];
@@ -105,30 +104,24 @@ public class ManageUser extends AppCompatActivity {
         return false;
     }
 
-    public String arrayToString(ArrayList<User> UserList)
-    {
+    public String arrayToString(ArrayList<User> UserList) {
         String usersStr = "";
-        for(int i = 0; i < UserList.size(); i++)
-        {
+        for(int i = 0; i < UserList.size(); i++) {
             usersStr = usersStr + UserList.get(i).getUsername() + '∙' + UserList.get(i).getPassword() + "\n";
         }
         return usersStr;
     }
 
-    public void changePasswordFromArray(String username, String newPassword)
-    {
+    public void changePasswordFromArray(String username, String newPassword) {
         for(int i = 0; i < userList.size(); i++)
         {
-            if(username.equals(userList.get(i).getUsername()))
-            {
+            if(username.equals(userList.get(i).getUsername())) {
                 userList.get(i).setPassword(newPassword);
             }
         }
     }
-    public void changePassword(String username, String newPassword, Context context)
-    {
-        if(newPassword.equals(""))
-        {
+    public void changePassword(String username, String newPassword, Context context) {
+        if(newPassword.equals("")) {
             Toast.makeText(context, "Password can't be blank", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -156,12 +149,9 @@ public class ManageUser extends AppCompatActivity {
         }
     }
 
-    public void removeUserFromArray(String username)
-    {
-        for(int i = 0; i < userList.size(); i++)
-        {
-            if(username.equals(userList.get(i).getUsername()))
-            {
+    public void removeUserFromArray(String username) {
+        for(int i = 0; i < userList.size(); i++) {
+            if(username.equals(userList.get(i).getUsername())) {
                 userList.remove(i);
             }
         }

@@ -34,14 +34,11 @@ public class UserSignUp extends AppCompatActivity {
         setContentView(R.layout.activity_user_sign_up);
 
         backgroundAnim();
-
         et_usn = findViewById(R.id.et_usn);
         et_pw = findViewById(R.id.et_pw);
     }
 
-    private class AsyncTaskSignUp extends AsyncTask<User, String, String>
-    {
-
+    private class AsyncTaskSignUp extends AsyncTask<User, String, String> {
         @Override
         protected String doInBackground(User... users) {
             final User user = users[0];
@@ -49,7 +46,6 @@ public class UserSignUp extends AppCompatActivity {
             databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                     if (!snapshot.exists()) {
                         databaseRef.child("Information").setValue(user);
                         Log.d("!LOG", "intent USERLOGIN");
@@ -57,16 +53,12 @@ public class UserSignUp extends AppCompatActivity {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
                         startActivity(intent1, options.toBundle());
                     }
-
-                    else
-                    {
+                    else {
                         onPostExecute(user.getUsername());
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
             return null;
@@ -77,7 +69,6 @@ public class UserSignUp extends AppCompatActivity {
             super.onPreExecute();
             Button button = findViewById(R.id.signup_btn);
             ProgressBar progressBar = findViewById(R.id.progress_signup);
-
             button.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -85,13 +76,10 @@ public class UserSignUp extends AppCompatActivity {
         @Override
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
-
-            if (command != null)
-            {
+            if (command != null) {
                 Toast.makeText(UserSignUp.this, "There's already a user with the username " + "'" + command + "'", Toast.LENGTH_SHORT).show();
                 Button button = findViewById(R.id.signup_btn);
                 ProgressBar progressBar = findViewById(R.id.progress_signup);
-
                 button.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             }
@@ -103,7 +91,6 @@ public class UserSignUp extends AppCompatActivity {
                 String name_str = et_usn.getText().toString();
                 String pass_str = et_pw.getText().toString();
                 final User user = new User(name_str, pass_str);
-
                 new AsyncTaskSignUp().execute(user);
                 /*databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
                 databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -130,19 +117,16 @@ public class UserSignUp extends AppCompatActivity {
 
                     }
                 });*/
-
                 break;
             case(R.id.tvLogin):
                 Intent intent2 = new Intent(getApplicationContext(), UserLogin.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.tvLogin), "trans_login");
                 startActivity(intent2, options.toBundle());
                 break;
-
         }
     }
 
-    public void backgroundAnim()
-    {
+    public void backgroundAnim() {
         scrollView = findViewById(R.id.scrollView);
         AnimationDrawable animationDrawable = (AnimationDrawable) scrollView.getBackground();
         animationDrawable.setEnterFadeDuration(2000);

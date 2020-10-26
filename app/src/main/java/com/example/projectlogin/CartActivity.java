@@ -45,7 +45,6 @@ public class CartActivity extends AppCompatActivity {
                 lv_cart = findViewById(R.id.lv_cart);
                 lv_cart.setAdapter(adapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

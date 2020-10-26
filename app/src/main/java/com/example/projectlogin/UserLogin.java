@@ -59,12 +59,10 @@ public class UserLogin extends AppCompatActivity {
     }
 
     private class AsyncTaskLogin extends AsyncTask<User, String, String> {
-
         @Override
         protected String doInBackground(User... users) {
             final User user = users[0];
             databaseRef = FirebaseDatabase.getInstance().getReference("Users");
-
             databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -92,23 +90,18 @@ public class UserLogin extends AppCompatActivity {
                     }
                     onPostExecute("NaN");
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
-
             return "do_NoThing";
         }
-
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             Button button = findViewById(R.id.btnLogin);
             ProgressBar progressBar = findViewById(R.id.progress_login);
-
             button.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -116,12 +109,10 @@ public class UserLogin extends AppCompatActivity {
         @Override
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
-
             if (command.equals("NaN")) {
                 Toast.makeText(UserLogin.this, "Incorrect username or password", Toast.LENGTH_LONG).show();
                 Button button = findViewById(R.id.btnLogin);
                 ProgressBar progressBar = findViewById(R.id.progress_login);
-
                 button.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             }
@@ -135,7 +126,6 @@ public class UserLogin extends AppCompatActivity {
                 final String name_str = et_usn.getText().toString();
                 String pass_str = et_pw.getText().toString();
                 final User user = new User(name_str, pass_str);
-
                 new AsyncTaskLogin().execute(user);
                 /*databaseRef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -184,7 +174,6 @@ public class UserLogin extends AppCompatActivity {
 
                     }
                 });*/
-
                 break;
             case (R.id.tvSignUp):
                 Intent intent2 = new Intent(getApplicationContext(), UserSignUp.class);
@@ -193,7 +182,6 @@ public class UserLogin extends AppCompatActivity {
                 break;
         }
     }
-
 
     public void backgroundAnim() {
         scrollView = findViewById(R.id.scrollView);

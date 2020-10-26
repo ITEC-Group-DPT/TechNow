@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 public class OrderHistoryActivity extends AppCompatActivity {
     private OrderHistoryAdapter adapter;
     private ListView lv_OrderHistory;
-    private Cart cart = new Cart();
+    private OrderHistory orderHistory = new OrderHistory();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +28,16 @@ public class OrderHistoryActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Cart cart = new Cart();
                         for (DataSnapshot _dataSnapshot : dataSnapshot.getChildren()) {
                             Product product = _dataSnapshot.getValue(Product.class);
                             cart.addItem(product);
                         }
+                        cart.setID(dataSnapshot.getKey());
+                        orderHistory.addItem(cart);
                     }
                 }
-                adapter = new OrderHistoryAdapter(getBaseContext(), R.layout.order_history_layout, cart.getCartArrList());
+                adapter = new OrderHistoryAdapter(getBaseContext(), R.layout.order_history_layout, orderHistory.getOrderHistory());
                 lv_OrderHistory = findViewById(R.id.lv_order_history);
                 lv_OrderHistory.setAdapter(adapter);
             }

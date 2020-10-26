@@ -81,9 +81,8 @@ public class PaymentActivity extends AppCompatActivity {
                     tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                            cart.setID("Order-" + snapshot.getChildrenCount());
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
-                                cart.setID("Order-" + snapshot.getChildrenCount());
                                 tempOrder.child(cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                             }
                         }
@@ -91,7 +90,6 @@ public class PaymentActivity extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
-
                     DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
                     for (int i = 0; i < cart.getNoOfItem(); i++) {
                         final String type = cart.getCartArrList().get(i).getType();

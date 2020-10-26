@@ -13,4 +13,7 @@ public class OrderHistory {
         this.orderHistory = orderHistory;
     }
 
+    public void addItem(Cart item){
+        orderHistory.add(item);
+    }
 }

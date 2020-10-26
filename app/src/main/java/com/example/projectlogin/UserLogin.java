@@ -45,17 +45,6 @@ public class UserLogin extends AppCompatActivity {
                 String username = entry.getKey();
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
                 DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(username));
-                DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        OrderHistory.setPos((int) snapshot.child("Order History").getChildrenCount());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
                 startActivity(intent);
                 return;
             }
@@ -96,17 +85,6 @@ public class UserLogin extends AppCompatActivity {
                                 editor.commit();
                             }
                             DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
-                            DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    OrderHistory.setPos((int) snapshot.child("Order History").getChildrenCount());
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
                             Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
                             startActivity(intent1);
                             return;

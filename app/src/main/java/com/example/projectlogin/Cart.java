@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<Product> CartArrList = new ArrayList<>();
     private int totalCash = 0;
+    private int ID;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public int getTotalCash() {
         return totalCash;

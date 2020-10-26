@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.EventListener;
 
 
 public class PaymentActivity extends AppCompatActivity {
@@ -79,10 +80,22 @@ public class PaymentActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
 
-                    DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History").child("Order-" + OrderHistory.getPos());
-                    for (int i = 0; i < cart.getNoOfItem(); i++) {
-                        tempOrder.child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
-                    }
+                    final DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History");
+                    tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            for (int i = 0; i < cart.getNoOfItem(); i++) {
+                                cart.setID((int) snapshot.getChildrenCount());
+                                tempOrder.child("Order - " + cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                     DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
                     for (int i = 0; i < cart.getNoOfItem(); i++) {

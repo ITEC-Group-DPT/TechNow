@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ItemDetail">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/appTheme"
+        android:minHeight="@android:dimen/app_icon_size"
+        app:navigationIcon="@drawable/back_icon"
+        app:titleTextColor="@color/colorSecondary">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/muli_black"
+            android:text="TechNow"
+            android:textColor="@color/colorSecondary"
+            android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/cart_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/appTheme"
+                android:src="@drawable/shoppingcart"
+                android:tint="@color/colorSecondary" />
+
+            <TextView
+                android:id="@+id/number_of_item_in_cart"
+                android:layout_width="16dp"
+                android:layout_height="19dp"
+                android:background="@drawable/color_red_circle_button"
+                android:fontFamily="@font/muli_black"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/colorSecondary"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="9">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardCornerRadius="10dp">
+
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:fillColor="@color/colorSecondary"
+                app:radius="5dp"
+                app:slideInterval="5000"
+                app:strokeColor="@color/colorBlack"
+                app:strokeWidth="1dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/productName_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Product Name"
+            android:fontFamily="@font/muli_black"
+            android:textColor="@color/colorBlack"
+            android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/productPrice_TV"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price: 1,200,000đ"
+                android:fontFamily="@font/muli_black"
+                android:textColor="@color/colorRed"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/sold_TV"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sold: "
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/descriptionTitle_TV"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:fontFamily="@font/muli_black"
+                android:textColor="#686868"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/description_TV"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="something something something"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/detailTitle_TV"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detail:"
+                android:fontFamily="@font/muli_black"
+                android:textColor="#686868"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/detail_TV"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="something something something"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_add"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/add_btn" />
+    </LinearLayout>
+</LinearLayout>

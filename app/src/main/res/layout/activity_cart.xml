@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:transitionName="trans_shoppingcart"
     tools:context=".CartActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

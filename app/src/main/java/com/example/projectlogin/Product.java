@@ -1,12 +1,14 @@
 package com.example.projectlogin;
 
 public class Product {
-    private String type;
-    private String avatarURL;
     private String name;
+    private String type;
+    private String avatarURL, avatarURL1, avatarURL2, avatarURL3, avatarURL4;
     private int price;
     private int quantity = 1;
     private int sold;
+    private String desc;
+    private String detail;
     private String OrderID;
 
     public String getOrderID() {
@@ -37,6 +39,42 @@ public class Product {
         return avatarURL;
     }
 
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
+    }
+
+    public String getAvatarURL1() {
+        return avatarURL1;
+    }
+
+    public void setAvatarURL1(String avatarURL1) {
+        this.avatarURL1 = avatarURL1;
+    }
+
+    public String getAvatarURL2() {
+        return avatarURL2;
+    }
+
+    public void setAvatarURL2(String avatarURL2) {
+        this.avatarURL2 = avatarURL2;
+    }
+
+    public String getAvatarURL3() {
+        return avatarURL3;
+    }
+
+    public void setAvatarURL3(String avatarURL3) {
+        this.avatarURL3 = avatarURL3;
+    }
+
+    public String getAvatarURL4() {
+        return avatarURL4;
+    }
+
+    public void setAvatarURL4(String avatarURL4) {
+        this.avatarURL4 = avatarURL4;
+    }
+
     public String getName() {
         return name;
     }
@@ -53,9 +91,6 @@ public class Product {
         return quantity;
     }
 
-    public void setAvatarURL(String avatarURL) {
-        this.avatarURL = avatarURL;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -71,5 +106,21 @@ public class Product {
 
     public void setSold(int sold) {
         this.sold = sold;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

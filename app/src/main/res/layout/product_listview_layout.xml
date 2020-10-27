@@ -37,14 +37,4 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="16sp" />
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/btn_add"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1"
-        android:background="@null"
-        android:src="@drawable/add_btn" />
 </LinearLayout>

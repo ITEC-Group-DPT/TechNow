@@ -1,12 +1,15 @@
 package com.example.projectlogin;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -55,17 +58,31 @@ public class Monitor_Catalog extends Fragment {
                         monitors.add(product);
                     }
                     ProductListViewAdapter adapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
-                    adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
+                    /*adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
                         @Override
                         public void onAddToCart(ImageButton imageButtonAddToCart) {
                             imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_add_to_cart));
                             ((MainUI)getActivity()).cart_btn.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_shake));
 
                         }
-                    });
-                    monitor_lv.setAdapter(adapter);
-                    onPostExecute("completed");
+                    });*/
 
+
+                    monitor_lv.setAdapter(adapter);
+
+                    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Product product = monitors.get(position);
+                            Intent intent = new Intent(getContext(), ItemDetail.class);
+                            intent.putExtra("itemName", product.getName());
+                            intent.putExtra("itemType", product.getType());
+                            startActivity(intent);
+                        }
+                    };
+
+                    monitor_lv.setOnItemClickListener(onItemClickListener);
+                    onPostExecute("completed");
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

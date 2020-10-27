@@ -65,14 +65,14 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         ImageView imageView = convertView.findViewById(R.id.iv_ava);
         TextView tv_name = convertView.findViewById(R.id.tv_name);
         TextView tv_price = convertView.findViewById(R.id.tv_price);
-        final ImageButton btn_add = convertView.findViewById(R.id.btn_add);
+        //final ImageButton btn_add = convertView.findViewById(R.id.btn_add);
         Product temp = Products.get(position);
         Glide.with(context).load(temp.getAvatarURL()).into(imageView);
         tv_name.setText(temp.getName());
         String formattedPrice = "$" + format.format(temp.getPrice()) + "₫";
         tv_price.setText(formattedPrice);
 
-        btn_add.setOnClickListener(new View.OnClickListener() {
+       /* btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Product temp1 = Products.get(position);
@@ -95,7 +95,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
                     }
                 });
             }
-        });
+        });*/
         return convertView;
     }
 }

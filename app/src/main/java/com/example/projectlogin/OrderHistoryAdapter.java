@@ -1,6 +1,7 @@
 package com.example.projectlogin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,10 +99,14 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
             }
         });
         TextView tv_review = convertView.findViewById(R.id.tv_review);
+
         tv_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, ReviewPurchasedProduct.class);
+                intent.putExtra("P_Name", tempProduct.getName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
         return convertView;

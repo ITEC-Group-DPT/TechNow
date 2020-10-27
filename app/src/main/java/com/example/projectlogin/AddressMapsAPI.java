@@ -36,6 +36,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
     SearchView searchView;
     MarkerOptions pinloca;
     LatLng start = null, end = null;
+    String stringsearch = "";
     private LocationManager locationManager;
 
     @Override
@@ -46,6 +47,9 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
         searchView = findViewById(R.id.sv_location);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
+        if (getIntent().hasExtra("address")){
+            stringsearch = getIntent().getStringExtra("address");
+        }
     }
 
     @Override
@@ -84,7 +88,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
             e.printStackTrace();
         }
 
-        Address address = addressList.get(0);
+        final Address address = addressList.get(0);
         start = new LatLng(address.getLatitude(),address.getLongitude());
 
 
@@ -105,6 +109,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
                         return false;
                     }
                     Address address = addressList.get(0);
+                    stringsearch = address.getAddressLine(0);
                     map.clear();
                     LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                     end = latLng;
@@ -134,6 +139,10 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                if (addressList.size() != 0){
+                    stringsearch = addressList.get(0).getAddressLine(0);
+                }
+                else stringsearch = Double.toString(latLng.latitude) +  Double.toString(latLng.longitude);
                 map.addMarker(pinloca);
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
 
@@ -153,14 +162,15 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
             float res = results[0];
             Geocoder geocoder1 = new Geocoder(getApplicationContext());
             List<Address> addressList = null;
-            try {
-                addressList = geocoder1.getFromLocation(end.latitude, end.longitude, 1);
+            /*try {
+                addressList = geocoder1.getFromLocationName(stringsearch,1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Address address = addressList.get(0);
+            Address address = addressList.get(0);*/
+
             Intent intent = new Intent(getApplicationContext(),PaymentActivity.class);
-            intent.putExtra("Address", address.getAddressLine(0));
+            intent.putExtra("Address", stringsearch /*address.getAddressLine(0)*/);
             intent.putExtra("Distance",res);
             startActivity(intent);
         }

@@ -4,8 +4,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +27,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.EventListener;
+import java.util.List;
 
 
 public class PaymentActivity extends AppCompatActivity {
@@ -49,10 +58,49 @@ public class PaymentActivity extends AppCompatActivity {
                 tv_total = findViewById(R.id.total_cash);
                 tv_total.setText(formattedTotalCash);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        TextView add = findViewById(R.id.address);
+
+        add.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        event != null &&
+                                event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    if (event == null || !event.isShiftPressed()) {
+
+                        String location = textView.getText().toString();
+                        textView.setText(null);
+                        List<Address> addressList = null;
+                        if (location != null || !location.equals("")) {
+                            Geocoder geocoder = new Geocoder(PaymentActivity.this);
+                            try {
+                                addressList = geocoder.getFromLocationName(location, 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (addressList.size() == 0) {
+                                Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                            Address address = addressList.get(0);
+                            textView.setText(address.getAddressLine(0));
+                        }
+                        return true; // consume.
+                    }
+                }
+                return false;
+                
+            }
+        });
+
 //        DatabaseRef.getDatabaseReference().child("Order History").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -86,6 +134,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 tempOrder.child(cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                             }
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
@@ -113,6 +162,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 Toast.makeText(getBaseContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
@@ -162,8 +212,8 @@ public class PaymentActivity extends AppCompatActivity {
 
 
     public void onasd(View view) {
-            Intent  intent = new Intent(getApplicationContext(),AddressMapsAPI.class);
-            startActivity(intent);
+            /*Intent  intent = new Intent(getApplicationContext(),AddressMapsAPI.class);
+            startActivity(intent);*/
     }
 
     /*@Override
@@ -184,6 +234,8 @@ public class PaymentActivity extends AppCompatActivity {
         x = intent.getFloatExtra("Distance", 0);
         String a = null;
         a = intent.getStringExtra("Address");
+        TextView add = findViewById(R.id.address);
+        add.setText(a);
         Toast.makeText(this, Float.toString(x), Toast.LENGTH_SHORT).show();
         Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
 

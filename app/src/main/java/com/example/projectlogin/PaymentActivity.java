@@ -97,7 +97,7 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 }
                 return false;
-                
+
             }
         });
 
@@ -186,7 +186,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private boolean Check_null() {
-        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum};
+        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum,R.id.address};
         for (int j = 0; j < paymentInfo.length; j++) {
             TextInputEditText test = findViewById(paymentInfo[j]);
             if (test.getText().toString().isEmpty()) {

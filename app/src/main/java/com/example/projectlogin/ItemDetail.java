@@ -94,6 +94,7 @@ public class ItemDetail extends AppCompatActivity {
                     Product temp = dataSnapshot.getValue(Product.class);
                     if (temp.getName().equals(itemName)) {
                         product = temp;
+                        product.setType(itemType);
                         loadCarouselView();
                         loadProductInfo();
                         break;
@@ -153,7 +154,7 @@ public class ItemDetail extends AppCompatActivity {
 
         cart_btn = findViewById(R.id.cart_btn);
         final ImageButton btn_add = findViewById(R.id.btn_add);
-         btn_add.setOnClickListener(new View.OnClickListener() {
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Cart");

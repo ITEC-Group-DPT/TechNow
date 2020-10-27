@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -148,6 +150,33 @@ public class ItemDetail extends AppCompatActivity {
         sold_TV.setText("Sold: " + product.getSold());
         description_TV.setText(product.getDesc());
         detail_TV.setText(product.getDetail());
+
+        cart_btn = findViewById(R.id.cart_btn);
+        final ImageButton btn_add = findViewById(R.id.btn_add);
+         btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Cart");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
+                                Toast.makeText(getApplicationContext(), "Already added", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        databaseReference.child(product.getName()).setValue(product);
+                        btn_add.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
+                        cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
+                        Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+        });
     }
 
     public void backBtn(View view) {

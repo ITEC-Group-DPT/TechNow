@@ -26,22 +26,24 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistoryAdapter extends ArrayAdapter<Cart> {
+public class OrderHistoryAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
     private OrderHistory orderHistory = new OrderHistory();
+    private Cart cart = new Cart();
     private NumberFormat format = new DecimalFormat("#,###");
 
-    public OrderHistoryAdapter(@NonNull Context context, int resource, @NonNull List<Cart> objects) {
+    public OrderHistoryAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
-        orderHistory.setOrderHistory((ArrayList<Cart>) objects);
+        cart.setCartArrList((ArrayList<Product>) objects);
     }
 
     @Override
     public int getCount() {
-        return orderHistory.getOrderHistory().size();
+        return cart.getNoOfItem();
+        //return orderHistory.getOrderHistory().size();
     }
 
 
@@ -58,13 +60,18 @@ public class OrderHistoryAdapter extends ArrayAdapter<Cart> {
         TextView tv_order_name = convertView.findViewById(R.id.tv_order_name);
         final TextView tv_order_quantity_price = convertView.findViewById(R.id.tv_order_quantity_price);
 
-        final Cart tempCart = orderHistory.getOrderHistory().get(position);
+        //final Cart tempCart = orderHistory.getOrderHistory().get(position);
 
-        final Product tempProduct = tempCart.getCartArrList().get(position);
+        final Product tempProduct = cart.getCartArrList().get(position);
         Glide.with(context).load(tempProduct.getAvatarURL()).into(iv_order_ava);
         tv_order_name.setText(tempProduct.getName());
 
-        final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Order History");
+
+        int price = tempProduct.getQuantity() * tempProduct.getPrice();
+        String formatedTotal = "Quantity: " + tempProduct.getQuantity() + " | $" + format.format(price) + "₫";
+        tv_order_quantity_price.setText(formatedTotal);
+
+        /*final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Order History");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,8 +88,8 @@ public class OrderHistoryAdapter extends ArrayAdapter<Cart> {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
-        tv_orderID.setText(tempCart.getID());
+        });*/
+        tv_orderID.setText(tempProduct.getOrderID());
         Button btn_order_detail = convertView.findViewById(R.id.btn_order_detail);
         btn_order_detail.setOnClickListener(new View.OnClickListener() {
             @Override

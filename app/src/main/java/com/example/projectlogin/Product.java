@@ -7,6 +7,15 @@ public class Product {
     private int price;
     private int quantity = 1;
     private int sold;
+    private String OrderID;
+
+    public String getOrderID() {
+        return OrderID;
+    }
+
+    public void setOrderID(String orderID) {
+        OrderID = orderID;
+    }
 
     public Product() {}
 

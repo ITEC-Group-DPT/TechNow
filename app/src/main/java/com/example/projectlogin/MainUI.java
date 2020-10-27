@@ -143,6 +143,7 @@ public class MainUI extends AppCompatActivity {
                     case (R.id.order_history):
                         intent = new Intent(MainUI.this, OrderHistoryActivity.class);
                         startActivity(intent);
+                        break;
                     case (R.id.keyboard):
                         changeFragment("Keyboard");
                         break;

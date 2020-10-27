@@ -166,6 +166,15 @@ public class PaymentActivity extends AppCompatActivity {
             startActivity(intent);
     }
 
+    /*@Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum};
+        for (int j = 0; j < paymentInfo.length; j++) {
+            TextInputEditText test = findViewById(paymentInfo[j]);
+
+    }*/
+
     @Override
     protected void onResume() {
         super.onResume();

@@ -254,7 +254,6 @@ public class PaymentActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.address);
         try {
             String location = textView.getText().toString();
-            textView.setText(null);
             List<Address> addressList = null;
             if (location != null || !location.equals("")) {
                 Geocoder geocoder = new Geocoder(PaymentActivity.this);
@@ -270,7 +269,7 @@ public class PaymentActivity extends AppCompatActivity {
                 textView.setText(address.getAddressLine(0));
             }
         } catch (Exception e) {
-            textView.setText("");
+            textView.setText(null);
             Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
         }
     }

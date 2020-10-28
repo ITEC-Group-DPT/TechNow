@@ -89,7 +89,7 @@
                 android:id="@+id/carouselView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:fillColor="@color/colorSecondary"
+                app:fillColor="@color/colorPrimary"
                 app:radius="5dp"
                 app:slideInterval="5000"
                 app:strokeColor="@color/colorBlack"

@@ -34,7 +34,7 @@ public class FeedbackActivity extends AppCompatActivity {
     public void confirm_feedback(View view) {
         text = feedback_text.getText().toString();
         if (text.isEmpty()) {
-            Toast.makeText(this, "Please submit your feedback", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please fill-in your feedback", Toast.LENGTH_SHORT).show();
         }
         else if (num == 0) {
             Toast.makeText(this, "Please rate us", Toast.LENGTH_SHORT).show();

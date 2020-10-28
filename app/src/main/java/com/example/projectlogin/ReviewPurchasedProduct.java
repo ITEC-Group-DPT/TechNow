@@ -1,15 +1,20 @@
 package com.example.projectlogin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,9 +25,10 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
 
     private ImageView product_pic;
     private TextView product_name;
-
+    private TextInputEditText feedback_text;
     private RatingBar ratingBar;
     private TextView ratingText;
+    private String itemType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,7 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
         product_name = findViewById(R.id.product_name);
         ratingBar = findViewById(R.id.ratingBar);
         ratingText = findViewById(R.id.rating_text);
-
+        feedback_text = findViewById(R.id.feedback_text);
         final String p_name = getIntent().getExtras().getString("P_Name");
         product_name.setText(p_name);
 
@@ -68,6 +74,7 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                     for (DataSnapshot _data : dataSnapshot.getChildren()) {
                         if (_data.child("name").getValue().equals(p_name)) {
+                            itemType = dataSnapshot.getKey();
                             Glide.with(ReviewPurchasedProduct.this).load(_data.child("avatarURL").getValue()).into(product_pic);
                             break;
                         }
@@ -85,5 +92,37 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
 
     public void Back_review(View view) {
         onBackPressed();
+    }
+
+    public void pic_onClikc(View view) {
+        Intent intent = new Intent(this, ItemDetail.class);
+        intent.putExtra("itemName", product_name.getText().toString());
+        intent.putExtra("itemType", itemType);
+        startActivity(intent);
+    }
+
+    public void submitFeedback(View view) {
+        if(ratingBar.getRating() == 0){
+            Toast.makeText(this, "Please rate us", Toast.LENGTH_SHORT).show();
+        }
+        else if(feedback_text.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please fill-in your feedback", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Your review has been recorded!");
+            builder.setMessage("Thank you for your review!");
+            builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ratingText.setText("");
+                    feedback_text.setText("");
+                    ratingBar.setRating(0);
+                    onBackPressed();
+                }
+            });
+            AlertDialog showNote = builder.create();
+            showNote.show();
+        }
     }
 }

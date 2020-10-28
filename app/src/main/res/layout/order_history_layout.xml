@@ -20,13 +20,15 @@
             android:textSize="18sp" />
 
         <TextView
+            android:drawableRight="@drawable/review_icon"
             android:id="@+id/tv_review"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:clickable="true"
-            android:gravity="right"
+            android:gravity="right|center"
+            android:textStyle="bold"
             android:text="Review"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp" />
@@ -84,11 +86,13 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:textStyle="bold"
             android:background="@drawable/border_for_edt"
             android:text="SEE DETAIL"
             android:textColor="@android:color/holo_blue_dark" />
 
         <Button
+            android:textStyle="bold"
             android:id="@+id/btn_rebuy"
             android:layout_width="0dp"
             android:layout_height="match_parent"

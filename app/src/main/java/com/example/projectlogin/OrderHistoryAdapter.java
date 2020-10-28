@@ -58,7 +58,7 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
 
         ImageView iv_order_ava = convertView.findViewById(R.id.iv_order_ava);
         TextView tv_orderID = convertView.findViewById(R.id.tv_shipping_status);
-        TextView tv_order_name = convertView.findViewById(R.id.tv_order_name);
+        final TextView tv_order_name = convertView.findViewById(R.id.tv_order_name);
         final TextView tv_order_quantity_price = convertView.findViewById(R.id.tv_order_quantity_price);
 
         //final Cart tempCart = orderHistory.getOrderHistory().get(position);
@@ -84,7 +84,6 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
                         tv_order_quantity_price.setText(formatedTotal);
                     }
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -98,8 +97,18 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
 
             }
         });
+        Button btn_rebuy = convertView.findViewById(R.id.btn_rebuy);
+        btn_rebuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ItemDetail.class);
+                intent.putExtra("itemName", tempProduct.getName());
+                intent.putExtra("itemType", tempProduct.getType());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
         TextView tv_review = convertView.findViewById(R.id.tv_review);
-
         tv_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

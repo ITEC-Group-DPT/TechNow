@@ -44,6 +44,8 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/product_pic"
             android:layout_width="0dp"
+            android:clickable="true"
+            android:onClick="pic_onClikc"
             android:layout_height="wrap_content"
             android:layout_weight="3" />
 
@@ -53,6 +55,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:fontFamily="@font/muli_black"
             android:padding="20dp"
             android:textSize="18sp" />
@@ -94,6 +98,7 @@
         android:textSize="20sp" />
 
     <Button
+        android:onClick="submitFeedback"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

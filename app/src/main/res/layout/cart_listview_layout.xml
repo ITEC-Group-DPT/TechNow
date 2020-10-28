@@ -66,12 +66,21 @@
         android:layout_weight="2.5"
         android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:text="Qty:"
+            android:fontFamily="@font/muli_black"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp" />
+
         <ImageButton
             android:id="@+id/sub_quantity_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="52dp"
             android:background="#FFFFFF"
             android:src="@drawable/sub_cart" />
 

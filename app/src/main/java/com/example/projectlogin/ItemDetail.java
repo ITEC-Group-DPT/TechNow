@@ -124,9 +124,9 @@ public class ItemDetail extends AppCompatActivity {
         if (!product.getAvatarURL3().equals("")) {
             imageURLList.add(product.getAvatarURL3());
         }
-        if (!product.getAvatarURL4().equals("")) {
+        /*if (!product.getAvatarURL4().equals("")) {
             imageURLList.add(product.getAvatarURL4());
-        }
+        }*/
 
         ImageListener imageListener = new ImageListener() {
             @Override

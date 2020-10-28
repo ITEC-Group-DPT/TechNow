@@ -1,12 +1,14 @@
 package com.example.projectlogin;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -63,6 +65,18 @@ public class Mouse_Catalog extends Fragment {
                         }
                     });
                     mouse_lv.setAdapter(adapter);
+                    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Product product = mouses.get(position);
+                            Intent intent = new Intent(getContext(), ItemDetail.class);
+                            intent.putExtra("itemName", product.getName());
+                            intent.putExtra("itemType", product.getType());
+                            startActivity(intent);
+                        }
+                    };
+
+                    mouse_lv.setOnItemClickListener(onItemClickListener);
                     onPostExecute("completed");
                 }
                 @Override

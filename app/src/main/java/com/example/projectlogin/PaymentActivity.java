@@ -194,7 +194,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private boolean Check_null() {
-        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum,R.id.address};
+        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum, R.id.address};
         for (int j = 0; j < paymentInfo.length; j++) {
             TextInputEditText test = findViewById(paymentInfo[j]);
             if (test.getText().toString().isEmpty()) {
@@ -263,16 +263,13 @@ public class PaymentActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                               /* if (addressList.size() == 0) {
-                                    Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
-                                    return false;
-                                }*/
+                if (addressList.size() == 0) {
+                    Toast.makeText(PaymentActivity.this, "Check gõ có dấu", Toast.LENGTH_SHORT).show();
+                }
                 Address address = addressList.get(0);
                 textView.setText(address.getAddressLine(0));
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             textView.setText("");
             Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
         }

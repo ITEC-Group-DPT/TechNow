@@ -48,14 +48,14 @@ public class Laptop_Catalog extends Fragment {
         etSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence cs, int start, int before, int count) {
+            public void onTextChanged(CharSequence c, int start, int before, int count) {
                 // Call back the Adapter with current character to Filter
-                int textlength = cs.length();
+                int length = c.length();
                 ArrayList<Product> tempArrayList = new ArrayList<Product>();
                 for (int i = 0; i < laptops.size(); i++) {
-                    if (textlength<= laptops.get(i).getName().length())
+                    if (length<= laptops.get(i).getName().length())
                     {
-                        if (laptops.get(i).getName().toLowerCase().contains(cs.toString().toLowerCase()))
+                        if (laptops.get(i).getName().toLowerCase().contains(c.toString().toLowerCase()))
                         {
                             tempArrayList.add(laptops.get(i));
                         }

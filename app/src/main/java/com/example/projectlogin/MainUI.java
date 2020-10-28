@@ -7,15 +7,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -64,6 +68,10 @@ public class MainUI extends AppCompatActivity {
     private ArrayList<Product> topSellerProductList;
     private DatabaseReference reff;
 
+    private SearchView searchView;
+    private ListView listView;
+    private ArrayList<Product> tempArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +81,50 @@ public class MainUI extends AppCompatActivity {
         loadData();
         loadCarouselView();
         loadTopSeller();
+
+
+        listView = findViewById(R.id.searchMain);
+        searchView = findViewById(R.id.search_bar);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchView.onActionViewExpanded();
+                searchView.setQueryHint("Search Product...");
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Toast.makeText(MainUI.this, newText, Toast.LENGTH_SHORT).show();
+                int length = newText.length();
+                tempArrayList = new ArrayList<>();
+                for (int i = 0; i < productList.size(); i++) {
+                    if (length<= productList.get(i).getName().length())
+                    {
+                        if (productList.get(i).getName().toLowerCase().contains(newText.toLowerCase()))
+                        {
+                            tempArrayList.add(productList.get(i));
+                        }
+                    }
+                }
+                ProductListViewAdapter adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_listview_layout, tempArrayList);
+                listView.setAdapter(adapter);
+                return false;
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Product product = tempArrayList.get(i);
+
+            }
+        });
     }
 
     private void loadData() {

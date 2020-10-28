@@ -47,6 +47,12 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         return Products.size();
     }
 
+    @Nullable
+    @Override
+    public Product getItem(int position) {
+        return super.getItem(position);
+    }
+
     public interface onAddToCart {
         void onAddToCart(ImageButton btn_add);
     }

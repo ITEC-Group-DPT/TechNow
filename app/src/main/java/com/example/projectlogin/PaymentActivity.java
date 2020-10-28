@@ -64,9 +64,9 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
-        TextView add = findViewById(R.id.address);
 
-        add.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+      /*  add.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
@@ -87,10 +87,10 @@ public class PaymentActivity extends AppCompatActivity {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                               /* if (addressList.size() == 0) {
+                               *//* if (addressList.size() == 0) {
                                     Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
                                     return false;
-                                }*/
+                                }*//*
                                 Address address = addressList.get(0);
                                 textView.setText(address.getAddressLine(0));
                             }
@@ -107,7 +107,7 @@ public class PaymentActivity extends AppCompatActivity {
                 return false;
 
             }
-        });
+        });*/
 
 //        DatabaseRef.getDatabaseReference().child("Order History").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -194,7 +194,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private boolean Check_null() {
-        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum,R.id.address};
+        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum, R.id.address};
         for (int j = 0; j < paymentInfo.length; j++) {
             TextInputEditText test = findViewById(paymentInfo[j]);
             if (test.getText().toString().isEmpty()) {
@@ -248,5 +248,29 @@ public class PaymentActivity extends AppCompatActivity {
         Toast.makeText(this, Float.toString(x), Toast.LENGTH_SHORT).show();
         Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void recommend(View view) {
+        TextView textView = findViewById(R.id.address);
+        try {
+            String location = textView.getText().toString();
+            List<Address> addressList = null;
+            if (location != null || !location.equals("")) {
+                Geocoder geocoder = new Geocoder(PaymentActivity.this);
+                try {
+                    addressList = geocoder.getFromLocationName(location, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (addressList.size() == 0) {
+                    Toast.makeText(PaymentActivity.this, "Check gõ có dấu hoặc gõ thêm chi tiết", Toast.LENGTH_SHORT).show();
+                }
+                Address address = addressList.get(0);
+                textView.setText(address.getAddressLine(0));
+            }
+        } catch (Exception e) {
+            textView.setText(null);
+            Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -76,24 +76,32 @@ public class PaymentActivity extends AppCompatActivity {
                                 event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     if (event == null || !event.isShiftPressed()) {
 
-                        String location = textView.getText().toString();
-                        textView.setText(null);
-                        List<Address> addressList = null;
-                        if (location != null || !location.equals("")) {
-                            Geocoder geocoder = new Geocoder(PaymentActivity.this);
-                            try {
-                                addressList = geocoder.getFromLocationName(location, 1);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                        try {
+                            String location = textView.getText().toString();
+                            textView.setText(null);
+                            List<Address> addressList = null;
+                            if (location != null || !location.equals("")) {
+                                Geocoder geocoder = new Geocoder(PaymentActivity.this);
+                                try {
+                                    addressList = geocoder.getFromLocationName(location, 1);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                               /* if (addressList.size() == 0) {
+                                    Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }*/
+                                Address address = addressList.get(0);
+                                textView.setText(address.getAddressLine(0));
                             }
-                            if (addressList.size() == 0) {
-                                Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                            Address address = addressList.get(0);
-                            textView.setText(address.getAddressLine(0));
+                            return true;
                         }
-                        return true; // consume.
+                        catch (Exception e)
+                        {
+                            textView.setText("");
+                            Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
+                        }
+                         // consume.
                     }
                 }
                 return false;
@@ -197,6 +205,7 @@ public class PaymentActivity extends AppCompatActivity {
                         textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
                         textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+                        // TODO: 10/28/2020: add check valid address
                     } else {
                         TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
                         textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));

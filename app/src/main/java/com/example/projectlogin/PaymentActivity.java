@@ -264,7 +264,7 @@ public class PaymentActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (addressList.size() == 0) {
-                    Toast.makeText(PaymentActivity.this, "Check gõ có dấu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PaymentActivity.this, "Check gõ có dấu hoặc gõ thêm chi tiết", Toast.LENGTH_SHORT).show();
                 }
                 Address address = addressList.get(0);
                 textView.setText(address.getAddressLine(0));

@@ -14,8 +14,16 @@
         android:layout_gravity="center_vertical"
         android:background="@color/appTheme"
         android:minHeight="@android:dimen/app_icon_size"
-        app:navigationIcon="@drawable/back_icon"
         app:titleTextColor="@color/colorSecondary">
+        <ImageButton
+            android:onClick="backBtn"
+            android:id="@+id/back_button"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_icon"
+            android:background="@color/appTheme"
+            />
 
         <TextView
             android:id="@+id/toolbar_title"

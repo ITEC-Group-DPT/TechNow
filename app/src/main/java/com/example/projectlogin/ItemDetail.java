@@ -181,5 +181,6 @@ public class ItemDetail extends AppCompatActivity {
     }
 
     public void backBtn(View view) {
+        onBackPressed();
     }
 }

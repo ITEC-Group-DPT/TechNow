@@ -195,9 +195,9 @@ public class ItemDetail extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                            if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
-                                /*int quantity = (int) dataSnapshot.child("quantity").getValue();
-                                product.setQuantity(quantity++);*/
+                            if (product.getName().equals(dataSnapshot.getKey())) {
+                                int quantity = dataSnapshot.getValue(Product.class).getQuantity();
+                                product.setQuantity(++quantity);
                                 break;
                             }
                         }

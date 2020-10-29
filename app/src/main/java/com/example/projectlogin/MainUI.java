@@ -111,6 +111,12 @@ public class MainUI extends AppCompatActivity {
                 }
 
                 listView.setVisibility(View.VISIBLE);
+                if (newText.isEmpty()) {
+                    listView.setVisibility(View.GONE);
+                    return false;
+                }
+
+                listView.setVisibility(View.VISIBLE);
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
                 for (int i = 0; i < productList.size(); i++) {
@@ -392,64 +398,6 @@ public class MainUI extends AppCompatActivity {
         topSellerProductList = new ArrayList<>();
 
         new AsyncTask_TopSeller().execute(productList);
-        /*reff = FirebaseDatabase.getInstance().getReference("Products");
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
-                for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Keyboard");
-                    productList.add(product);
-
-                }
-
-                DataSnapshot snapshotLaptop = snapshot.child("Laptop");
-                for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Laptop");
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotMonitor = snapshot.child("Monitor");
-                for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Monitor");
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotMouse = snapshot.child("Mouse");
-                for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Mouse");
-                    productList.add(product);
-                }
-
-                Collections.sort(productList, new Comparator<Product>() {
-                    public int compare(Product p1, Product p2) {
-                        if (p1.getSold() > p2.getSold()) return -1;
-                        else if (p1.getSold() < p2.getSold()) return 1;
-                        else return 0;
-                    }
-                });
-
-                for (int i = 0; i < 10; i++) {
-                    topSellerProductList.add(productList.get(i));
-                }
-
-                TopSellerAdapter adapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
-                recyclerView = findViewById(R.id.recycler_view);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });*/
     }
 
 

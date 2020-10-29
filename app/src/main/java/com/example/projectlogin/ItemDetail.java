@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,6 +88,56 @@ public class ItemDetail extends AppCompatActivity {
         });
     }
 
+    private class AsyncTaskDetail extends AsyncTask<String,String, String>
+    {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
+            reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    DataSnapshot snapshotChild = snapshot.child(itemType);
+                    for (DataSnapshot dataSnapshot : snapshotChild.getChildren()) {
+                        Product temp = dataSnapshot.getValue(Product.class);
+                        if (temp.getName().equals(itemName)) {
+                            product = temp;
+                            product.setType(itemType);
+                            onPostExecute("loadAllData");
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            LinearLayout layout = findViewById(R.id.progress_lnlo);
+            layout.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String command) {
+            super.onPostExecute(command);
+            if (command != null && command.equals("loadAllData"))
+            {
+                loadCarouselView();
+                loadProductInfo();
+
+                LinearLayout layout = findViewById(R.id.progress_lnlo);
+                layout.setVisibility(View.GONE);
+            }
+        }
+    }
+
     public void getProduct() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -94,28 +146,8 @@ public class ItemDetail extends AppCompatActivity {
             Log.d("@@LOG", itemName);
             Log.d("@@LOG", itemType);
         }
-        btn_favorite = findViewById(R.id.btn_favorite);
-        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot snapshotChild = snapshot.child(itemType);
-                for (DataSnapshot dataSnapshot : snapshotChild.getChildren()) {
-                    Product temp = dataSnapshot.getValue(Product.class);
-                    if (temp.getName().equals(itemName)) {
-                        product = temp;
-                        product.setType(itemType);
-                        loadCarouselView();
-                        loadProductInfo();
-                        break;
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        new AsyncTaskDetail().execute("");
     }
 
     public void loadCarouselView() {
@@ -159,6 +191,11 @@ public class ItemDetail extends AppCompatActivity {
         String formattedPrice = "Price: " + format.format(product.getPrice()) + "₫";
         productPrice_TV.setText(formattedPrice);
         sold_TV.setText("Sold: " + product.getSold());
+
+        if(product.getDesc().isEmpty())
+            product.setDesc("Updating...");
+        if (product.getDetail().isEmpty())
+            product.setDetail("Updating...");
         description_TV.setText(product.getDesc());
         detail_TV.setText(product.getDetail());
 
@@ -172,9 +209,10 @@ public class ItemDetail extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
-                                Toast.makeText(getApplicationContext(), "Already added", Toast.LENGTH_SHORT).show();
-                                return;
+                            if (product.getName().equals(dataSnapshot.getKey())) {
+                                int quantity = dataSnapshot.getValue(Product.class).getQuantity();
+                                product.setQuantity(++quantity);
+                                break;
                             }
                         }
                         databaseReference.child(product.getName()).setValue(product);
@@ -189,7 +227,7 @@ public class ItemDetail extends AppCompatActivity {
                 });
             }
         });
-        final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Favorite");
+/*        final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Favorite");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -205,8 +243,8 @@ public class ItemDetail extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
-        btn_favorite.setOnClickListener(new View.OnClickListener() {
+        });*/
+   /*     btn_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Favorite");
@@ -232,7 +270,7 @@ public class ItemDetail extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
     }
 

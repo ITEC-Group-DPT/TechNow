@@ -31,20 +31,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="165dp"
-            android:layout_marginTop="12dp"
-            android:text="Loading..."
-            android:textColor="@color/appTheme"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/lnlo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,13 +94,6 @@
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
-        <FrameLayout
-            android:id="@+id/Frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,6 +109,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/Frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
 
         <ScrollView

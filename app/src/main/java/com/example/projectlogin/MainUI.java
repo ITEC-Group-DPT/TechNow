@@ -122,7 +122,10 @@ public class MainUI extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Product product = tempArrayList.get(i);
-
+                Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
+                intent.putExtra("itemName", product.getName());
+                intent.putExtra("itemType", product.getType());
+                startActivity(intent);
             }
         });
     }
@@ -294,24 +297,29 @@ public class MainUI extends AppCompatActivity {
                 DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
                 for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
                     Product product = dataSnapshot.getValue(Product.class);
+                    product.setType("Keyboard");
                     productList.add(product);
+
                 }
 
                 DataSnapshot snapshotLaptop = snapshot.child("Laptop");
                 for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
                     Product product = dataSnapshot.getValue(Product.class);
+                    product.setType("Laptop");
                     productList.add(product);
                 }
 
                 DataSnapshot snapshotMonitor = snapshot.child("Monitor");
                 for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
                     Product product = dataSnapshot.getValue(Product.class);
+                    product.setType("Monitor");
                     productList.add(product);
                 }
 
                 DataSnapshot snapshotMouse = snapshot.child("Mouse");
                 for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
                     Product product = dataSnapshot.getValue(Product.class);
+                    product.setType("Mouse");
                     productList.add(product);
                 }
 

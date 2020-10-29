@@ -137,7 +137,7 @@ public class PaymentActivity extends AppCompatActivity {
                     tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            cart.setID("Order-" + snapshot.getChildrenCount());
+                            cart.setID("Order-10" + snapshot.getChildrenCount());
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
                                 tempOrder.child(cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                             }

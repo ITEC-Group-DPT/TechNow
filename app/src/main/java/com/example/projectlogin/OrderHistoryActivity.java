@@ -40,7 +40,13 @@ public class OrderHistoryActivity extends AppCompatActivity {
                         cart.setID(dataSnapshot.getKey());
                         Collections.sort(cart.getCartArrList(), new Comparator<Product>() {
                             public int compare(Product p1, Product p2) {
-                                return p2.getOrderID().compareTo(p1.getOrderID());
+                                int p1_key = Integer.parseInt(p1.getOrderID().substring(6));
+                                int p2_key = Integer.parseInt(p2.getOrderID().substring(6));
+
+                                if (p1_key > p2_key) return -1;
+                                if (p1_key == p2_key) return 0;
+                                if (p1_key < p2_key) return 1;
+                                return 0;
                             }
                         });
                         //orderHistory.addItem(cart);

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.projectlogin">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -11,6 +13,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        tools:replace="android:icon,android:theme"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/appicon"

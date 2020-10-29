@@ -9,6 +9,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.dk.animation.circle.CircleAnimationUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -200,7 +202,7 @@ public class ItemDetail extends AppCompatActivity {
         detail_TV.setText(product.getDetail());
 
         cart_btn = findViewById(R.id.cart_btn);
-        final ImageButton btn_add = findViewById(R.id.btn_add);
+        final LinearLayout btn_add = findViewById(R.id.btn_add);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,16 +216,12 @@ public class ItemDetail extends AppCompatActivity {
                                 int quantity = dataSnapshot.getValue(Product.class).getQuantity();
                                 databaseReference.child(product.getName()).child("quantity").setValue(quantity+1);
 
-                                btn_add.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
-                                cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-                                Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+                               addToCartAnimation(carouselView, cart_btn);
                                 return;
                             }
                         }
                         databaseReference.child(product.getName()).setValue(product);
-                        btn_add.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
-                        cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-                        Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+                        addToCartAnimation(carouselView, cart_btn);
                     }
 
                     @Override
@@ -277,6 +275,19 @@ public class ItemDetail extends AppCompatActivity {
             }
         });*/
 
+    }
+
+    public void addToCartAnimation(CarouselView carouselView, ImageButton cartBtn){
+        new CircleAnimationUtil().attachActivity(ItemDetail.this).setTargetView(carouselView).setDestView(cartBtn).setMoveDuration(800).startAnimation();
+        carouselView.setVisibility(View.VISIBLE);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
+                Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+            }
+        }, 2000);
     }
 
     public void backBtn(View view) {

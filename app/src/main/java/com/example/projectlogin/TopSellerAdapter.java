@@ -1,6 +1,7 @@
 package com.example.projectlogin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,17 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         String formattedPrice = format.format(temp.getPrice()) + "₫";
         holder.priceTV.setText(formattedPrice);
         holder.soldTV.setText("Sold: " + temp.getSold());
+
+        holder.setItemClickListener(new ReyclerViewItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                Product product = productList.get(position);
+                Intent intent = new Intent(context, ItemDetail.class);
+                intent.putExtra("itemName", product.getName());
+                intent.putExtra("itemType", product.getType());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -50,12 +62,17 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         return productList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    public interface ReyclerViewItemClickListener {
+        void onClick(View view, int position,boolean isLongClick);
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView avatar;
         private ImageView topSellerIV;
         private TextView nameTV;
         private TextView priceTV;
         private TextView soldTV;
+        private ReyclerViewItemClickListener itemClickListener;
 
         MyViewHolder(View view) {
             super(view);
@@ -64,6 +81,17 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
             nameTV = view.findViewById(R.id.name_tv);
             priceTV = view.findViewById(R.id.price_tv);
             soldTV = view.findViewById(R.id.sold_tv);
+            itemView.setOnClickListener(this);
+        }
+
+        public void setItemClickListener(ReyclerViewItemClickListener itemClickListener)
+        {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),false);
         }
     }
 }

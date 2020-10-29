@@ -107,6 +107,7 @@ public class MainUI extends AppCompatActivity {
                 //Toast.makeText(MainUI.this, newText, Toast.LENGTH_SHORT).show();
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
+                if (newText.isEmpty()) return false;
                 for (int i = 0; i < productList.size(); i++) {
                     if (length<= productList.get(i).getName().length())
                     {
@@ -303,24 +304,28 @@ public class MainUI extends AppCompatActivity {
                     DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
                     for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Keyboard");
                         productList.add(product);
                     }
 
                     DataSnapshot snapshotLaptop = snapshot.child("Laptop");
                     for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Laptop");
                         productList.add(product);
                     }
 
                     DataSnapshot snapshotMonitor = snapshot.child("Monitor");
                     for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Monitor");
                         productList.add(product);
                     }
 
                     DataSnapshot snapshotMouse = snapshot.child("Mouse");
                     for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Mouse");
                         productList.add(product);
                     }
 

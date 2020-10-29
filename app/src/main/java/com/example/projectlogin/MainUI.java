@@ -119,6 +119,7 @@ public class MainUI extends AppCompatActivity {
                 listView.setVisibility(View.VISIBLE);
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
+                if (newText.isEmpty()) return false;
                 for (int i = 0; i < productList.size(); i++) {
                     if (length<= productList.get(i).getName().length())
                     {

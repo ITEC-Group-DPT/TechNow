@@ -182,6 +182,11 @@ public class ItemDetail extends AppCompatActivity {
         String formattedPrice = "Price: " + format.format(product.getPrice()) + "₫";
         productPrice_TV.setText(formattedPrice);
         sold_TV.setText("Sold: " + product.getSold());
+
+        if(product.getDesc().isEmpty())
+            product.setDesc("Updating...");
+        if (product.getDetail().isEmpty())
+            product.setDetail("Updating...");
         description_TV.setText(product.getDesc());
         detail_TV.setText(product.getDetail());
 

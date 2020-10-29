@@ -4,11 +4,15 @@ package com.example.projectlogin;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -30,14 +34,50 @@ public class Laptop_Catalog extends Fragment {
     private ArrayList<Product> laptops;
     private ListView laptop_lv;
     private DatabaseReference reff;
+    private EditText etSearch;
     private View root;
+    private ProductListViewAdapter a;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.activity_catalog,container, false);
         laptop_lv = root.findViewById(R.id.catalog_lv);
+        etSearch = root.findViewById(R.id.etSearch);
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence c, int start, int before, int count) {
+                // Call back the Adapter with current character to Filter
+                int length = c.length();
+                ArrayList<Product> tempArrayList = new ArrayList<Product>();
+                for (int i = 0; i < laptops.size(); i++) {
+                    if (length<= laptops.get(i).getName().length())
+                    {
+                        if (laptops.get(i).getName().toLowerCase().contains(c.toString().toLowerCase()))
+                        {
+                            tempArrayList.add(laptops.get(i));
+                        }
+                    }
+                }
+                ProductListViewAdapter adapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, tempArrayList);
+                laptop_lv.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         loadData();
+
+
         return root;
     }
 

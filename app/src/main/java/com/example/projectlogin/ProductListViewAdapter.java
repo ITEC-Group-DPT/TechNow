@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
     private ArrayList<Product> Products;
+    private ArrayList<Product> ProductsOri;
     private onAddToCart myListener;
     private NumberFormat format = new DecimalFormat("#,###");
 
@@ -43,6 +45,12 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
     @Override
     public int getCount() {
         return Products.size();
+    }
+
+    @Nullable
+    @Override
+    public Product getItem(int position) {
+        return super.getItem(position);
     }
 
     public interface onAddToCart {
@@ -98,4 +106,55 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         });*/
         return convertView;
     }
+
+  /*  @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,FilterResults results) {
+
+                Products = (ArrayList<Product>) results.values; // has the filtered values
+                notifyDataSetChanged();  // notifies the data with new filtered values
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+                ArrayList<Product> FilteredArrList = new ArrayList<Product>();
+
+                if (ProductsOri == null) {
+                    ProductsOri = new ArrayList<Product>(ProductsOri); // saves the original data in mOriginalValues
+                }
+
+                *//********
+                 *
+                 *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
+                 *  else does the Filtering and returns FilteredArrList(Filtered)
+                 *
+                 ********//*
+                if (constraint == null || constraint.length() == 0) {
+
+                    // set the Original result to return
+                    results.count = ProductsOri.size();
+                    results.values = ProductsOri;
+                } else {
+                    constraint = constraint.toString().toLowerCase();
+                    for (int i = 0; i < ProductsOri.size(); i++) {
+                        String data = ProductsOri.get(i).getName();
+                        if (data.toLowerCase().startsWith(constraint.toString())) {
+                            FilteredArrList.add(new Product(ProductsOri.get(i).getAvatarURL(),ProductsOri.get(i).getName(),ProductsOri.get(i).getPrice()));
+                        }
+                    }
+                    // set the Filtered result to return
+                    results.count = FilteredArrList.size();
+                    results.values = FilteredArrList;
+                }
+                return results;
+            }
+        };
+        return filter;
+    }*/
+
 }

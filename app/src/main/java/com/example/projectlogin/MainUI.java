@@ -105,6 +105,12 @@ public class MainUI extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 //Toast.makeText(MainUI.this, newText, Toast.LENGTH_SHORT).show();
+                if (newText.isEmpty()) {
+                    listView.setVisibility(View.GONE);
+                    return false;
+                }
+
+                listView.setVisibility(View.VISIBLE);
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
                 for (int i = 0; i < productList.size(); i++) {
@@ -303,24 +309,28 @@ public class MainUI extends AppCompatActivity {
                     DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
                     for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Keyboard");
                         productList.add(product);
                     }
 
                     DataSnapshot snapshotLaptop = snapshot.child("Laptop");
                     for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Laptop");
                         productList.add(product);
                     }
 
                     DataSnapshot snapshotMonitor = snapshot.child("Monitor");
                     for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Monitor");
                         productList.add(product);
                     }
 
                     DataSnapshot snapshotMouse = snapshot.child("Mouse");
                     for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
+                        product.setType("Mouse");
                         productList.add(product);
                     }
 
@@ -502,6 +512,8 @@ public class MainUI extends AppCompatActivity {
         drawerLayout.closeDrawer(GravityCompat.START);
         navigationView.setCheckedItem(R.id.nav_home);
         close_FrameLayout();
+        if (listView.getVisibility() == View.VISIBLE)
+            listView.setVisibility(View.GONE);
     }
 
     @Override

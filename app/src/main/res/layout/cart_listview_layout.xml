@@ -69,8 +69,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:text="Qty:"
+            android:paddingLeft="20dp"
+            android:text="Quantity:"
             android:fontFamily="@font/muli_black"
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />

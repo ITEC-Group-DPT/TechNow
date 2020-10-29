@@ -1,12 +1,14 @@
 package com.example.projectlogin;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +78,56 @@ public class ItemDetail extends AppCompatActivity {
         });
     }
 
+
+    private class AsyncTaskDetail extends AsyncTask<String,String, String>
+    {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
+            reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    DataSnapshot snapshotChild = snapshot.child(itemType);
+                    for (DataSnapshot dataSnapshot : snapshotChild.getChildren()) {
+                        Product temp = dataSnapshot.getValue(Product.class);
+                        if (temp.getName().equals(itemName)) {
+                            product = temp;
+                            product.setType(itemType);
+                            onPostExecute("loadAllData");
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            LinearLayout layout = findViewById(R.id.progress_lnlo);
+            layout.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String command) {
+            super.onPostExecute(command);
+            if (command != null && command.equals("loadAllData"))
+            {
+                loadCarouselView();
+                loadProductInfo();
+
+                LinearLayout layout = findViewById(R.id.progress_lnlo);
+                layout.setVisibility(View.GONE);
+            }
+        }
+    }
     public void getProduct() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -85,27 +137,8 @@ public class ItemDetail extends AppCompatActivity {
             Log.d("@@LOG", itemType);
         }
 
-        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot snapshotChild = snapshot.child(itemType);
-                for (DataSnapshot dataSnapshot : snapshotChild.getChildren()) {
-                    Product temp = dataSnapshot.getValue(Product.class);
-                    if (temp.getName().equals(itemName)) {
-                        product = temp;
-                        product.setType(itemType);
-                        loadCarouselView();
-                        loadProductInfo();
-                        break;
-                    }
-                }
-            }
+        new AsyncTaskDetail().execute("");
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
     }
 
     public void loadCarouselView() {
@@ -163,8 +196,9 @@ public class ItemDetail extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                             if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
-                                Toast.makeText(getApplicationContext(), "Already added", Toast.LENGTH_SHORT).show();
-                                return;
+                                /*int quantity = (int) dataSnapshot.child("quantity").getValue();
+                                product.setQuantity(quantity++);*/
+                                break;
                             }
                         }
                         databaseReference.child(product.getName()).setValue(product);

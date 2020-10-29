@@ -19,7 +19,8 @@ public class Product {
         OrderID = orderID;
     }
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(String avatarURL, String name, int price) {
         this.avatarURL = avatarURL;

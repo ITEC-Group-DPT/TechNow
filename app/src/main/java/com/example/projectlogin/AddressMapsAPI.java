@@ -31,12 +31,12 @@ import java.util.List;
 
 
 public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallback, LocationListener {
-    GoogleMap map;
-    SupportMapFragment mapFragment;
-    SearchView searchView;
-    MarkerOptions pinloca;
-    LatLng start = null, end = null;
-    String stringsearch = "";
+    private GoogleMap map;
+    private SupportMapFragment mapFragment;
+    private SearchView searchView;
+    private MarkerOptions pinloca;
+    private LatLng start = null, end = null;
+    private String stringsearch = "";
     private LocationManager locationManager;
 
     @Override
@@ -47,7 +47,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
         searchView = findViewById(R.id.sv_location);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
-        if (getIntent().hasExtra("address")){
+        if (getIntent().hasExtra("address")) {
             stringsearch = getIntent().getStringExtra("address");
         }
     }
@@ -75,7 +75,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);*/
 
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(10.797884,106.6404873), 12));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(10.797884, 106.6404873), 12));
         String a = "hcmus";
 
         //todo: get location from firebase to string
@@ -89,7 +89,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
         }
 
         final Address address = addressList.get(0);
-        start = new LatLng(address.getLatitude(),address.getLongitude());
+        start = new LatLng(address.getLatitude(), address.getLongitude());
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -139,10 +139,10 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (addressList.size() != 0){
+                if (addressList.size() != 0) {
                     stringsearch = addressList.get(0).getAddressLine(0);
-                }
-                else stringsearch = Double.toString(latLng.latitude) +  Double.toString(latLng.longitude);
+                } else
+                    stringsearch = Double.toString(latLng.latitude) + Double.toString(latLng.longitude);
                 map.addMarker(pinloca);
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
 
@@ -156,9 +156,9 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
     }
 
     public void add(View view) {
-        if (start != null && end != null){
+        if (start != null && end != null) {
             float[] results = new float[1];
-            Location.distanceBetween(start.latitude, start.longitude,end.latitude, end.longitude, results);
+            Location.distanceBetween(start.latitude, start.longitude, end.latitude, end.longitude, results);
             float res = results[0];
             Geocoder geocoder1 = new Geocoder(getApplicationContext());
             List<Address> addressList = null;
@@ -169,9 +169,9 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
             }
             Address address = addressList.get(0);*/
 
-            Intent intent = new Intent(getApplicationContext(),PaymentActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
             intent.putExtra("Address", stringsearch /*address.getAddressLine(0)*/);
-            intent.putExtra("Distance",res);
+            intent.putExtra("Distance", res);
             startActivity(intent);
         }
 
@@ -179,7 +179,7 @@ public class AddressMapsAPI extends FragmentActivity implements OnMapReadyCallba
 
     @Override
     public void onLocationChanged(Location location) {
-        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         map.addMarker(new MarkerOptions().position(latLng).title("You are here"));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
 

@@ -35,6 +35,7 @@ public class ReenterPassword extends AppCompatActivity {
                 username = snapshot.getKey();
                 tv_username.setHint(username);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -64,12 +65,13 @@ public class ReenterPassword extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String passwordDTB = (String) snapshot.getValue();
-                if(pass_str.equals(passwordDTB)){
+                if (pass_str.equals(passwordDTB)) {
                     Intent intent = new Intent(getApplicationContext(), EditAccount.class);
                     startActivity(intent);
-                }
-                else Toast.makeText(ReenterPassword.this, "Incorrect password", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(ReenterPassword.this, "Incorrect password", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

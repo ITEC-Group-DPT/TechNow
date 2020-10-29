@@ -30,6 +30,7 @@ public class ManageUser extends AppCompatActivity {
         User user = new User(name, password);
         return user;
     }
+
     public ManageUser(Context context) {
         FileInputStream fis = null;
         userList = new ArrayList<>();
@@ -72,6 +73,7 @@ public class ManageUser extends AppCompatActivity {
         }
         return true;
     }
+
     public boolean signUpUser(User user, Context context) {
         FileOutputStream fos = null;
         if (checkSignUpUser(user, context) == true) {
@@ -106,25 +108,24 @@ public class ManageUser extends AppCompatActivity {
 
     public String arrayToString(ArrayList<User> UserList) {
         String usersStr = "";
-        for(int i = 0; i < UserList.size(); i++) {
+        for (int i = 0; i < UserList.size(); i++) {
             usersStr = usersStr + UserList.get(i).getUsername() + '∙' + UserList.get(i).getPassword() + "\n";
         }
         return usersStr;
     }
 
     public void changePasswordFromArray(String username, String newPassword) {
-        for(int i = 0; i < userList.size(); i++)
-        {
-            if(username.equals(userList.get(i).getUsername())) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (username.equals(userList.get(i).getUsername())) {
                 userList.get(i).setPassword(newPassword);
             }
         }
     }
+
     public void changePassword(String username, String newPassword, Context context) {
-        if(newPassword.equals("")) {
+        if (newPassword.equals("")) {
             Toast.makeText(context, "Password can't be blank", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             FileOutputStream fos = null;
             changePasswordFromArray(username, newPassword);
             String usersStr = arrayToString(userList);
@@ -150,12 +151,13 @@ public class ManageUser extends AppCompatActivity {
     }
 
     public void removeUserFromArray(String username) {
-        for(int i = 0; i < userList.size(); i++) {
-            if(username.equals(userList.get(i).getUsername())) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (username.equals(userList.get(i).getUsername())) {
                 userList.remove(i);
             }
         }
     }
+
     public void deleteUser(String username, Context context) {
         FileOutputStream fos = null;
         removeUserFromArray(username);

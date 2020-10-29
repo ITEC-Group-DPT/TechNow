@@ -202,6 +202,10 @@ public class MainUI extends AppCompatActivity {
                         intent = new Intent(MainUI.this, OrderHistoryActivity.class);
                         startActivity(intent);
                         break;
+                    case(R.id.favorite):
+                        intent = new Intent(MainUI.this, FavoriteActivity.class);
+                        startActivity(intent);
+                        break;
                     case (R.id.keyboard):
                         changeFragment("Keyboard");
                         break;

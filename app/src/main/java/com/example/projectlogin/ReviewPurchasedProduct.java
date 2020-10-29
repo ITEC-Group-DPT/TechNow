@@ -102,13 +102,11 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
     }
 
     public void submitFeedback(View view) {
-        if(ratingBar.getRating() == 0){
+        if (ratingBar.getRating() == 0) {
             Toast.makeText(this, "Please rate us", Toast.LENGTH_SHORT).show();
-        }
-        else if(feedback_text.getText().toString().isEmpty()){
+        } else if (feedback_text.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please fill-in your feedback", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Your review has been recorded!");
             builder.setMessage("Thank you for your review!");

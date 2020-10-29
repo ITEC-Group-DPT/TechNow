@@ -1,6 +1,12 @@
 package com.example.projectlogin;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +45,8 @@ public class ItemDetail extends AppCompatActivity {
     private CarouselView carouselView;
     private TextView productName_TV, productPrice_TV, sold_TV, description_TV, detail_TV;
     private NumberFormat format = new DecimalFormat("#,###");
+    private ImageButton btn_favorite;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +94,7 @@ public class ItemDetail extends AppCompatActivity {
             Log.d("@@LOG", itemName);
             Log.d("@@LOG", itemType);
         }
-
+        btn_favorite = findViewById(R.id.btn_favorite);
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Products");
         reff.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -161,7 +171,7 @@ public class ItemDetail extends AppCompatActivity {
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
                                 Toast.makeText(getApplicationContext(), "Already added", Toast.LENGTH_SHORT).show();
                                 return;
@@ -172,12 +182,58 @@ public class ItemDetail extends AppCompatActivity {
                         cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
                         Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
             }
         });
+        final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Favorite");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
+                        btn_favorite.setColorFilter(Color.RED);
+                        return;
+                    }
+                }
+                btn_favorite.setColorFilter(Color.BLACK);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        btn_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Favorite");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (product.getName().equals(dataSnapshot.getValue(Product.class).getName())) {
+                                btn_favorite.setColorFilter(Color.BLACK);
+                                databaseReference.child(product.getName()).removeValue();
+                                Toast.makeText(getApplicationContext(), "Removed from favorite", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        databaseReference.child(product.getName()).setValue(product);
+                        btn_favorite.setColorFilter(Color.RED);
+                        Toast.makeText(getApplicationContext(), "Added to favorite successfully", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
     }
 
     public void backBtn(View view) {

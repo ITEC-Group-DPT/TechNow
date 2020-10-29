@@ -40,7 +40,7 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         Glide.with(context).load(temp.getAvatarURL()).into(holder.avatar);
         Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2FbestSeller1.png?alt=media&token=02429f59-88c1-4124-85d6-d086f207345a").into(holder.topSellerIV);
         holder.nameTV.setText(temp.getName());
-        String formattedPrice = "$" + format.format(temp.getPrice()) + "₫";
+        String formattedPrice = format.format(temp.getPrice()) + "₫";
         holder.priceTV.setText(formattedPrice);
         holder.soldTV.setText("Sold: " + temp.getSold());
     }
@@ -51,11 +51,12 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView avatar;
-        ImageView topSellerIV;
-        TextView nameTV;
-        TextView priceTV;
-        TextView soldTV;
+        private ImageView avatar;
+        private ImageView topSellerIV;
+        private TextView nameTV;
+        private TextView priceTV;
+        private TextView soldTV;
+
         MyViewHolder(View view) {
             super(view);
             avatar = view.findViewById(R.id.ava_iv);

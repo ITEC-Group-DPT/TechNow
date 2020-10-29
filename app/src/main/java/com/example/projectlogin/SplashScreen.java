@@ -21,14 +21,13 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-        
+
         appLogo = findViewById(R.id.app_logo);
         anim1 = AnimationUtils.loadAnimation(this, R.anim.splash_screen_logo);
         appLogo.setAnimation(anim1);
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Intent intent = new Intent(getApplicationContext(), UserLogin.class);
                 startActivity(intent);
             }

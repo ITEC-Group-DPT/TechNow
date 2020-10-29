@@ -56,6 +56,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 lv_OrderHistory = findViewById(R.id.lv_order_history);
                 lv_OrderHistory.setAdapter(adapter);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

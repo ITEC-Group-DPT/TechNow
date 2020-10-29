@@ -24,6 +24,7 @@ public class EditAccount extends AppCompatActivity {
     private com.google.android.material.textfield.TextInputEditText et_new_pw;
     private AlertDialog.Builder confirmSignOutBuilder;
     public static final String SHARED_PREFS = "rememberMe";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +36,12 @@ public class EditAccount extends AppCompatActivity {
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     username = snapshot.getKey();
                     tv_username.setHint(username);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -55,14 +57,13 @@ public class EditAccount extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainUI.class);
                 startActivity(intent);
                 break;
-            case(R.id.delacc_btn):
+            case (R.id.delacc_btn):
                 confirmSignOutBuilder.setTitle("Confirmation");
                 confirmSignOutBuilder.setMessage("Do you want to delete this account?");
                 confirmSignOutBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DatabaseRef.getDatabaseReference().removeValue();
-
                         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(username, false);

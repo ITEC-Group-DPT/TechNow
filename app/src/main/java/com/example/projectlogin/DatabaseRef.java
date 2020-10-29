@@ -5,7 +5,8 @@ import com.google.firebase.database.DatabaseReference;
 public class DatabaseRef {
     private static DatabaseReference databaseReference;
 
-    public DatabaseRef() { }
+    public DatabaseRef() {
+    }
 
     public static DatabaseReference getDatabaseReference() {
         return databaseReference;

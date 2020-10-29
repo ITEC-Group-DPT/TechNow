@@ -201,6 +201,7 @@ public class ItemDetail extends AppCompatActivity {
 
         cart_btn = findViewById(R.id.cart_btn);
         final ImageButton btn_add = findViewById(R.id.btn_add);
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,8 +212,12 @@ public class ItemDetail extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             if (product.getName().equals(dataSnapshot.getKey())) {
                                 int quantity = dataSnapshot.getValue(Product.class).getQuantity();
-                                product.setQuantity(++quantity);
-                                break;
+                                databaseReference.child(product.getName()).child("quantity").setValue(quantity+1);
+
+                                btn_add.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_add_to_cart));
+                                cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
+                                Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+                                return;
                             }
                         }
                         databaseReference.child(product.getName()).setValue(product);
@@ -277,4 +282,5 @@ public class ItemDetail extends AppCompatActivity {
     public void backBtn(View view) {
         onBackPressed();
     }
+
 }

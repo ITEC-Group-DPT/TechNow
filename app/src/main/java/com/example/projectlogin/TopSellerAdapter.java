@@ -1,6 +1,7 @@
 package com.example.projectlogin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -43,6 +43,21 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         String formattedPrice = "$" + format.format(temp.getPrice()) + "₫";
         holder.priceTV.setText(formattedPrice);
         holder.soldTV.setText("Sold: " + temp.getSold());
+
+        holder.setItemClickListener(new RecyclerViewItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                Product product = productList.get(position);
+                Intent intent = new Intent(context, ItemDetail.class);
+                intent.putExtra("itemName", product.getName());
+                intent.putExtra("itemType", product.getType());
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    public interface RecyclerViewItemClickListener {
+        void onClick(View view, int position, boolean isLongClick);
     }
 
     @Override
@@ -50,12 +65,14 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         return productList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView avatar;
         ImageView topSellerIV;
         TextView nameTV;
         TextView priceTV;
         TextView soldTV;
+        private RecyclerViewItemClickListener recyclerViewItemClickListener;
+
         MyViewHolder(View view) {
             super(view);
             avatar = view.findViewById(R.id.ava_iv);
@@ -63,6 +80,17 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
             nameTV = view.findViewById(R.id.name_tv);
             priceTV = view.findViewById(R.id.price_tv);
             soldTV = view.findViewById(R.id.sold_tv);
+
+            itemView.setOnClickListener(this);
+        }
+
+        public void setItemClickListener(RecyclerViewItemClickListener recyclerViewItemClickListener) {
+            this.recyclerViewItemClickListener = recyclerViewItemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            recyclerViewItemClickListener.onClick(v, getAdapterPosition(), false);
         }
     }
 }

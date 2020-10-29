@@ -16,6 +16,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private float num = 0;
     private String text;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +36,9 @@ public class FeedbackActivity extends AppCompatActivity {
         text = feedback_text.getText().toString();
         if (text.isEmpty()) {
             Toast.makeText(this, "Please fill-in your feedback", Toast.LENGTH_SHORT).show();
-        }
-        else if (num == 0) {
+        } else if (num == 0) {
             Toast.makeText(this, "Please rate us", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Your feedback has been recorded!");
             builder.setMessage("Thank you for your feedback!");

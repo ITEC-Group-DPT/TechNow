@@ -66,20 +66,21 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot.getValue(Product.class).getName().equals(temp.getName())) {
                         quantity.setText(String.valueOf(dataSnapshot.child("quantity").getValue(Integer.class)));
                         temp.setQuantity(Integer.parseInt(quantity.getText().toString()));
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        String formatedTotal = format.format(temp.getPrice()) + "₫";
-        price.setText("$" + formatedTotal);
+        String formattedTotal = format.format(temp.getPrice()) + "₫";
+        price.setText(formattedTotal);
 
         ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);
         sub_quantity.setOnClickListener(new AdapterView.OnClickListener() {
@@ -110,7 +111,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
             public void onClick(View view) {
                 Product temp1 = cart.getCartArrList().get(position);
                 for (int i = 0; i < cart.getCartArrList().size(); i++) {
-                    Product temp2 =  cart.getCartArrList().get(i);
+                    Product temp2 = cart.getCartArrList().get(i);
                     if (temp1.getName().equals(temp2.getName())) {
                         cart.getCartArrList().remove(i);
                         notifyDataSetChanged();

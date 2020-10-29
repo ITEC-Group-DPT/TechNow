@@ -11,42 +11,40 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/profile_icon"
-            android:title="Account"
-            />
+            android:title="Account" />
+
+        <item
+            android:id="@+id/favorite"
+            android:icon="@drawable/profile_icon"
+            android:title="Favorite" />
 
         <item
             android:id="@+id/order_history"
             android:icon="@drawable/profile_icon"
-            android:title="Order History"
-            />
+            android:title="Order History" />
 
     </group>
-        <item android:title="Shop">
-            <menu >
-                <group android:checkableBehavior="single">
+    <item android:title="Shop">
+        <menu>
+            <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/keyboard"
-                    android:title="Keyboard"
-        />
+                    android:title="Keyboard" />
                 <item
                     android:id="@+id/mouse"
-                    android:title="Mouse"
-                 />
+                    android:title="Mouse" />
                 <item
                     android:id="@+id/screen"
-                    android:title="Monitor"
-                />
+                    android:title="Monitor" />
                 <item
                     android:id="@+id/laptop"
-                    android:title="Laptop"
-               />
-                </group>
-            </menu>
-        </item>
+                    android:title="Laptop" />
+            </group>
+        </menu>
+    </item>
 
     <group android:fontFamily="@font/muli_black">
-        <item android:title="About &amp; Feedback"
-            >
+        <item android:title="About &amp; Feedback">
             <menu>
                 <item
                     android:id="@+id/about"

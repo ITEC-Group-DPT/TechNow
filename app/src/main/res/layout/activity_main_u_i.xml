@@ -46,6 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/lnlo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -105,13 +106,6 @@
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
-        <FrameLayout
-            android:id="@+id/Frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,6 +121,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/Frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
 
         <ScrollView

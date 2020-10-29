@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -56,9 +57,14 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 lv_OrderHistory = findViewById(R.id.lv_order_history);
                 lv_OrderHistory.setAdapter(adapter);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    public void Back_cart(View view) {
+        onBackPressed();
     }
 }

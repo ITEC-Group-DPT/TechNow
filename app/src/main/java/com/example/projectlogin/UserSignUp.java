@@ -52,11 +52,11 @@ public class UserSignUp extends AppCompatActivity {
                         Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
                         startActivity(intent1, options.toBundle());
-                    }
-                    else {
+                    } else {
                         onPostExecute(user.getUsername());
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
@@ -85,6 +85,7 @@ public class UserSignUp extends AppCompatActivity {
             }
         }
     }
+
     public void onClick(View view) {
         switch (view.getId()) {
             case (R.id.signup_btn):
@@ -118,7 +119,7 @@ public class UserSignUp extends AppCompatActivity {
                     }
                 });*/
                 break;
-            case(R.id.tvLogin):
+            case (R.id.tvLogin):
                 Intent intent2 = new Intent(getApplicationContext(), UserLogin.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, findViewById(R.id.tvLogin), "trans_login");
                 startActivity(intent2, options.toBundle());

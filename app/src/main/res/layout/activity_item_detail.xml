@@ -15,15 +15,15 @@
         android:background="@color/appTheme"
         android:minHeight="@android:dimen/app_icon_size"
         app:titleTextColor="@color/colorSecondary">
+
         <ImageButton
-            android:onClick="backBtn"
             android:id="@+id/back_button"
-            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/back_icon"
+            android:layout_marginLeft="20dp"
             android:background="@color/appTheme"
-            />
+            android:onClick="backBtn"
+            android:src="@drawable/back_icon" />
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -67,102 +67,115 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/progress_lnlo"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="9">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="10dp">
-
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselView"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:fillColor="@color/colorPrimary"
-                app:radius="5dp"
-                app:slideInterval="5000"
-                app:strokeColor="@color/colorBlack"
-                app:strokeWidth="1dp" />
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="10dp">
 
-        </androidx.cardview.widget.CardView>
+                <com.synnapps.carouselview.CarouselView
+                    android:id="@+id/carouselView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:fillColor="@color/colorPrimary"
+                    app:radius="5dp"
+                    app:slideInterval="5000"
+                    app:strokeColor="@color/colorBlack"
+                    app:strokeWidth="1dp" />
 
-        <TextView
-            android:id="@+id/productName_TV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Product Name"
-            android:fontFamily="@font/muli_black"
-            android:textColor="@color/colorBlack"
-            android:textSize="25sp"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/productName_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/muli_black"
+                android:text="Product Name"
+                android:textColor="@color/colorBlack"
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/productPrice_TV"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price: 1,200,000đ"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/muli_black"
+                android:text="Price: 1,200,000đ"
                 android:textColor="@color/colorRed"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/sold_TV"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Sold: "
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/descriptionTitle_TV"
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description:"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/muli_black"
+                android:text="Description:"
                 android:textColor="#686868"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/description_TV"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="something something something"
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/detailTitle_TV"
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detail:"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/muli_black"
+                android:text="Detail:"
                 android:textColor="#686868"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/detail_TV"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="something something something"
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -186,5 +199,14 @@
             android:layout_weight="1"
             android:background="@null"
             android:src="@drawable/add_btn" />
+        <ImageButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/favorite_icon" />
     </LinearLayout>
 </LinearLayout>

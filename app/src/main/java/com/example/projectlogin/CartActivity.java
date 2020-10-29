@@ -45,6 +45,7 @@ public class CartActivity extends AppCompatActivity {
                 lv_cart = findViewById(R.id.lv_cart);
                 lv_cart.setAdapter(adapter);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -54,9 +55,8 @@ public class CartActivity extends AppCompatActivity {
 
     public void submit(View view) {
         if (adapter.getCount() == 0) {
-            Toast.makeText(this,"There's nothing here",Toast.LENGTH_LONG).show();
-        }
-        else {
+            Toast.makeText(this, "There's nothing here", Toast.LENGTH_LONG).show();
+        } else {
             intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
         }

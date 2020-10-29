@@ -105,6 +105,18 @@ public class MainUI extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 //Toast.makeText(MainUI.this, newText, Toast.LENGTH_SHORT).show();
+                if (newText.isEmpty()) {
+                    listView.setVisibility(View.GONE);
+                    return false;
+                }
+
+                listView.setVisibility(View.VISIBLE);
+                if (newText.isEmpty()) {
+                    listView.setVisibility(View.GONE);
+                    return false;
+                }
+
+                listView.setVisibility(View.VISIBLE);
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
                 if (newText.isEmpty()) return false;
@@ -201,6 +213,10 @@ public class MainUI extends AppCompatActivity {
                         break;
                     case (R.id.order_history):
                         intent = new Intent(MainUI.this, OrderHistoryActivity.class);
+                        startActivity(intent);
+                        break;
+                    case(R.id.favorite):
+                        intent = new Intent(MainUI.this, FavoriteActivity.class);
                         startActivity(intent);
                         break;
                     case (R.id.keyboard):
@@ -383,64 +399,6 @@ public class MainUI extends AppCompatActivity {
         topSellerProductList = new ArrayList<>();
 
         new AsyncTask_TopSeller().execute(productList);
-        /*reff = FirebaseDatabase.getInstance().getReference("Products");
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
-                for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Keyboard");
-                    productList.add(product);
-
-                }
-
-                DataSnapshot snapshotLaptop = snapshot.child("Laptop");
-                for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Laptop");
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotMonitor = snapshot.child("Monitor");
-                for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Monitor");
-                    productList.add(product);
-                }
-
-                DataSnapshot snapshotMouse = snapshot.child("Mouse");
-                for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    product.setType("Mouse");
-                    productList.add(product);
-                }
-
-                Collections.sort(productList, new Comparator<Product>() {
-                    public int compare(Product p1, Product p2) {
-                        if (p1.getSold() > p2.getSold()) return -1;
-                        else if (p1.getSold() < p2.getSold()) return 1;
-                        else return 0;
-                    }
-                });
-
-                for (int i = 0; i < 10; i++) {
-                    topSellerProductList.add(productList.get(i));
-                }
-
-                TopSellerAdapter adapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
-                recyclerView = findViewById(R.id.recycler_view);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });*/
     }
 
 
@@ -507,6 +465,8 @@ public class MainUI extends AppCompatActivity {
         drawerLayout.closeDrawer(GravityCompat.START);
         navigationView.setCheckedItem(R.id.nav_home);
         close_FrameLayout();
+        if (listView.getVisibility() == View.VISIBLE)
+            listView.setVisibility(View.GONE);
     }
 
     @Override

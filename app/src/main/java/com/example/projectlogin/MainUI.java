@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
@@ -73,6 +75,7 @@ public class MainUI extends AppCompatActivity {
     private SearchView searchView;
     private ListView listView;
     private ArrayList<Product> tempArrayList;
+    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +84,20 @@ public class MainUI extends AppCompatActivity {
 
         onCreateDrawerLayout();
         navigationView.setCheckedItem(R.id.nav_home);
+        refreshLayout = findViewById(R.id.refresh);
         loadData();
         loadCarouselView();
         loadTopSeller();
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                loadCarouselView();
+                loadTopSeller();
+                refreshLayout.setRefreshing(false);
+            }
+        });
 
 
         listView = findViewById(R.id.searchMain);
@@ -378,9 +392,9 @@ public class MainUI extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            ConstraintLayout loading_cslo = findViewById(R.id.loading_cslo);
-            loading_cslo.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.GONE);
+            ProgressBar progressBar = findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
+            refreshLayout.setVisibility(View.GONE);
         }
 
         @Override
@@ -388,9 +402,9 @@ public class MainUI extends AppCompatActivity {
             super.onPostExecute(s);
             if (s != null)
             {
-                ConstraintLayout loading_cslo = findViewById(R.id.loading_cslo);
-                loading_cslo.setVisibility(View.GONE);
-                linearLayout.setVisibility(View.VISIBLE);
+                ProgressBar progressBar = findViewById(R.id.progress_bar);
+                progressBar.setVisibility(View.GONE);
+                refreshLayout.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -214,7 +214,7 @@ public class ItemDetail extends AppCompatActivity {
         detail_TV = findViewById(R.id.detail_TV);
 
         productName_TV.setText(product.getName());
-        String formattedPrice = "Price: " + format.format(product.getPrice()) + "₫";
+        String formattedPrice = format.format(product.getPrice()) + "₫";
         productPrice_TV.setText(formattedPrice);
         sold_TV.setText("Sold: " + product.getSold());
 

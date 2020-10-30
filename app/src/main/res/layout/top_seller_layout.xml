@@ -51,7 +51,7 @@
                 android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:textAlignment="viewStart"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/colorPrice"
                 android:textSize="12sp" />
 
             <TextView

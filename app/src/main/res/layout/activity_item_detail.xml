@@ -44,6 +44,7 @@
 
             <ImageButton
                 android:id="@+id/cart_btn"
+                android:layout_marginTop="5dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/appTheme"
@@ -127,8 +128,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/muli_black"
-                android:text="Price: 1,200,000đ"
-                android:textColor="@color/colorRed"
+                android:text="1,200,000đ"
+                android:textColor="@color/colorPrice"
                 android:textSize="20sp" />
 
             <TextView

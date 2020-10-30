@@ -257,7 +257,7 @@ public class ItemDetail extends AppCompatActivity {
     }
 
     public void addToCartAnimation(CarouselView carouselView, ImageButton cartBtn){
-        Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
         new CircleAnimationUtil().attachActivity(ItemDetail.this).setTargetView(carouselView).setDestView(cartBtn).setMoveDuration(800).startAnimation();
         carouselView.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
@@ -279,14 +279,14 @@ public class ItemDetail extends AppCompatActivity {
                     if (product.getName().equals(dataSnapshot.getKey())) {
                         btn_favorite.setColorFilter(Color.BLACK);
                         databaseReference.child(product.getName()).removeValue();
-                        Toast.makeText(getApplicationContext(), "Removed from favorite", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Removed from favorite", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
                 databaseReference.child(product.getName()).setValue(product);
                 btn_favorite.setColorFilter(Color.RED);
                 btn_favorite.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-                Toast.makeText(getApplicationContext(), "Added to favorite successfully", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Added to favorite successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override

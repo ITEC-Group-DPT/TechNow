@@ -15,12 +15,12 @@
 
         <item
             android:id="@+id/favorite"
-            android:icon="@drawable/profile_icon"
+            android:icon="@drawable/favorite"
             android:title="Favorite" />
 
         <item
             android:id="@+id/order_history"
-            android:icon="@drawable/profile_icon"
+            android:icon="@drawable/order_history"
             android:title="Order History" />
 
     </group>

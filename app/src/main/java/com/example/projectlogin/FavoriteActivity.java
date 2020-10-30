@@ -2,6 +2,7 @@ package com.example.projectlogin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,16 +18,30 @@ public class FavoriteActivity extends AppCompatActivity {
     protected FavoriteListViewAdapter adapter;
     protected ListView lv_favorite;
     private Cart cart = new Cart();
+    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
+        refreshLayout = findViewById(R.id.refresh);
+        lv_favorite = findViewById(R.id.lv_favorite);
+
         initComponent();
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                cart.clearAll();
+                initComponent();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
+
     }
 
     private void initComponent() {
-        lv_favorite = findViewById(R.id.lv_favorite);
         DatabaseRef.getDatabaseReference().child("Favorite").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

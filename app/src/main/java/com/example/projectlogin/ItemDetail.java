@@ -49,7 +49,6 @@ public class ItemDetail extends AppCompatActivity {
     private CarouselView carouselView;
     private TextView productName_TV, productPrice_TV, sold_TV, description_TV, detail_TV;
     private NumberFormat format = new DecimalFormat("#,###");
-    private LinearLayout favorite;
 
 
     @Override
@@ -89,7 +88,6 @@ public class ItemDetail extends AppCompatActivity {
             }
         });
 
-        favorite = findViewById(R.id.btn_favorite);
     }
 
 

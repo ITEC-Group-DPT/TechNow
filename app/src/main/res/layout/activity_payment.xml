@@ -19,7 +19,7 @@
             android:minHeight="@android:dimen/app_icon_size">
 
             <ImageButton
-                android:onClick="Back_favorite"
+                android:onClick="Back_Payment"
                 android:id="@+id/back_button"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"

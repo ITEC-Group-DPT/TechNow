@@ -234,8 +234,8 @@ public class PaymentActivity extends AppCompatActivity {
 
     }*/
 
-    @Override
-    protected void onResume() {
+    //@Override
+   /* protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
         if (!intent.hasExtra("Address")) return;
@@ -248,7 +248,7 @@ public class PaymentActivity extends AppCompatActivity {
         Toast.makeText(this, Float.toString(x), Toast.LENGTH_SHORT).show();
         Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
 
-    }
+    }*/
 
     public void recommend(View view) {
         TextView textView = findViewById(R.id.address);
@@ -272,5 +272,10 @@ public class PaymentActivity extends AppCompatActivity {
             textView.setText(null);
             Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public void Back_Payment(View view) {
+        onBackPressed();
     }
 }

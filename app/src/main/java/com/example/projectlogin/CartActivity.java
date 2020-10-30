@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CartActivity extends AppCompatActivity {
     LinearLayout linearLayout;
-    ConstraintLayout emptyCartConstraintLayout;
+    LinearLayout emptyCart_lnlo;
     ImageView emptyCartIV;
     protected CartListViewAdapter adapter;
     private Intent intent;
@@ -35,7 +35,7 @@ public class CartActivity extends AppCompatActivity {
 
     private void initIntent() {
         linearLayout = findViewById(R.id.lnlo);
-        emptyCartConstraintLayout = findViewById(R.id.empty_cart);
+        emptyCart_lnlo = findViewById(R.id.empty_cart);
         emptyCartIV = findViewById(R.id.empty_cart_IV);
         DatabaseRef.getDatabaseReference().child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -75,13 +75,13 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void EmptyCartUI() {
-        emptyCartConstraintLayout.setVisibility(View.VISIBLE);
+        emptyCart_lnlo.setVisibility(View.VISIBLE);
         linearLayout.setVisibility(View.GONE);
         Glide.with(CartActivity.this).load("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Femptycart.webp?alt=media&token=94afe345-b44e-4b80-9d60-3e5a2df2d0d0").into(emptyCartIV);
     }
 
     public void CartWithItemUI() {
-        emptyCartConstraintLayout.setVisibility(View.GONE);
+        emptyCart_lnlo.setVisibility(View.GONE);
         linearLayout.setVisibility(View.VISIBLE);
     }
 

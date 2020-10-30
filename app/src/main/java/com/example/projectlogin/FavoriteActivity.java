@@ -26,6 +26,7 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void initComponent() {
+        lv_favorite = findViewById(R.id.lv_favorite);
         DatabaseRef.getDatabaseReference().child("Favorite").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -36,7 +37,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     }
                 }
                 adapter = new FavoriteListViewAdapter(getBaseContext(), R.layout.favorite_listview_layout, cart.getCartArrList());
-                lv_favorite = findViewById(R.id.lv_favorite);
                 lv_favorite.setAdapter(adapter);
             }
 
@@ -45,17 +45,17 @@ public class FavoriteActivity extends AppCompatActivity {
 
             }
         });
-//        lv_favorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-//                Intent intent = new Intent(FavoriteActivity.this, ItemDetail.class);
-//                Product tempProduct = cart.getCartArrList().get(pos);
-//                intent.putExtra("itemName", tempProduct.getName());
-//                intent.putExtra("itemType", tempProduct.getType());
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//            }
-//        });
+        lv_favorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Intent intent = new Intent(FavoriteActivity.this, ItemDetail.class);
+                Product tempProduct = cart.getCartArrList().get(pos);
+                intent.putExtra("itemName", tempProduct.getName());
+                intent.putExtra("itemType", tempProduct.getType());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     public void Back_favorite(View view) {

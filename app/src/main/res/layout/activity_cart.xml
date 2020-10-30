@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lnlo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -28,37 +28,81 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/muli_black"
-            android:text="Shopping Cart"
+            android:text="Cart"
             android:textColor="@color/colorSecondary"
             android:textSize="25sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/lv_cart"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/empty_cart"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="8">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    </ListView>
+        <ImageView
+            android:id="@+id/empty_cart_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="181dp"
+            android:layout_marginTop="341dp"
+            android:layout_marginEnd="182dp"
+            android:layout_marginBottom="500dp"
+            android:indeterminateTint="@color/appTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your cart is empty"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/muli_black"
+            android:textSize="18sp"
+            android:layout_marginBottom="280dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/lnlo">
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:background="@drawable/color_primary_circle_button"
-        android:fontFamily="@font/muli_black"
-        android:onClick="submit"
-        android:text="Confirm"
-        android:textAllCaps="false"
-        android:textColor="@color/colorSecondary"
-        android:textSize="20sp" />
+        <ListView
+            android:id="@+id/lv_cart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="8">
+
+        </ListView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/color_primary_circle_button"
+            android:fontFamily="@font/muli_black"
+            android:onClick="submit"
+            android:text="Confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/colorSecondary"
+            android:textSize="20sp" />
+    </LinearLayout>
 </LinearLayout>

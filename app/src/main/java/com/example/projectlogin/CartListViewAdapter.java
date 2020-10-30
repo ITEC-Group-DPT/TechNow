@@ -31,6 +31,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
     private int layoutID;
     private Cart cart = new Cart();
     private NumberFormat format = new DecimalFormat("#,###");
+    onRemoveItemFromCart mListner;
 
     public CartListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
@@ -42,6 +43,14 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
     @Override
     public int getCount() {
         return cart.getCartArrList().size();
+    }
+
+    public interface onRemoveItemFromCart {
+        void onRemoveItemFromCart();
+    }
+
+    public void setOnRemoveItemFromCart(onRemoveItemFromCart callback){
+        mListner = callback;
     }
 
     @NonNull
@@ -116,6 +125,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                         cart.getCartArrList().remove(i);
                         notifyDataSetChanged();
                         databaseReference.child(temp1.getName()).removeValue();
+                        mListner.onRemoveItemFromCart();
                     }
                 }
             }

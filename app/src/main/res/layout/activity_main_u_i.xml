@@ -31,18 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loading..."
-            android:textColor="@color/appTheme"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.0" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -207,7 +195,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
-                                android:paddingTop="12dp"
+                                android:paddingTop="10dp"
                                 android:src="@drawable/mouseicon" />
 
                             <TextView
@@ -240,7 +228,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="90dp"
                                 android:paddingTop="12dp"
                                 android:src="@drawable/keyboardicon" />
 
@@ -283,7 +271,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="90dp"
                                 android:paddingTop="12dp"
                                 android:src="@drawable/monitoricon" />
 
@@ -317,7 +305,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="90dp"
                                 android:paddingTop="12dp"
                                 android:src="@drawable/laptopicon" />
 

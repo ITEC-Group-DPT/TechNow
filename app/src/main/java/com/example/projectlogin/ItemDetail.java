@@ -287,6 +287,7 @@ public class ItemDetail extends AppCompatActivity {
                 }
                 databaseReference.child(product.getName()).setValue(product);
                 btn_favorite.setColorFilter(Color.RED);
+                btn_favorite.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
                 Toast.makeText(getApplicationContext(), "Added to favorite successfully", Toast.LENGTH_SHORT).show();
             }
 

@@ -259,6 +259,7 @@ public class ItemDetail extends AppCompatActivity {
     }
 
     public void addToCartAnimation(CarouselView carouselView, ImageButton cartBtn){
+        Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
         new CircleAnimationUtil().attachActivity(ItemDetail.this).setTargetView(carouselView).setDestView(cartBtn).setMoveDuration(800).startAnimation();
         carouselView.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
@@ -266,7 +267,6 @@ public class ItemDetail extends AppCompatActivity {
             @Override
             public void run() {
                 cart_btn.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-                Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
             }
         }, 2000);
     }

@@ -34,34 +34,51 @@
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/empty_cart_IV"
-            android:layout_marginTop="100dp"
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
-            android:indeterminateTint="@color/appTheme" />
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="116dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="17dp"
+            android:indeterminateTint="@color/appTheme"
+            android:src="@drawable/emptycart"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your cart is empty"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="124dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="252dp"
             android:fontFamily="@font/muli_black"
-            android:textSize="18sp" />
+            android:text="Your cart is empty"
+            android:textColor="#64676A"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_cart_IV" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

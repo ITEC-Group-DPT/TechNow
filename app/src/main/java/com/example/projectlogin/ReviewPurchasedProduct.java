@@ -29,7 +29,8 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
     private RatingBar ratingBar;
     private TextView ratingText;
     private String itemType;
-
+    private String p_name;
+    private float Rate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         ratingText = findViewById(R.id.rating_text);
         feedback_text = findViewById(R.id.feedback_text);
-        final String p_name = getIntent().getExtras().getString("P_Name");
+        p_name = getIntent().getExtras().getString("P_Name");
         product_name.setText(p_name);
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -50,18 +51,23 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
                 switch (rate) {
                     case 1:
                         ratingText.setText("Awful");
+                        Rate = 1;
                         break;
                     case 2:
                         ratingText.setText("Bad");
+                        Rate = 2;
                         break;
                     case 3:
                         ratingText.setText("Not Good");
+                        Rate = 3;
                         break;
                     case 4:
                         ratingText.setText("Very Good");
+                        Rate = 4;
                         break;
                     case 5:
                         ratingText.setText("Perfect");
+                        Rate = 5;
                         break;
                 }
             }
@@ -83,11 +89,8 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
     }
 
     public void Back_review(View view) {
@@ -113,6 +116,29 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
             builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                                for (DataSnapshot _data : dataSnapshot.getChildren()) {
+                                    if (_data.child("name").getValue().equals(p_name)) {
+                                        Product temp  = _data.getValue(Product.class);
+                                        String key = _data.getKey();
+                                        temp.setRateNo(temp.getRateNo() + 1);
+                                        float tempRate = temp.getRating() + Rate;
+                                        temp.setRating(tempRate / temp.getRateNo());
+                                        databaseReference.child(temp.getType()).child(key).child(temp.getName()).child("rateNo").setValue(temp.getRateNo());
+                                        databaseReference.child(temp.getType()).child(key).child(temp.getName()).child("rating").setValue(temp.getRating());
+                                        break;
+                                    }
+                                }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                     ratingText.setText("");
                     feedback_text.setText("");
                     ratingBar.setRating(0);

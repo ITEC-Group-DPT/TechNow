@@ -44,9 +44,9 @@
 
             <ImageButton
                 android:id="@+id/cart_btn"
-                android:layout_marginTop="5dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/appTheme"
                 android:src="@drawable/shoppingcart"
                 android:tint="@color/colorSecondary" />
@@ -132,14 +132,30 @@
                 android:textColor="@color/colorPrice"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/sold_TV"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Sold: "
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/sold_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Sold: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
+
+                <RatingBar
+                    android:id="@+id/ID_ratingbar"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginStart="50dp"
+                    android:stepSize="0.1" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/descriptionTitle_TV"
@@ -218,10 +234,10 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:onClick="addToFavorite"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@null"
+                android:onClick="addToFavorite"
                 android:src="@drawable/favorite_icon" />
         </LinearLayout>
 
@@ -230,10 +246,10 @@
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_weight="10"
             android:background="@drawable/color_primary_circle_button"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"

@@ -10,6 +10,8 @@ public class Product {
     private String desc;
     private String detail;
     private String OrderID;
+    private int rateNo = 0;
+    private float rating = 0;
 
     public String getOrderID() {
         return OrderID;
@@ -123,5 +125,21 @@ public class Product {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public int getRateNo() {
+        return rateNo;
+    }
+
+    public void setRateNo(int rateNo) {
+        this.rateNo = rateNo;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

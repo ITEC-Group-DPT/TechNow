@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +50,7 @@ public class ItemDetail extends AppCompatActivity {
     private CarouselView carouselView;
     private TextView productName_TV, productPrice_TV, sold_TV, description_TV, detail_TV;
     private NumberFormat format = new DecimalFormat("#,###");
-
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +211,10 @@ public class ItemDetail extends AppCompatActivity {
         sold_TV = findViewById(R.id.sold_TV);
         description_TV = findViewById(R.id.description_TV);
         detail_TV = findViewById(R.id.detail_TV);
+        ratingBar = findViewById(R.id.ID_ratingbar);
 
+        if(product.getRating() != 0)
+            ratingBar.setRating(product.getRating());
         productName_TV.setText(product.getName());
         String formattedPrice = format.format(product.getPrice()) + "₫";
         productPrice_TV.setText(formattedPrice);
@@ -237,7 +241,6 @@ public class ItemDetail extends AppCompatActivity {
                             if (product.getName().equals(dataSnapshot.getKey())) {
                                 int quantity = dataSnapshot.getValue(Product.class).getQuantity();
                                 databaseReference.child(product.getName()).child("quantity").setValue(quantity+1);
-
                                 addToCartAnimation(carouselView, cart_btn);
                                 return;
                             }
@@ -279,14 +282,12 @@ public class ItemDetail extends AppCompatActivity {
                     if (product.getName().equals(dataSnapshot.getKey())) {
                         btn_favorite.setColorFilter(Color.BLACK);
                         databaseReference.child(product.getName()).removeValue();
-                        //Toast.makeText(getApplicationContext(), "Removed from favorite", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
                 databaseReference.child(product.getName()).setValue(product);
                 btn_favorite.setColorFilter(Color.RED);
                 btn_favorite.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
-                //Toast.makeText(getApplicationContext(), "Added to favorite successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override

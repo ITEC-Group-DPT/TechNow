@@ -22,11 +22,7 @@ android {
         }
     }
 }
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
-}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -44,6 +40,4 @@ dependencies {
     implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'com.firebaseui:firebase-ui-storage:6.2.0'
     implementation 'com.dk.animation.circle:library:0.1.0@aar'
-
-    implementation 'com.github.mirrajabi:search-dialog:1.2.4' /*searchdialog custom*/
 }

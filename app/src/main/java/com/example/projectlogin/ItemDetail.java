@@ -214,7 +214,7 @@ public class ItemDetail extends AppCompatActivity {
         ratingBar = findViewById(R.id.ID_ratingbar);
 
         if(product.getRating() != 0)
-            ratingBar.setRating(product.getRating());
+            ratingBar.setRating(Float.parseFloat(String.format("%.1f", product.getRating())));
 
         productName_TV.setText(product.getName());
         String formattedPrice = format.format(product.getPrice()) + "₫";

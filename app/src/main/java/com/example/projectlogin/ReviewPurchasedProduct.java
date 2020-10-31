@@ -128,8 +128,8 @@ public class ReviewPurchasedProduct extends AppCompatActivity {
                                         temp.setRateNo(temp.getRateNo() + 1);
                                         float tempRate = temp.getRating() + Rate;
                                         temp.setRating(tempRate / temp.getRateNo());
-                                        databaseReference.child(dataSnapshot.getKey()).child(key).child(temp.getName()).child("rateNo").setValue(temp.getRateNo());
-                                        databaseReference.child(dataSnapshot.getKey()).child(key).child(temp.getName()).child("rating").setValue(temp.getRating());
+                                        databaseReference.child(dataSnapshot.getKey()).child(key).child("rateNo").setValue(temp.getRateNo());
+                                        databaseReference.child(dataSnapshot.getKey()).child(key).child("rating").setValue(temp.getRating());
                                         break;
                                     }
                                 }

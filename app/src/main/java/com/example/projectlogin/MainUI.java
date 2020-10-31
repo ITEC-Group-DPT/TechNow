@@ -42,9 +42,11 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.regex.Pattern;
 
 
 public class MainUI extends AppCompatActivity {
@@ -137,7 +139,11 @@ public class MainUI extends AppCompatActivity {
                 for (int i = 0; i < productList.size(); i++) {
                     if (length<= productList.get(i).getName().length())
                     {
-                        if (productList.get(i).getName().toLowerCase().contains(newText.toLowerCase()))
+                        String str = productList.get(i).getName().toLowerCase();
+                        str = Normalizer.normalize(str,Normalizer.Form.NFD);
+                        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+                        str = pattern.matcher(str).replaceAll("");
+                        if (str.contains(newText.toLowerCase()))
                         {
                             tempArrayList.add(productList.get(i));
                         }

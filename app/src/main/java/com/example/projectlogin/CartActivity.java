@@ -6,25 +6,30 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class CartActivity extends AppCompatActivity {
-    LinearLayout linearLayout;
-    ConstraintLayout emptyCart_cslo;
-    ImageView emptyCartIV;
+    private static TextView tv_totalCash;
+    private LinearLayout linearLayout;
+    private ConstraintLayout emptyCart_cslo;
+    private ImageView emptyCartIV;
     protected CartListViewAdapter adapter;
     private Intent intent;
     protected ListView lv_cart;
     private Cart cart = new Cart();
+    private static NumberFormat format = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class CartActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.lnlo);
         emptyCart_cslo = findViewById(R.id.empty_cart);
         emptyCartIV = findViewById(R.id.empty_cart_IV);
+        tv_totalCash = findViewById(R.id.tv_totalCash);
         DatabaseRef.getDatabaseReference().child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -46,6 +52,7 @@ public class CartActivity extends AppCompatActivity {
                         cart.addItem(product);
                     }
                 }
+                setTV_totalCash(cart.calTotalCash());
                 adapter = new CartListViewAdapter(getBaseContext(), R.layout.cart_listview_layout, cart.getCartArrList());
                 adapter.setOnRemoveItemFromCart(new CartListViewAdapter.onRemoveItemFromCart() {
                     @Override
@@ -72,6 +79,7 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     public void EmptyCartUI() {
@@ -91,5 +99,10 @@ public class CartActivity extends AppCompatActivity {
 
     public void Back_cart(View view) {
         onBackPressed();
+    }
+
+    public static void setTV_totalCash(int _totalCash){
+        String formattedTotal = format.format(_totalCash) + "₫";
+        tv_totalCash.setText(formattedTotal);;
     }
 }

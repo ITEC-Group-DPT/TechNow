@@ -31,7 +31,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
     private int layoutID;
     private Cart cart = new Cart();
     private NumberFormat format = new DecimalFormat("#,###");
-    onRemoveItemFromCart mListner;
+    private onRemoveItemFromCart mListner;
 
     public CartListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
@@ -100,6 +100,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                     quantity.setText(String.valueOf(temp.getQuantity()));
                     databaseReference.child(temp.getName()).child("quantity").setValue(temp.getQuantity());
                 }
+                CartActivity.setTV_totalCash(cart.calTotalCash());
             }
         });
 
@@ -111,6 +112,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                 quantity.setText(String.valueOf(temp.getQuantity()));
                 databaseReference.child(temp.getName()).child("quantity").setValue(temp.getQuantity());
                 Log.d("!!@@", "quantity = " + temp.getQuantity());
+                CartActivity.setTV_totalCash(cart.calTotalCash());
             }
         });
 
@@ -128,6 +130,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
                         mListner.onRemoveItemFromCart();
                     }
                 }
+                CartActivity.setTV_totalCash(cart.calTotalCash());
             }
         });
         return convertView;

@@ -12,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -100,6 +102,8 @@ public class OrderDetail extends AppCompatActivity {
                         });
                         linearLayout.addView(view);
                     }
+
+                    onPostExecute("Completed");
                 }
 
 
@@ -109,6 +113,25 @@ public class OrderDetail extends AppCompatActivity {
                 }
             });
             return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            ProgressBar progressBar = findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            if (s != null && s.equals("Completed"))
+            {
+                ProgressBar progressBar = findViewById(R.id.progress_bar);
+                progressBar.setVisibility(View.GONE);
+            }
         }
     }
     private void loadData() {
@@ -121,7 +144,6 @@ public class OrderDetail extends AppCompatActivity {
         new AsyncTaskOrderDetail().execute("");
 
     }
-
     public void Back_favorite(View view) {
         onBackPressed();
     }

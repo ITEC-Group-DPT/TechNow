@@ -35,6 +35,12 @@
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -45,15 +51,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detail_order_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="Order-ID"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10sp"
+                    android:src="@drawable/order_history"/>
+                <TextView
+                    android:id="@+id/detail_order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order-ID"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/detail_order_date"
@@ -78,14 +96,27 @@
                 android:layout_marginTop="10dp"
                 android:background="#FFF4F3F3" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="Customer's address"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10sp"
+                    android:src="@drawable/customer"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/detail_customer_name"
@@ -116,14 +147,27 @@
                 android:layout_marginTop="10dp"
                 android:background="#FFF4F3F3" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="Package details"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10sp"
+                    android:src="@drawable/shopping_bag"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Package Detail"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lnlo_order"
@@ -138,12 +182,47 @@
                 android:background="#FFF4F3F3" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10sp"
+                    android:src="@drawable/ic_baseline_payment_24"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:text="Cash Only" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFF4F3F3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
                 android:paddingTop="30dp"
-                android:orientation="vertical">
+                android:paddingRight="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,10 +237,10 @@
                     <TextView
                         android:id="@+id/notional_price"
                         android:layout_width="match_parent"
-                        android:gravity="right"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
-                        android:text="89.000 đ" />
+                        android:gravity="right"
+                        android:text="89.000 đ"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -185,10 +264,10 @@
                     <TextView
                         android:id="@+id/shipping_fee"
                         android:layout_width="match_parent"
-                        android:gravity="right"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
-                        android:text="+15.000 đ" />
+                        android:gravity="right"
+                        android:text="+15.000 đ"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -207,17 +286,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:text="Total Price" />
+                        android:text="Total Price"
+                        android:textColor="@android:color/black" />
 
                     <TextView
                         android:id="@+id/total_price"
                         android:layout_width="match_parent"
-                        android:gravity="right"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="104.000 đ"
+                        android:textColor="@android:color/black"
                         android:textSize="20sp"
-                        android:text="104.000 đ" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
             </LinearLayout>

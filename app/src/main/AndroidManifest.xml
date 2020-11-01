@@ -41,12 +41,11 @@
         <activity android:name=".CartActivity" />
         <activity android:name=".UserSignUp" />
         <activity android:name=".UserLogin" />
-        <activity android:name=".Laptop_Catalog" />
-        <activity android:name=".Monitor_Catalog" />
-        <activity android:name=".Mouse_Catalog" />
-        <activity android:name=".Keyboard_Catalog" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".MainUI" />
+        <activity android:name=".MainUI"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

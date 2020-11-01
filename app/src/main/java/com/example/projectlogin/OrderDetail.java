@@ -19,12 +19,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.EventListener;
 
 public class OrderDetail extends AppCompatActivity {
 
@@ -51,6 +53,7 @@ public class OrderDetail extends AppCompatActivity {
         cus_address = findViewById(R.id.detail_customer_address);
         loadData();
     }
+
 
     private class AsyncTaskOrderDetail extends AsyncTask<String, String, String>
     {
@@ -143,6 +146,36 @@ public class OrderDetail extends AppCompatActivity {
 
         new AsyncTaskOrderDetail().execute("");
 
+    }
+    public void Rebuy(View view) {
+        final DatabaseReference database = DatabaseRef.getDatabaseReference().child("Cart");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (int i = 0; i < products.size();i++)
+                {
+                    Product product = products.get(i);
+                    product.setQuantity(1);
+
+                    DataSnapshot dataSnapshot = snapshot.child(product.getName());
+                    if (dataSnapshot.exists())
+                    {
+                        int quantity = dataSnapshot.child("quantity").getValue(Integer.class);
+                        database.child(product.getName()).child("quantity").setValue(quantity + 1);
+                    }
+                    else{
+                        database.child(product.getName()).setValue(product);
+                    }
+
+                }
+                startActivity(new Intent(OrderDetail.this,CartActivity.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     public void Back_favorite(View view) {
         onBackPressed();

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.projectlogin">
     <!--
@@ -13,15 +12,16 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        tools:replace="android:icon,android:theme"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/appicon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".FavoriteActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:theme">
+        <activity android:name=".OrderDetail"></activity>
+        <activity android:name=".FavoriteActivity" />
         <activity android:name=".ItemDetail" />
         <activity android:name=".ReviewPurchasedProduct" />
         <!--

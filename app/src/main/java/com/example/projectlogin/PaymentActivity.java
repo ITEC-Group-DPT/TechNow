@@ -30,6 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.EventListener;
 import java.util.List;
 
@@ -40,6 +43,9 @@ public class PaymentActivity extends AppCompatActivity {
     private NumberFormat format = new DecimalFormat("#,###");
     private String formattedTotalCash;
     private TextInputEditText address;
+
+    private TextInputEditText name;
+    private TextInputEditText phone_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,9 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
         address = findViewById(R.id.address);
+        name = findViewById(R.id.payment_name);
+        phone_number = findViewById(R.id.payment_phonenum);
+
         address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -120,10 +129,20 @@ public class PaymentActivity extends AppCompatActivity {
                     tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            cart.setID("Order-" + snapshot.getChildrenCount());
+                            String id = "Order-" + snapshot.getChildrenCount();
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
-                                tempOrder.child(cart.getID()).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
+                                tempOrder.child(id).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
                             }
+
+                            Date currentTime = Calendar.getInstance().getTime();
+                            SimpleDateFormat format = new SimpleDateFormat("hh:mm, dd/MM/yyyy");
+
+                            tempOrder.child(id).child("Customer").child("Name").setValue(name.getText().toString());
+                            tempOrder.child(id).child("Customer").child("Address").setValue(address.getText().toString());
+                            tempOrder.child(id).child("Customer").child("Phone Number").setValue(phone_number.getText().toString());
+                            tempOrder.child(id).child("Customer").child("Date").setValue(format.format(currentTime));
+
+
                         }
 
                         @Override

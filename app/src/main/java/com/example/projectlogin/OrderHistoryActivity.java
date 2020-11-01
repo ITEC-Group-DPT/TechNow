@@ -34,11 +34,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         for (DataSnapshot _dataSnapshot : dataSnapshot.getChildren()) {
+                            if (_dataSnapshot.getKey().equals("Customer")) continue;
                             Product product = _dataSnapshot.getValue(Product.class);
                             product.setOrderID(dataSnapshot.getKey());
                             cart.addItem(product);
                         }
-                        cart.setID(dataSnapshot.getKey());
+                        //cart.setID(dataSnapshot.getKey());
                         Collections.sort(cart.getCartArrList(), new Comparator<Product>() {
                             public int compare(Product p1, Product p2) {
                                 int p1_key = Integer.parseInt(p1.getOrderID().substring(6));

@@ -101,14 +101,24 @@ public class PaymentActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (addressList.size() == 0) {
-                    Toast.makeText(PaymentActivity.this, "Check gõ có dấu hoặc gõ thêm chi tiết", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PaymentActivity.this, "Hãy gõ có dấu hoặc gõ thêm chi tiết", Toast.LENGTH_SHORT).show();
                 }
                 Address address = addressList.get(0);
                 textView.setText(address.getAddressLine(0));
+                TextInputEditText temp = findViewById(R.id.address);
+                TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
+                textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+                textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+                textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
             }
         } catch (Exception e) {
             textView.setText(null);
             Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
+            TextInputEditText temp = findViewById(R.id.address);
+            TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
+            textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+            textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
+            textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
         }
     }
 

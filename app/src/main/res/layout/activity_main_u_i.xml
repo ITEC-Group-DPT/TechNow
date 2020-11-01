@@ -14,8 +14,7 @@
         android:id="@+id/lnlo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -96,7 +95,7 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>

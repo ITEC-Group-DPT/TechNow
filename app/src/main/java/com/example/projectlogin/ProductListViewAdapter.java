@@ -77,6 +77,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         Product temp = Products.get(position);
         Glide.with(context).load(temp.getAvatarURL()).into(imageView);
         tv_name.setText(temp.getName());
+
         String formattedPrice = format.format(temp.getPrice()) + "₫";
         tv_price.setText(formattedPrice);
 

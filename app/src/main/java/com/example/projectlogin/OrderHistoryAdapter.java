@@ -95,7 +95,10 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
         btn_order_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, OrderDetail.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Order_id", tempProduct.getOrderID());
+                context.startActivity(intent);
             }
         });
         Button btn_rebuy = convertView.findViewById(R.id.btn_rebuy);

@@ -229,15 +229,11 @@ public class MainUI extends AppCompatActivity {
                 Intent intent;
                 switch (item.getItemId()) {
                     case (R.id.nav_profile):
+                        intent = new Intent(MainUI.this, Account_Setting.class);
+                        startActivity(intent);
+                        break;
+                    case(R.id.nav_setting):
                         intent = new Intent(MainUI.this, ReenterPassword.class);
-                        startActivity(intent);
-                        break;
-                    case (R.id.order_history):
-                        intent = new Intent(MainUI.this, OrderHistoryActivity.class);
-                        startActivity(intent);
-                        break;
-                    case(R.id.favorite):
-                        intent = new Intent(MainUI.this, FavoriteActivity.class);
                         startActivity(intent);
                         break;
                     case (R.id.keyboard):

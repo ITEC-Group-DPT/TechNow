@@ -14,14 +14,10 @@
             android:title="Account" />
 
         <item
-            android:id="@+id/favorite"
-            android:icon="@drawable/favorite"
-            android:title="Favorite" />
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/setting_icon"
+            android:title="Setting" />
 
-        <item
-            android:id="@+id/order_history"
-            android:icon="@drawable/order_history"
-            android:title="Order History" />
 
     </group>
     <item android:title="Shop">

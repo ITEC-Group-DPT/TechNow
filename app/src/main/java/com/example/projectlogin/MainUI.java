@@ -68,6 +68,7 @@ public class MainUI extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     protected static String username;
     protected ImageButton cart_btn;
+    private String catalog;
 
     private RecyclerView recyclerView;
     private ArrayList<Product> productList;
@@ -240,16 +241,20 @@ public class MainUI extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case (R.id.keyboard):
-                        changeFragment("Keyboard");
+                        catalog = "Keyboard";
+                        changeFragment(catalog);
                         break;
                     case (R.id.mouse):
-                        changeFragment("Mouse");
+                        catalog = "Mouse";
+                        changeFragment(catalog);
                         break;
                     case (R.id.screen):
-                        changeFragment("Monitor");
+                        catalog = "Monitor";
+                        changeFragment(catalog);
                         break;
                     case (R.id.laptop):
-                        changeFragment("Laptop");
+                        catalog = "Laptop";
+                        changeFragment(catalog);
                         break;
                     case (R.id.nav_home):
                         intent = new Intent(MainUI.this, MainUI.class);
@@ -311,18 +316,19 @@ public class MainUI extends AppCompatActivity {
             public void onClick(int position) {
                 switch (position) {
                     case 0:
-                        changeFragment("Mouse");
+                        catalog = "Mouse";
                         break;
                     case 1:
-                        changeFragment("Keyboard");
+                        catalog = "Keyboard";
                         break;
                     case 2:
-                        changeFragment("Monitor");
+                        catalog = "Monitor";
                         break;
                     case 3:
-                        changeFragment("Laptop");
+                        catalog = "Laptop";
                         break;
                 }
+                changeFragment(catalog);
             }
         });
     }
@@ -425,18 +431,19 @@ public class MainUI extends AppCompatActivity {
     public void Card_onClick(View view) {
         switch (view.getId()) {
             case (R.id.keyboard_cv):
-                changeFragment("Keyboard");
+                catalog = "Keyboard";
                 break;
             case (R.id.mouse_cv):
-                changeFragment("Mouse");
+                catalog = "Mouse";
                 break;
             case (R.id.screen_cv):
-                changeFragment("Monitor");
+                catalog = "Monitor";
                 break;
             case (R.id.laptop_cv):
-                changeFragment("Laptop");
+                catalog = "Laptop";
                 break;
         }
+        changeFragment(catalog);
 
     }
 
@@ -457,29 +464,27 @@ public class MainUI extends AppCompatActivity {
         drawerLayout.closeDrawer(GravityCompat.START);
         switch (Catalog) {
             case ("Keyboard"):
-                toolbar_title.setText("Keyboard");
                 navigationView.setCheckedItem(R.id.keyboard);
-                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Keyboard_Catalog()).commit();
                 break;
             case ("Mouse"):
-                toolbar_title.setText("Mouse");
                 navigationView.setCheckedItem(R.id.mouse);
-                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Mouse_Catalog()).commit();
                 break;
             case ("Monitor"):
-                toolbar_title.setText("Monitor");
                 navigationView.setCheckedItem(R.id.screen);
-                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Monitor_Catalog()).commit();
                 break;
             case ("Laptop"):
-                toolbar_title.setText("Laptop");
                 navigationView.setCheckedItem(R.id.laptop);
-                getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Laptop_Catalog()).commit();
                 break;
-
         }
+
+        toolbar_title.setText("Keyboard");
+        getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Product_Catalog()).commit();
     }
 
+    public String getCatalog()
+    {
+        return catalog;
+    }
     @Override
     public void onBackPressed() {
         drawerLayout.closeDrawer(GravityCompat.START);

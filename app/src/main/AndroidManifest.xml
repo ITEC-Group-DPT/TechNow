@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:theme">
-        <activity android:name=".OrderDetail"></activity>
+        <activity android:name=".Account_Setting"></activity>
+        <activity android:name=".OrderDetail" />
         <activity android:name=".FavoriteActivity" />
         <activity android:name=".ItemDetail" />
         <activity android:name=".ReviewPurchasedProduct" />
@@ -42,10 +43,10 @@
         <activity android:name=".UserSignUp" />
         <activity android:name=".UserLogin" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".MainUI"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
+        <activity
+            android:name=".MainUI"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

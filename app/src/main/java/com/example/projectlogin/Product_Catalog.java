@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Monitor_Catalog extends Fragment {
+public class Product_Catalog extends Fragment {
 
-    private ArrayList<Product> monitors;
+    private ArrayList<Product> products;
     private LinearLayout lnlo;
     private ListView monitor_lv;
     private ProductListViewAdapter productListViewAdapter;
@@ -88,24 +88,17 @@ public class Monitor_Catalog extends Fragment {
             spinner.setOnItemSelectedListener((onItemSelectedListener));
 
             final ArrayList<Product> monitors = arrayLists[0];
-            reff = FirebaseDatabase.getInstance().getReference("Products").child("Monitor");
+            final String catalog = ((MainUI) getActivity()).getCatalog();
+            reff = FirebaseDatabase.getInstance().getReference("Products").child(catalog);
             reff.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Product product = dataSnapshot.getValue(Product.class);
-                        product.setType("Monitor");
+                        product.setType(catalog);
                         monitors.add(product);
                     }
                     productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
-                    /*adapter.setOnAddtoCartInterface(new ProductListViewAdapter.onAddToCart() {
-                        @Override
-                        public void onAddToCart(ImageButton imageButtonAddToCart) {
-                            imageButtonAddToCart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_add_to_cart));
-                            ((MainUI)getActivity()).cart_btn.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.icon_shake));
-
-                        }
-                    });*/
 
 
                     monitor_lv.setAdapter(productListViewAdapter);
@@ -153,13 +146,14 @@ public class Monitor_Catalog extends Fragment {
     }
 
     private void loadData() {
-        monitors = new ArrayList<>();
+        products = new ArrayList<>();
         spinnerList = new ArrayList<>();
-        new AsyncTaskMonitor().execute(monitors);
+
+        new AsyncTaskMonitor().execute(products);
     }
 
     public void sortPriceHighest() {
-        Collections.sort(monitors, new Comparator<Product>() {
+        Collections.sort(products, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getPrice() > p2.getPrice()) return -1;
                 else if (p1.getPrice() < p2.getPrice()) return 1;
@@ -170,7 +164,7 @@ public class Monitor_Catalog extends Fragment {
     }
 
     public void sortPriceLowest() {
-        Collections.sort(monitors, new Comparator<Product>() {
+        Collections.sort(products, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getPrice() > p2.getPrice()) return 1;
                 else if (p1.getPrice() < p2.getPrice()) return -1;
@@ -181,7 +175,7 @@ public class Monitor_Catalog extends Fragment {
     }
 
     public void sortSoldHighest() {
-        Collections.sort(monitors, new Comparator<Product>() {
+        Collections.sort(products, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getSold() > p2.getSold()) return -1;
                 else if (p1.getSold() < p2.getSold()) return 1;
@@ -192,7 +186,7 @@ public class Monitor_Catalog extends Fragment {
     }
 
     public void sortSoldLowest() {
-        Collections.sort(monitors, new Comparator<Product>() {
+        Collections.sort(products, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getSold() > p2.getSold()) return 1;
                 else if (p1.getSold() < p2.getSold()) return -1;

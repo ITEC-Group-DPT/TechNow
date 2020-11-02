@@ -172,6 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1.1"
                 android:text="something something something"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
@@ -187,13 +188,45 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/detail_TV"
+                android:id="@+id/short_detail_TV"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:lineSpacingMultiplier="1.1"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/short_detail_last_line_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:alpha="0.4"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/full_detail_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1.1"
                 android:text="something something something"
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/view_more_btn"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:text="View More"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="false"
+                android:onClick="viewMoreOnClick"/>
+
+
+
         </LinearLayout>
     </ScrollView>
 

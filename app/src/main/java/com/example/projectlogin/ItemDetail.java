@@ -1,13 +1,8 @@
 package com.example.projectlogin;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,12 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.dk.animation.circle.CircleAnimationUtil;
@@ -48,7 +40,8 @@ public class ItemDetail extends AppCompatActivity {
     private ImageButton cart_btn;
     private ArrayList<String> imageURLList;
     private CarouselView carouselView;
-    private TextView productName_TV, productPrice_TV, sold_TV, description_TV, detail_TV;
+    private TextView productName_TV, productPrice_TV, sold_TV, description_TV, fullDetail_TV, shortDetail_TV, shortDetailLastLine_TV, btnViewMore;
+    private boolean expanded = false;
     private NumberFormat format = new DecimalFormat("#,###");
     private RatingBar ratingBar;
 
@@ -91,9 +84,7 @@ public class ItemDetail extends AppCompatActivity {
 
     }
 
-
-    private class AsyncTaskDetail extends AsyncTask<String,String, String>
-    {
+    private class AsyncTaskDetail extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -134,8 +125,7 @@ public class ItemDetail extends AppCompatActivity {
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
             if (command == null) return;
-            if (command.equals("loadAllData"))
-            {
+            if (command.equals("loadAllData")) {
                 loadCarouselView();
                 loadProductInfo();
 
@@ -146,9 +136,8 @@ public class ItemDetail extends AppCompatActivity {
             DatabaseRef.getDatabaseReference().child("Favorite").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                    {
-                        if (product != null  && dataSnapshot.getKey().equals(product.getName())) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        if (product != null && dataSnapshot.getKey().equals(product.getName())) {
                             ImageButton btn_favorite = findViewById(R.id.favorite_icon);
                             btn_favorite.setColorFilter(Color.RED);
                         }
@@ -210,10 +199,13 @@ public class ItemDetail extends AppCompatActivity {
         productPrice_TV = findViewById(R.id.productPrice_TV);
         sold_TV = findViewById(R.id.sold_TV);
         description_TV = findViewById(R.id.description_TV);
-        detail_TV = findViewById(R.id.detail_TV);
+        shortDetail_TV = findViewById(R.id.short_detail_TV);
+        shortDetailLastLine_TV = findViewById(R.id.short_detail_last_line_TV);
+        btnViewMore = findViewById(R.id.view_more_btn);
+        fullDetail_TV = findViewById(R.id.full_detail_TV);
         ratingBar = findViewById(R.id.ID_ratingbar);
 
-        if(product.getRating() != 0)
+        if (product.getRating() != 0)
             ratingBar.setRating(Float.parseFloat(String.format("%.1f", product.getRating())));
 
         productName_TV.setText(product.getName());
@@ -221,12 +213,34 @@ public class ItemDetail extends AppCompatActivity {
         productPrice_TV.setText(formattedPrice);
         sold_TV.setText("Sold: " + product.getSold());
 
-        if(product.getDesc().isEmpty())
+        if (product.getDesc().isEmpty())
             product.setDesc("Updating...");
         if (product.getDetail().isEmpty())
             product.setDetail("Updating...");
         description_TV.setText(product.getDesc());
-        detail_TV.setText(product.getDetail());
+
+        String fullDetailStr = product.getDetail();
+        fullDetail_TV.setText(fullDetailStr);
+
+        if (countLines(fullDetailStr) > 4) {
+            String[] shortDetailLineArray = new String[4];
+            String shortDetailStr;
+            String shortDetailLastLineStr;
+
+            for (int i = 0; i < 4; i++) {
+                shortDetailLineArray = fullDetailStr.split("\r\n|\r|\n");
+            }
+
+            shortDetailStr = shortDetailLineArray[0] + "\n" + shortDetailLineArray[1] + "\n" + shortDetailLineArray[2];
+            shortDetail_TV.setText(shortDetailStr);
+            shortDetailLastLineStr = shortDetailLineArray[3];
+            shortDetailLastLine_TV.setText(shortDetailLastLineStr);
+        } else {
+            fullDetail_TV.setVisibility(View.VISIBLE);
+            shortDetail_TV.setVisibility(View.GONE);
+            shortDetailLastLine_TV.setVisibility(View.GONE);
+            btnViewMore.setVisibility(View.GONE);
+        }
 
         cart_btn = findViewById(R.id.cart_btn);
         final LinearLayout btn_add = findViewById(R.id.btn_add);
@@ -241,7 +255,7 @@ public class ItemDetail extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             if (product.getName().equals(dataSnapshot.getKey())) {
                                 int quantity = dataSnapshot.getValue(Product.class).getQuantity();
-                                databaseReference.child(product.getName()).child("quantity").setValue(quantity+1);
+                                databaseReference.child(product.getName()).child("quantity").setValue(quantity + 1);
                                 addToCartAnimation(carouselView, cart_btn);
                                 return;
                             }
@@ -256,11 +270,29 @@ public class ItemDetail extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 
-    public void addToCartAnimation(CarouselView carouselView, ImageButton cartBtn){
+    public int countLines(String str){
+        String[] lines = str.split("\r\n|\r|\n");
+        return lines.length;
+    }
+    public void viewMoreOnClick(View view) {
+        if (expanded) {
+            fullDetail_TV.setVisibility(View.GONE);
+            shortDetail_TV.setVisibility(View.VISIBLE);
+            shortDetailLastLine_TV.setVisibility(View.VISIBLE);
+            btnViewMore.setText("View More");
+            expanded = false;
+        } else {
+            shortDetail_TV.setVisibility(View.GONE);
+            shortDetailLastLine_TV.setVisibility(View.GONE);
+            fullDetail_TV.setVisibility(View.VISIBLE);
+            btnViewMore.setText("View Less");
+            expanded = true;
+        }
+    }
+
+    public void addToCartAnimation(CarouselView carouselView, ImageButton cartBtn) {
         //Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
         new CircleAnimationUtil().attachActivity(ItemDetail.this).setTargetView(carouselView).setDestView(cartBtn).setMoveDuration(800).startAnimation();
         carouselView.setVisibility(View.VISIBLE);

@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -112,6 +115,8 @@ public class MainUI extends AppCompatActivity {
         searchView.setFocusable(false);
         searchView.setIconified(false);
         searchView.clearFocus();
+        setSearchviewTextSize(searchView, 14);
+
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,6 +183,26 @@ public class MainUI extends AppCompatActivity {
         });
     }
 
+    private void setSearchviewTextSize(SearchView searchView, int fontSize) {
+        try {
+            AutoCompleteTextView autoCompleteTextViewSearch = (AutoCompleteTextView) searchView.findViewById(searchView.getContext().getResources().getIdentifier("app:id/search_src_text", null, null));
+            if (autoCompleteTextViewSearch != null) {
+                autoCompleteTextViewSearch.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+            } else {
+                LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+                LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+                LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+                AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+                autoComplete.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+            }
+        } catch (Exception e) {
+            LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+            LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+            LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+            AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+            autoComplete.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        }
+    }
 
     private void loadData() {
         View newview = navigationView.getHeaderView(0);

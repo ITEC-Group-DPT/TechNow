@@ -480,7 +480,7 @@ public class MainUI extends AppCompatActivity {
                 break;
         }
 
-        toolbar_title.setText("Keyboard");
+        toolbar_title.setText(Catalog);
         getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Product_Catalog()).commit();
     }
 

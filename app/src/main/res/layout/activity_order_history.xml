@@ -31,7 +31,7 @@
             android:fontFamily="@font/muli_black"
             android:text="Order History"
             android:textColor="@color/colorSecondary"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 

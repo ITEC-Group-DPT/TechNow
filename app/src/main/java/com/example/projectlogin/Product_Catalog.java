@@ -50,7 +50,6 @@ public class Product_Catalog extends Fragment {
         return root;
     }
 
-
     private class AsyncTaskMonitor extends AsyncTask<ArrayList, String, String> {
         @Override
         protected String doInBackground(ArrayList... arrayLists) {
@@ -107,8 +106,6 @@ public class Product_Catalog extends Fragment {
                         monitors.add(product);
                     }
                     productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
-
-
                     productLV.setAdapter(productListViewAdapter);
 
                     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -123,7 +120,6 @@ public class Product_Catalog extends Fragment {
                     };
 
                     productLV.setOnItemClickListener(onItemClickListener);
-
                     onPostExecute("completed");
                 }
 

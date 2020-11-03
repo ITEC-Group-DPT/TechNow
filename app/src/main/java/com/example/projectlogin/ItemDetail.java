@@ -33,6 +33,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class ItemDetail extends AppCompatActivity {
+    private TextView toolbarTitle;
     private String itemName;
     private String itemType;
     private Product product;
@@ -164,7 +165,8 @@ public class ItemDetail extends AppCompatActivity {
             Log.d("@@LOG", itemName);
             Log.d("@@LOG", itemType);
         }
-
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(itemType);
         new AsyncTaskDetail().execute("");
     }
 

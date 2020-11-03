@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/muli_black"
-            android:text="TechNow"
             android:textColor="@color/colorSecondary"
             android:textSize="20sp" />
 

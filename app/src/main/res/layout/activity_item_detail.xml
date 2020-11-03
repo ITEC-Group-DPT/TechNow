@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:background="@color/appTheme"
         android:minHeight="@android:dimen/app_icon_size"
@@ -32,7 +32,7 @@
             android:fontFamily="@font/muli_black"
             android:text="TechNow"
             android:textColor="@color/colorSecondary"
-            android:textSize="23sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -46,7 +46,6 @@
                 android:id="@+id/cart_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:background="@color/appTheme"
                 android:src="@drawable/shoppingcart"
                 android:tint="@color/colorSecondary" />

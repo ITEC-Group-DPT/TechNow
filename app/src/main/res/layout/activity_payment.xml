@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:background="@color/appTheme"
             android:minHeight="@android:dimen/app_icon_size">
 
@@ -37,7 +37,8 @@
                 android:fontFamily="@font/muli_black"
                 android:text="Payment"
                 android:textColor="@color/colorSecondary"
-                android:textSize="22sp"/>
+                android:textSize="30sp"
+                android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView

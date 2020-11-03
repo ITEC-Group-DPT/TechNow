@@ -9,6 +9,8 @@
     android:fitsSystemWindows="true"
     tools:context=".MainUI">
 
+
+
     <LinearLayout
         android:id="@+id/lnlo"
         android:layout_width="match_parent"
@@ -18,10 +20,11 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:background="@color/appTheme"
             android:minHeight="@android:dimen/app_icon_size"
+            android:paddingTop="6dp"
             app:navigationIcon="@drawable/navigation_icon"
             app:titleTextColor="@color/colorSecondary">
 
@@ -33,7 +36,7 @@
                 android:fontFamily="@font/muli_black"
                 android:text="TechNow"
                 android:textColor="@color/colorSecondary"
-                android:textSize="20sp"
+                android:textSize="23sp"
                 android:transitionName="trans_applogo" />
 
             <LinearLayout
@@ -68,10 +71,10 @@
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
@@ -81,29 +84,30 @@
                 tools:ignore="NotSibling" />
 
             <ListView
+                android:visibility="gone"
                 android:id="@+id/searchMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_bar"
-                android:visibility="gone" />
+                />
         </RelativeLayout>
 
-        <!-- <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical">
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-             <androidx.appcompat.widget.SearchView
-                 android:id="@+id/search_bar"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-             <ListView
-                 android:visibility="gone"
-                 android:id="@+id/searchMain"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content" />
-         </LinearLayout>-->
+            <ListView
+                android:visibility="gone"
+                android:id="@+id/searchMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>-->
 
         <FrameLayout
             android:id="@+id/Frame_layout"
@@ -113,10 +117,10 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:visibility="gone"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh"
@@ -336,6 +340,7 @@
             </ScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
+
 
 
     <com.google.android.material.navigation.NavigationView

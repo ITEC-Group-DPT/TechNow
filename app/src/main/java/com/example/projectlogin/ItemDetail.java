@@ -42,6 +42,7 @@ public class ItemDetail extends AppCompatActivity {
     private ArrayList<String> imageURLList;
     private CarouselView carouselView;
     private TextView productName_TV, productPrice_TV, sold_TV, description_TV, fullDetail_TV, shortDetail_TV, shortDetailLastLine_TV, btnViewMore;
+    private ImageView arrow_IV;
     private boolean expanded = false;
     private NumberFormat format = new DecimalFormat("#,###");
     private RatingBar ratingBar;
@@ -206,6 +207,7 @@ public class ItemDetail extends AppCompatActivity {
         shortDetail_TV = findViewById(R.id.short_detail_TV);
         shortDetailLastLine_TV = findViewById(R.id.short_detail_last_line_TV);
         btnViewMore = findViewById(R.id.view_more_btn);
+        arrow_IV = findViewById(R.id.expand_arrrow_IV);
         fullDetail_TV = findViewById(R.id.full_detail_TV);
         ratingBar = findViewById(R.id.ID_ratingbar);
         noOfRating = findViewById(R.id.no_of_rating);
@@ -246,6 +248,7 @@ public class ItemDetail extends AppCompatActivity {
             shortDetail_TV.setVisibility(View.GONE);
             shortDetailLastLine_TV.setVisibility(View.GONE);
             btnViewMore.setVisibility(View.GONE);
+            arrow_IV.setVisibility(View.GONE);
         }
 
         cart_btn = findViewById(R.id.cart_btn);
@@ -288,12 +291,14 @@ public class ItemDetail extends AppCompatActivity {
             shortDetail_TV.setVisibility(View.VISIBLE);
             shortDetailLastLine_TV.setVisibility(View.VISIBLE);
             btnViewMore.setText("View More");
+            arrow_IV.setImageResource(R.drawable.drop_down_arrow);
             expanded = false;
         } else {
             shortDetail_TV.setVisibility(View.GONE);
             shortDetailLastLine_TV.setVisibility(View.GONE);
             fullDetail_TV.setVisibility(View.VISIBLE);
             btnViewMore.setText("View Less");
+            arrow_IV.setImageResource(R.drawable.expand_less_arrow);
             expanded = true;
         }
     }

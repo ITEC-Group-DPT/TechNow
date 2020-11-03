@@ -1,0 +1,12 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle" />
+    </item>
+    <item
+        android:width="20dp"
+        android:height="20dp"
+        android:gravity="end|center_vertical">
+        <bitmap
+            android:src="@drawable/drop_down_arrow" />
+    </item></layer-list>

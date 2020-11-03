@@ -223,24 +223,18 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
 
 
     public void Back_Payment(View view) {
-        FrameLayout frameLayout = findViewById(R.id.frame_payment);
-
-        if(frameLayout.getVisibility() == View.VISIBLE)
-            frameLayout.setVisibility(View.GONE);
-        else
-            onBackPressed();
+        onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         FrameLayout frameLayout = findViewById(R.id.frame_payment);
 
         if(frameLayout.getVisibility() == View.VISIBLE)
             frameLayout.setVisibility(View.GONE);
         else
-            onBackPressed();
+            super.onBackPressed();
     }
 
     public void close_frame()

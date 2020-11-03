@@ -18,7 +18,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/appTheme"
             android:minHeight="@android:dimen/app_icon_size"
@@ -47,7 +47,7 @@
                 <ImageButton
                     android:id="@+id/cart_btn"
                     android:layout_width="40dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:background="@color/appTheme"
                     android:src="@drawable/shoppingcart"
                     android:tint="@color/colorSecondary" />
@@ -63,48 +63,36 @@
                     android:textColor="@color/colorSecondary"
                     android:textSize="12sp"
                     android:visibility="gone" />
-
-
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:background="@color/colorPrimary">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
+                android:layout_centerHorizontal="true"
+                app:iconifiedByDefault="false"
+                app:defaultQueryHint="What are you looking for today?"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/toolbar"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/color_secondary_circle_button"
+                android:layout_height="30dp"
                 tools:ignore="NotSibling" />
 
-            <ListView
-                android:id="@+id/searchMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/search_bar"
-                android:visibility="gone" />
+
         </RelativeLayout>
 
-        <!-- <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical">
-
-             <androidx.appcompat.widget.SearchView
-                 android:id="@+id/search_bar"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content" />
-
-             <ListView
-                 android:visibility="gone"
-                 android:id="@+id/searchMain"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content" />
-         </LinearLayout>-->
+        <ListView
+            android:id="@+id/searchMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/Frame_layout"

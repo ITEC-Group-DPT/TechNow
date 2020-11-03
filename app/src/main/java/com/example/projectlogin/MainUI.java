@@ -109,7 +109,7 @@ public class MainUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchView.onActionViewExpanded();
-                searchView.setQueryHint("Search Product...");
+                searchView.setQueryHint("Product names, brand names,...");
             }
         });
 

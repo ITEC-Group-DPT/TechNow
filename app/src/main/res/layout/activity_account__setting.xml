@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:background="@color/appTheme"
         android:minHeight="@android:dimen/app_icon_size"
@@ -45,7 +45,7 @@
             <ImageButton
                 android:id="@+id/cart_btn"
                 android:layout_width="40dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:background="@color/appTheme"
                 android:src="@drawable/shoppingcart"
                 android:tint="@color/colorSecondary" />

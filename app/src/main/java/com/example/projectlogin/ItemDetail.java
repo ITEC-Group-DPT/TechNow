@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class ItemDetail extends AppCompatActivity {
     private boolean expanded = false;
     private NumberFormat format = new DecimalFormat("#,###");
     private RatingBar ratingBar;
+    private TextView noOfRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,7 @@ public class ItemDetail extends AppCompatActivity {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         if (product != null && dataSnapshot.getKey().equals(product.getName())) {
                             ImageButton btn_favorite = findViewById(R.id.favorite_icon);
+                            btn_favorite.setImageResource(R.drawable.favorite_icon_selected);
                             btn_favorite.setColorFilter(Color.RED);
                         }
                     }
@@ -205,14 +208,16 @@ public class ItemDetail extends AppCompatActivity {
         btnViewMore = findViewById(R.id.view_more_btn);
         fullDetail_TV = findViewById(R.id.full_detail_TV);
         ratingBar = findViewById(R.id.ID_ratingbar);
+        noOfRating = findViewById(R.id.no_of_rating);
 
+        noOfRating.setText("Total: " + product.getRateNo());
         if (product.getRating() != 0)
             ratingBar.setRating(Float.parseFloat(String.format("%.1f", product.getRating())));
 
         productName_TV.setText(product.getName());
         String formattedPrice = format.format(product.getPrice()) + "₫";
         productPrice_TV.setText(formattedPrice);
-        sold_TV.setText("Sold: " + product.getSold());
+        sold_TV.setText("  |  Sold: " + product.getSold());
 
         if (product.getDesc().isEmpty())
             product.setDesc("Updating...");
@@ -244,7 +249,7 @@ public class ItemDetail extends AppCompatActivity {
         }
 
         cart_btn = findViewById(R.id.cart_btn);
-        final LinearLayout btn_add = findViewById(R.id.btn_add);
+        final RelativeLayout btn_add = findViewById(R.id.btn_add);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,11 +320,13 @@ public class ItemDetail extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (product.getName().equals(dataSnapshot.getKey())) {
                         btn_favorite.setColorFilter(Color.BLACK);
+                        btn_favorite.setImageResource(R.drawable.favorite_icon);
                         databaseReference.child(product.getName()).removeValue();
                         return;
                     }
                 }
                 databaseReference.child(product.getName()).setValue(product);
+                btn_favorite.setImageResource(R.drawable.favorite_icon_selected);
                 btn_favorite.setColorFilter(Color.RED);
                 btn_favorite.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icon_shake));
             }
@@ -335,5 +342,4 @@ public class ItemDetail extends AppCompatActivity {
     public void backBtn(View view) {
         onBackPressed();
     }
-
 }

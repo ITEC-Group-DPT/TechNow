@@ -85,13 +85,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:padding="8dp">
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -114,13 +115,48 @@
 
             <TextView
                 android:id="@+id/productName_TV"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/muli_black"
                 android:text="Product Name"
                 android:textColor="@color/colorBlack"
                 android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/ID_ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:stepSize="0.1"
+                    android:theme="@style/RatingBar" />
+
+                <TextView
+                    android:id="@+id/no_of_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginLeft="8dp"
+                    android:text="Total: 5"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/sold_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginRight="30dp"
+                    android:text="  |  Sold: 2"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/productPrice_TV"
@@ -131,31 +167,6 @@
                 android:text="1,200,000đ"
                 android:textColor="@color/colorPrice"
                 android:textSize="20sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/sold_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Sold: "
-                    android:textColor="@color/colorBlack"
-                    android:textSize="15sp" />
-
-                <RatingBar
-                    android:id="@+id/ID_ratingbar"
-                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:layout_marginStart="50dp"
-                    android:stepSize="0.1" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/descriptionTitle_TV"
@@ -189,20 +200,20 @@
 
             <TextView
                 android:id="@+id/short_detail_TV"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
+                android:layout_marginTop="10dp"
                 android:lineSpacingMultiplier="1.1"
-                android:textSize="15sp"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/short_detail_last_line_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
                 android:alpha="0.4"
-                android:textSize="15sp"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/full_detail_TV"
@@ -213,18 +224,17 @@
                 android:text="something something something"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/view_more_btn"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
+                android:onClick="viewMoreOnClick"
                 android:text="View More"
-                android:textColor="@color/colorPrimary"
                 android:textAllCaps="false"
-                android:onClick="viewMoreOnClick"/>
-
+                android:textColor="@color/colorPrimary" />
 
 
         </LinearLayout>
@@ -244,11 +254,12 @@
 
         <LinearLayout
             android:id="@+id/btn_favorite"
-            android:layout_width="180dp"
-            android:layout_height="47dp"
-            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
-            android:layout_weight="10"
+            android:layout_weight="3"
+            android:background="@drawable/border_button"
             android:onClick="addToFavorite"
             android:orientation="horizontal">
 
@@ -258,50 +269,54 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/muli_black"
-                android:text="Add To Favorite"
+                android:text="Favorite"
                 android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <ImageButton
                 android:id="@+id/favorite_icon"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:background="@null"
                 android:onClick="addToFavorite"
+                android:background="@null"
+                android:tint="@color/colorBlack"
                 android:src="@drawable/favorite_icon" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/btn_add"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_weight="10"
+            android:layout_weight="7"
             android:background="@drawable/color_primary_circle_button"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="25dp"
-                android:fontFamily="@font/muli_black"
-                android:text="Add To Cart"
-                android:textColor="@color/colorSecondary"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli_black"
+                    android:text="Add To Cart"
+                    android:textColor="@color/colorSecondary"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:src="@drawable/add_btn"
+                    android:tint="@color/colorSecondary" />
+            </LinearLayout>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@null"
-                android:src="@drawable/add_btn"
-                android:tint="@color/colorSecondary" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

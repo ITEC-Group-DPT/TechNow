@@ -75,6 +75,7 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
                 android:layout_centerHorizontal="true"
+                android:iconifiedByDefault="false"
                 app:iconifiedByDefault="false"
                 app:defaultQueryHint="What are you looking for today?"
                 android:layout_width="match_parent"
@@ -84,8 +85,6 @@
                 android:background="@drawable/color_secondary_circle_button"
                 android:layout_height="30dp"
                 tools:ignore="NotSibling" />
-
-
         </RelativeLayout>
 
         <ListView

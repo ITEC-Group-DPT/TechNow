@@ -105,6 +105,9 @@ public class MainUI extends AppCompatActivity {
 
         listView = findViewById(R.id.searchMain);
         searchView = findViewById(R.id.search_bar);
+        searchView.setFocusable(false);
+        searchView.setIconified(false);
+        searchView.clearFocus();
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

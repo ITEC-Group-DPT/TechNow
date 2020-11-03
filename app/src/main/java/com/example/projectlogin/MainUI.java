@@ -91,7 +91,7 @@ public class MainUI extends AppCompatActivity {
         loadData();
         loadCarouselView();
         loadTopSeller();
-
+        loadsearchview();
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -103,6 +103,10 @@ public class MainUI extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private void loadsearchview() {
         listView = findViewById(R.id.searchMain);
         searchView = findViewById(R.id.search_bar);
         searchView.setFocusable(false);
@@ -139,15 +143,19 @@ public class MainUI extends AppCompatActivity {
                 listView.setVisibility(View.VISIBLE);
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
-                if (newText.isEmpty()) return false;
                 for (int i = 0; i < productList.size(); i++) {
                     if (length<= productList.get(i).getName().length())
                     {
+                        newText = newText.toLowerCase();
+                        newText= Normalizer.normalize(newText,Normalizer.Form.NFD);
+                        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+                        newText = pattern.matcher(newText).replaceAll("");
+
                         String str = productList.get(i).getName().toLowerCase();
                         str = Normalizer.normalize(str,Normalizer.Form.NFD);
-                        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+                        pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
                         str = pattern.matcher(str).replaceAll("");
-                        if (str.contains(newText.toLowerCase()))
+                        if (str.contains(newText))
                         {
                             tempArrayList.add(productList.get(i));
                         }
@@ -169,6 +177,7 @@ public class MainUI extends AppCompatActivity {
             }
         });
     }
+
 
     private void loadData() {
         View newview = navigationView.getHeaderView(0);

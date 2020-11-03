@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context=".PaymentActivity">
 
-    <LinearLayout
-        android:visibility="visible"
-        android:id="@+id/proceed_to_check_out"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/appTheme"
+        android:minHeight="@android:dimen/app_icon_size">
+
+<<<<<<< Updated upstream
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+=======
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+>>>>>>> Stashed changes
             android:background="@color/appTheme"
-            android:minHeight="@android:dimen/app_icon_size">
+            android:onClick="Back_Payment"
+            android:src="@drawable/back_icon" />
 
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@color/appTheme"
-                android:onClick="Back_Payment"
-                android:src="@drawable/back_icon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/muli_black"
+            android:text="Payment"
+            android:textColor="@color/colorSecondary"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
 
+    <FrameLayout
+        android:id="@+id/frame_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+<<<<<<< Updated upstream
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,17 +60,26 @@
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
+=======
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <LinearLayout
+>>>>>>> Stashed changes
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/package_detail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/package_detail"
+                    android:id="@+id/customer_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="change_customer_detail"
@@ -84,146 +112,149 @@
                         android:text="380 Huynh Van Banh, Phuong 14, Quan Phu Nhuan,
                         Ho Chi Minh"
                         android:textColor="@android:color/black" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_marginTop="10dp"
-                        android:background="#E6E5E5" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="22dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="15dp"
-                        android:text="Shipping method"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <RadioButton
-                        android:id="@+id/radio_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
-                        android:background="@drawable/color_gray_circle_button"
-                        android:text="Standard" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="22dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="15dp"
-                        android:text="Package Detail"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#E6E5E5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="22dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="15dp"
+                    android:text="Shipping method"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/color_gray_circle_button"
+                    android:text="Standard" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="22dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="15dp"
+                    android:text="Package Detail"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notional price" />
+
+                    <TextView
+                        android:id="@+id/notional_price_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:gravity="right"
+                        android:text="0đ"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Notional price" />
-
-                        <TextView
-                            android:id="@+id/notional_price_payment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="0đ"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Shipping Fee" />
-
-                        <TextView
-                            android:id="@+id/shipping_fee_payment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="0đ"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Fee" />
+
+                    <TextView
+                        android:id="@+id/shipping_fee_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="0đ"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
             </LinearLayout>
 
-        </ScrollView>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="22dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.5"
-                android:fontFamily="@font/muli_black"
-                android:gravity="left"
-                android:paddingTop="4dp"
-                android:text="Total:"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/total_cash"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/muli_black"
-                android:gravity="right"
-                android:maxLines="1"
-                android:textColor="@color/colorRed"
-                android:textSize="35sp" />
         </LinearLayout>
 
-        <Button
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/color_primary_circle_button"
-            android:fontFamily="@font/muli_black"
-            android:onClick="Check_out"
-            android:text="Proceed to checkout"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+    </ScrollView>
 
+
+<<<<<<< Updated upstream
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/muli_black"
+            android:gravity="left"
+            android:paddingTop="4dp"
+            android:text="Total:"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/total_cash"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/muli_black"
+            android:gravity="right"
+            android:maxLines="1"
+            android:textColor="@color/colorRed"
+            android:textSize="35sp" />
     </LinearLayout>
 
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/color_primary_circle_button"
+        android:fontFamily="@font/muli_black"
+        android:onClick="Check_out"
+        android:text="Proceed to checkout"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+
+>>>>>>> Stashed changes
 </LinearLayout>
 

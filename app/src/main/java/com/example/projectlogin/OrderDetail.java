@@ -36,6 +36,9 @@ public class OrderDetail extends AppCompatActivity {
     private TextView cus_nam;
     private TextView cus_phone;
     private TextView cus_address;
+    private TextView notional_price;
+    private TextView shipping_fees;
+    private TextView total_cash;
 
     private String Order_id;
     private ArrayList<Product> products = new ArrayList<>();
@@ -45,13 +48,20 @@ public class OrderDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
 
+        initComponents();
+        loadData();
+    }
+
+    private void initComponents() {
         linearLayout = findViewById(R.id.lnlo_order);
         order_id = findViewById(R.id.detail_order_id);
         order_date = findViewById(R.id.detail_order_date);
         cus_nam = findViewById(R.id.detail_customer_name);
         cus_phone = findViewById(R.id.detail_customer_phonenum);
         cus_address = findViewById(R.id.detail_customer_address);
-        loadData();
+        notional_price = findViewById(R.id.notional_price);
+        shipping_fees = findViewById(R.id.shipping_fee);
+        total_cash = findViewById(R.id.total_price);
     }
 
 
@@ -79,6 +89,17 @@ public class OrderDetail extends AppCompatActivity {
                     cus_phone.setText((String) Customer.child("Phone Number").getValue());
                     cus_address.setText((String) Customer.child("Address").getValue());
 
+                    NumberFormat format = new DecimalFormat("#,###");
+
+                    int notional = Customer.child("Notional Price").getValue(Integer.class);
+                    notional_price.setText(format.format(notional) + "đ");
+
+                    int shipping = Customer.child("Shipping Fee").getValue(Integer.class);
+                    shipping_fees.setText(format.format(shipping) + "đ");
+
+                    total_cash.setText(format.format(notional + shipping) + "đ");
+
+
                     for (int i = 0; i < products.size();i++) {
                         View view = LayoutInflater.from(OrderDetail.this).inflate(R.layout.product_lnlo_orderdetail, null, false);
                         ImageView product_pic = view.findViewById(R.id.order_pic);
@@ -90,7 +111,6 @@ public class OrderDetail extends AppCompatActivity {
                         Glide.with(getApplicationContext()).load(product.getAvatarURL()).into(product_pic);
                         product_name.setText(product.getName());
 
-                        NumberFormat format = new DecimalFormat("#,###");
                         String formattedPrice = format.format(product.getPrice()) + " ₫";
                         product_price_qty.setText(formattedPrice + " x" + product.getQuantity());
 

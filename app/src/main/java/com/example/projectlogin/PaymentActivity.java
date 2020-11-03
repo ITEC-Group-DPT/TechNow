@@ -10,6 +10,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -40,17 +41,46 @@ import java.util.Date;
 import java.util.List;
 
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends AppCompatActivity implements ChangeAddressFragment.OnDataPass {
     private Cart cart = new Cart();
     private TextView tv_total;
     private NumberFormat format = new DecimalFormat("#,###");
     private String formattedTotalCash;
-    private TextInputEditText address_tv;
     private int Cart_totalcash;
-    private double shippingFee;
 
-    private TextInputEditText name;
-    private TextInputEditText phone_number;
+    private double shippingFee;
+    private String cus_name = "";
+    private String cus_phone = "";
+    private String cus_address = "";
+
+
+    @Override
+    public void onDataPass(String name, String phone, String address) {
+
+        cus_name = name;
+        cus_phone = phone;
+        cus_address = address;
+
+        TextView cus_namephone_tv = findViewById(R.id.customer_namephonenum);
+        TextView cus_address_tv = findViewById(R.id.customer_address);
+
+        cus_namephone_tv.setText(name + " - " + phone);
+        cus_address_tv.setText(address);
+
+        double distance = Calc_Distance(address);
+                shippingFee = distance * 2;
+                shippingFee = Math.round(shippingFee / 100) * 100;
+                if (shippingFee < 10000) shippingFee = 0;
+                if (shippingFee > 50000) shippingFee = 50000;
+
+                TextView tv_shipping = findViewById(R.id.shipping_fee_payment);
+
+                tv_shipping.setText(format.format(shippingFee) + "₫");
+
+
+                tv_total = findViewById(R.id.total_cash);
+                tv_total.setText(format.format(shippingFee + Cart_totalcash) + "₫");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,23 +106,6 @@ public class PaymentActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        address_tv = findViewById(R.id.address);
-        name = findViewById(R.id.payment_name);
-        phone_number = findViewById(R.id.payment_phonenum);
-
-        address_tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    AutoCorrectAddress();
-                }
-            }
-        });
-
-        packageDetailonCreate();
-
-
     }
 
     private void packageDetailonCreate() {
@@ -128,100 +141,12 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
-    private void AutoCorrectAddress() {
-        TextView textView = findViewById(R.id.address);
-        try {
-            String location = textView.getText().toString();
-            if (location.isEmpty()) return;
-            List<Address> addressList = null;
-            if (location != null || !location.equals("")) {
-                Geocoder geocoder = new Geocoder(PaymentActivity.this);
-                try {
-                    addressList = geocoder.getFromLocationName(location, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (addressList.size() == 0) {
-                    Toast.makeText(PaymentActivity.this, "Hãy gõ có dấu hoặc gõ thêm chi tiết", Toast.LENGTH_SHORT).show();
-                }
-                Address address = addressList.get(0);
-                textView.setText(address.getAddressLine(0));
-                TextInputEditText temp = findViewById(R.id.address);
-                TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
-                textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-                textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-                textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-
-                double distance = Calc_Distance(address_tv.getText().toString());
-                shippingFee = distance * 2;
-                shippingFee = Math.round(shippingFee / 100) * 100;
-                if (shippingFee < 10000) shippingFee = 0;
-                if (shippingFee > 50000) shippingFee = 50000;
-
-                TextView tv_shipping = findViewById(R.id.shipping_fee_payment);
-
-                tv_shipping.setText(format.format(shippingFee) + "₫");
-
-
-                tv_total = findViewById(R.id.total_cash);
-                tv_total.setText(format.format(shippingFee + Cart_totalcash) + "₫");
-
-            }
-        } catch (Exception e) {
-            textView.setText(null);
-            Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
-            TextInputEditText temp = findViewById(R.id.address);
-            TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
-            textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-            textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-            textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-        }
-    }
-
-    private double Calc_Distance(String location) {
-        //latlng cho dia chi nguoi dung
-        List<Address> addressList = null;
-        LatLng latLng1 = null, latLng2;
-        Geocoder geocoder = new Geocoder(PaymentActivity.this);
-        try {
-            addressList = geocoder.getFromLocationName(location, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (addressList.size() == 0) {
-            Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
-            return 0;
-        }
-        Address address = addressList.get(0);
-        latLng1 = new LatLng(address.getLatitude(), address.getLongitude());
-        //// TODO: 11/3/2020 update warehouse string in database
-
-
-        //dia chi warehouse to latlng
-        addressList = null;
-        geocoder = new Geocoder(PaymentActivity.this);
-        try {
-            addressList = geocoder.getFromLocationName("hcmus", 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        address = addressList.get(0);
-        latLng2 = new LatLng(address.getLatitude(), address.getLongitude());
-
-        //distance
-        float[] results = new float[1];
-        Location.distanceBetween(latLng1.latitude, latLng1.longitude, latLng2.latitude, latLng2.longitude, results);
-        double res = results[0];
-        return res;
-    }
 
     public void Check_out(View view) {
-        if (address_tv.isFocusable()) {
-            AutoCorrectAddress();
-        }
-        if (Check_null()) {
-            Toast.makeText(this, "Please fill in all of your information", Toast.LENGTH_SHORT).show();
-        } else {
+
+        if (cus_name.isEmpty() || cus_address.isEmpty() || cus_phone.isEmpty())
+            Toast.makeText(this, "Please check your information!!", Toast.LENGTH_SHORT).show();
+        else {
             AlertDialog.Builder note = new AlertDialog.Builder(this);
             note.setTitle("Confirm checkout");
             note.setMessage("Confirm all your info?");
@@ -242,11 +167,12 @@ public class PaymentActivity extends AppCompatActivity {
                             Date currentTime = Calendar.getInstance().getTime();
                             SimpleDateFormat format = new SimpleDateFormat("hh:mm, dd/MM/yyyy");
 
-                            tempOrder.child(id).child("Customer").child("Name").setValue(name.getText().toString());
-                            tempOrder.child(id).child("Customer").child("Address").setValue(address_tv.getText().toString());
-                            tempOrder.child(id).child("Customer").child("Phone Number").setValue(phone_number.getText().toString());
+                            tempOrder.child(id).child("Customer").child("Name").setValue(cus_name);
+                            tempOrder.child(id).child("Customer").child("Address").setValue(cus_address);
+                            tempOrder.child(id).child("Customer").child("Phone Number").setValue(cus_phone);
                             tempOrder.child(id).child("Customer").child("Date").setValue(format.format(currentTime));
                             tempOrder.child(id).child("Customer").child("Shipping Fee").setValue(shippingFee);
+                            tempOrder.child(id).child("Customer").child("Notional Price").setValue(Cart_totalcash);
                         }
 
                         @Override
@@ -295,93 +221,66 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
-    public void Back_cart(View view) {
-        onBackPressed();
-    }
-
-    private boolean Check_null() {
-        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum, R.id.address};
-        for (int j = 0; j < paymentInfo.length; j++) {
-            TextInputEditText test = findViewById(paymentInfo[j]);
-            if (test.getText().toString().isEmpty()) {
-                for (int i = 0; i < paymentInfo.length; i++) {
-                    TextInputEditText temp = findViewById(paymentInfo[i]);
-                    if (temp.getText().toString().isEmpty()) {
-                        TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
-                        textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorRed)));
-                        // TODO: 10/28/2020: add check valid address
-                    } else {
-                        TextInputLayout textInputLayout = (TextInputLayout) temp.getParent().getParent();
-                        textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-                        textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-                        textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-                    }
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public void onasd(View view) {
-            /*Intent  intent = new Intent(getApplicationContext(),AddressMapsAPI.class);
-            startActivity(intent);*/
-    }
-
-    /*@Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        int[] paymentInfo = {R.id.payment_name, R.id.payment_phonenum};
-        for (int j = 0; j < paymentInfo.length; j++) {
-            TextInputEditText test = findViewById(paymentInfo[j]);
-
-    }*/
-
-    //@Override
-   /* protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
-        if (!intent.hasExtra("Address")) return;
-        float x = 0;
-        x = intent.getFloatExtra("Distance", 0);
-        String a = null;
-        a = intent.getStringExtra("Address");
-        TextView add = findViewById(R.id.address);
-        add.setText(a);
-        Toast.makeText(this, Float.toString(x), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
-
-    }*/
-
 
     public void Back_Payment(View view) {
-        onBackPressed();
+        FrameLayout frameLayout = findViewById(R.id.frame_payment);
+
+        if(frameLayout.getVisibility() == View.VISIBLE)
+            frameLayout.setVisibility(View.GONE);
+        else
+            onBackPressed();
+    }
+    
+
+    public void close_frame()
+    {
+        FrameLayout frameLayout = findViewById(R.id.frame_payment);
+
+        if(frameLayout.getVisibility() == View.VISIBLE)
+            frameLayout.setVisibility(View.GONE);
+    }
+
+    private double Calc_Distance(String location) {
+        //latlng cho dia chi nguoi dung
+        List<Address> addressList = null;
+        LatLng latLng1 = null, latLng2;
+        Geocoder geocoder = new Geocoder(this);
+        try {
+            addressList = geocoder.getFromLocationName(location, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addressList.size() == 0) {
+            Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+        Address address = addressList.get(0);
+        latLng1 = new LatLng(address.getLatitude(), address.getLongitude());
+        //// TODO: 11/3/2020 update warehouse string in database
+
+
+        //dia chi warehouse to latlng
+        addressList = null;
+        geocoder = new Geocoder(this);
+        try {
+            addressList = geocoder.getFromLocationName("hcmus", 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        address = addressList.get(0);
+        latLng2 = new LatLng(address.getLatitude(), address.getLongitude());
+
+        //distance
+        float[] results = new float[1];
+        Location.distanceBetween(latLng1.latitude, latLng1.longitude, latLng2.latitude, latLng2.longitude, results);
+        double res = results[0];
+        return res;
     }
 
     public void change_customer_detail(View view) {
+        FrameLayout frameLayout = findViewById(R.id.frame_payment);
+        frameLayout.setVisibility(View.VISIBLE);
 
-        LinearLayout change_address = findViewById(R.id.choose_address);
-        change_address.setVisibility(View.VISIBLE);
-
-        LinearLayout proceed = findViewById(R.id.proceed_to_check_out);
-        proceed.setVisibility(View.GONE);
-    }
-
-    public void confirm_detail(View view) {
-
-        if (Check_null()) {
-            Toast.makeText(this, "Please fill in all of your information", Toast.LENGTH_SHORT).show();
-        }
-
-        else{
-            LinearLayout change_address = findViewById(R.id.choose_address);
-            change_address.setVisibility(View.GONE);
-
-            LinearLayout proceed = findViewById(R.id.proceed_to_check_out);
-            proceed.setVisibility(View.VISIBLE);
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_payment, new ChangeAddressFragment()).commit();
     }
 }

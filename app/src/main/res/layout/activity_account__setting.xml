@@ -86,6 +86,7 @@
                     android:layout_width="60dp"
                     android:layout_height="80dp"/>
                 <TextView
+                    android:id="@+id/username_TV"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
                     android:layout_gravity="center"

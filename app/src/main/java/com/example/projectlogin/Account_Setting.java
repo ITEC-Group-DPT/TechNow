@@ -20,21 +20,22 @@ import com.google.firebase.database.ValueEventListener;
 public class Account_Setting extends AppCompatActivity {
 
     private String username;
+    private TextView username_TV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account__setting);
 
         initComponents();
-
-
     }
 
     private void initComponents() {
+        username_TV = findViewById(R.id.username_TV);
         DatabaseRef.getDatabaseReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.getKey();
+                username_TV.setText(username);
             }
 
             @Override

@@ -30,9 +30,9 @@ import java.util.Comparator;
 
 public class Product_Catalog extends Fragment {
 
-    private ArrayList<Product> products;
+    private ArrayList<Product> productList;
     private LinearLayout lnlo;
-    private ListView monitor_lv;
+    private ListView productLV;
     private ProductListViewAdapter productListViewAdapter;
     private DatabaseReference reff;
     private ArrayList<String> spinnerList;
@@ -43,7 +43,7 @@ public class Product_Catalog extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.activity_catalog, container, false);
-        monitor_lv = root.findViewById(R.id.catalog_lv);
+        productLV = root.findViewById(R.id.catalog_lv);
         lnlo = root.findViewById(R.id.lnlo);
         spinner = root.findViewById(R.id.spinner);
         loadData();
@@ -58,6 +58,8 @@ public class Product_Catalog extends Fragment {
             spinnerList.add("Price highest");
             spinnerList.add("Sold lowest");
             spinnerList.add("Sold highest");
+            spinnerList.add("Rating lowest");
+            spinnerList.add("Rating highest");
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
@@ -72,9 +74,15 @@ public class Product_Catalog extends Fragment {
                             sortPriceHighest();
                             break;
                         case 2:
-                            sortSoldLowest();
+                            sortRatingLowest();
                             break;
                         case 3:
+                            sortRatingHighest();
+                            break;
+                        case 4:
+                            sortSoldLowest();
+                            break;
+                        case 5:
                             sortSoldHighest();
                             break;
                     }
@@ -101,7 +109,7 @@ public class Product_Catalog extends Fragment {
                     productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
 
 
-                    monitor_lv.setAdapter(productListViewAdapter);
+                    productLV.setAdapter(productListViewAdapter);
 
                     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
                         @Override
@@ -114,7 +122,7 @@ public class Product_Catalog extends Fragment {
                         }
                     };
 
-                    monitor_lv.setOnItemClickListener(onItemClickListener);
+                    productLV.setOnItemClickListener(onItemClickListener);
 
                     onPostExecute("completed");
                 }
@@ -146,14 +154,14 @@ public class Product_Catalog extends Fragment {
     }
 
     private void loadData() {
-        products = new ArrayList<>();
+        productList = new ArrayList<>();
         spinnerList = new ArrayList<>();
 
-        new AsyncTaskMonitor().execute(products);
+        new AsyncTaskMonitor().execute(productList);
     }
 
     public void sortPriceHighest() {
-        Collections.sort(products, new Comparator<Product>() {
+        Collections.sort(productList, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getPrice() > p2.getPrice()) return -1;
                 else if (p1.getPrice() < p2.getPrice()) return 1;
@@ -164,7 +172,7 @@ public class Product_Catalog extends Fragment {
     }
 
     public void sortPriceLowest() {
-        Collections.sort(products, new Comparator<Product>() {
+        Collections.sort(productList, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getPrice() > p2.getPrice()) return 1;
                 else if (p1.getPrice() < p2.getPrice()) return -1;
@@ -174,8 +182,32 @@ public class Product_Catalog extends Fragment {
         productListViewAdapter.notifyDataSetChanged();
     }
 
+    public void sortRatingHighest() {
+        Collections.sort(productList, new Comparator<Product>() {
+            public int compare(Product p1, Product p2) {
+                if (p1.getRating() > p2.getRating()) return -1;
+                else if (p1.getRating() < p2.getRating()) return 1;
+                else return 0;
+            }
+        });
+        productListViewAdapter.notifyDataSetChanged();
+    }
+
+    public void sortRatingLowest() {
+        Collections.sort(productList, new Comparator<Product>() {
+            public int compare(Product p1, Product p2) {
+                if (p1.getRating() > p2.getRating()) return 1;
+                else if (p1.getRating() < p2.getRating()) return -1;
+                else return 0;
+            }
+        });
+        productListViewAdapter.notifyDataSetChanged();
+    }
+
+
+
     public void sortSoldHighest() {
-        Collections.sort(products, new Comparator<Product>() {
+        Collections.sort(productList, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getSold() > p2.getSold()) return -1;
                 else if (p1.getSold() < p2.getSold()) return 1;
@@ -186,7 +218,7 @@ public class Product_Catalog extends Fragment {
     }
 
     public void sortSoldLowest() {
-        Collections.sort(products, new Comparator<Product>() {
+        Collections.sort(productList, new Comparator<Product>() {
             public int compare(Product p1, Product p2) {
                 if (p1.getSold() > p2.getSold()) return 1;
                 else if (p1.getSold() < p2.getSold()) return -1;

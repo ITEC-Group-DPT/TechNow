@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -122,6 +124,43 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+    private double Calc_Distance(String location) {
+        //latlng cho dia chi nguoi dung
+        List<Address> addressList = null;
+        LatLng latLng1 = null, latLng2;
+        Geocoder geocoder = new Geocoder(PaymentActivity.this);
+        try {
+            addressList = geocoder.getFromLocationName(location, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addressList.size() == 0) {
+            Toast.makeText(PaymentActivity.this, "Invalid address", Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+        Address address = addressList.get(0);
+        latLng1 = new LatLng(address.getLatitude(), address.getLongitude());
+        //// TODO: 11/3/2020 update warehouse string in database
+
+
+        //dia chi warehouse to latlng
+        addressList = null;
+        geocoder = new Geocoder(PaymentActivity.this);
+        try {
+            addressList = geocoder.getFromLocationName("hcmus", 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        address = addressList.get(0);
+        latLng2 = new LatLng(address.getLatitude(), address.getLongitude());
+
+        //distance
+        float[] results = new float[1];
+        Location.distanceBetween(latLng1.latitude, latLng1.longitude, latLng2.latitude, latLng2.longitude, results);
+        double res = results[0];
+        return res;
+    }
+
     public void Check_out(View view) {
         if (address.isFocusable()) {
             AutoCorrectAddress();
@@ -135,10 +174,14 @@ public class PaymentActivity extends AppCompatActivity {
             note.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
+                    //// TODO: 11/3/2020 cal distance
                     final DatabaseReference tempOrder = DatabaseRef.getDatabaseReference().child("Order History");
                     tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            double distance = Calc_Distance(address.getText().toString());
+                            double shippingFee = distance*2;
+
                             String id = "Order-" + snapshot.getChildrenCount();
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
                                 tempOrder.child(id).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
@@ -151,8 +194,7 @@ public class PaymentActivity extends AppCompatActivity {
                             tempOrder.child(id).child("Customer").child("Address").setValue(address.getText().toString());
                             tempOrder.child(id).child("Customer").child("Phone Number").setValue(phone_number.getText().toString());
                             tempOrder.child(id).child("Customer").child("Date").setValue(format.format(currentTime));
-
-
+                            tempOrder.child(id).child("Customer").child("Shipping Fee").setValue(shippingFee);
                         }
 
                         @Override

@@ -248,6 +248,10 @@ public class MainUI extends AppCompatActivity {
                         catalog = "CPU";
                         changeFragment(catalog);
                         break;
+                    case(R.id.vga):
+                        catalog = "VGA";
+                        changeFragment(catalog);
+                        break;
                     case (R.id.screen):
                         catalog = "Monitor";
                         changeFragment(catalog);

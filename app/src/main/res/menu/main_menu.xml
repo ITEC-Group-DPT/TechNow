@@ -39,6 +39,10 @@
                 <item
                     android:id="@+id/cpu"
                     android:title="CPU" />
+
+                <item
+                    android:id="@+id/vga"
+                    android:title="VGA" />
             </group>
         </menu>
     </item>

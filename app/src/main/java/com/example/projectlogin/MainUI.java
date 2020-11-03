@@ -392,7 +392,7 @@ public class MainUI extends AppCompatActivity {
                     getProductData("Mainboard", snapshot);
                     getProductData("Case", snapshot);
                     getProductData("PSU", snapshot);
-                    
+
                     Collections.sort(productList, new Comparator<Product>() {
                         public int compare(Product p1, Product p2) {
                             if (p1.getSold() > p2.getSold()) return -1;

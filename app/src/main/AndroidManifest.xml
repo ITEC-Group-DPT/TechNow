@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:theme">
-        <activity android:name=".Account_Setting"></activity>
+        <activity android:name=".AddressBook"></activity>
+        <activity android:name=".Account_Setting" />
         <activity android:name=".OrderDetail" />
         <activity android:name=".FavoriteActivity" />
         <activity android:name=".ItemDetail" />

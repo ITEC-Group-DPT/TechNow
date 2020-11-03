@@ -8,18 +8,18 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -29,13 +29,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EventListener;
 import java.util.List;
 
 
@@ -44,7 +45,9 @@ public class PaymentActivity extends AppCompatActivity {
     private TextView tv_total;
     private NumberFormat format = new DecimalFormat("#,###");
     private String formattedTotalCash;
-    private TextInputEditText address;
+    private TextInputEditText address_tv;
+    private int Cart_totalcash;
+    private double shippingFee;
 
     private TextInputEditText name;
     private TextInputEditText phone_number;
@@ -62,10 +65,11 @@ public class PaymentActivity extends AppCompatActivity {
                         cart.addItem(product);
                     }
                 }
-                int temp = cart.calTotalCash();
-                formattedTotalCash = format.format(temp) + "₫";
-                tv_total = findViewById(R.id.total_cash);
-                tv_total.setText(formattedTotalCash);
+                Cart_totalcash = cart.calTotalCash();
+                formattedTotalCash = format.format(Cart_totalcash) + "₫";
+                TextView notional_price = findViewById(R.id.notional_price_payment);
+                notional_price.setText(formattedTotalCash);
+                packageDetailonCreate();
             }
 
             @Override
@@ -73,11 +77,11 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
-        address = findViewById(R.id.address);
+        address_tv = findViewById(R.id.address);
         name = findViewById(R.id.payment_name);
         phone_number = findViewById(R.id.payment_phonenum);
 
-        address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        address_tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
@@ -86,7 +90,42 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
+        packageDetailonCreate();
 
+
+    }
+
+    private void packageDetailonCreate() {
+
+        RadioButton radioButton = findViewById(R.id.radio_button);
+        radioButton.setChecked(true);
+        LinearLayout linearLayout = findViewById(R.id.package_detail);
+        for (int i = 0; i < cart.getCartArrList().size(); i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.product_lnlo_orderdetail, null, false);
+            ImageView product_pic = view.findViewById(R.id.order_pic);
+            TextView product_name = view.findViewById(R.id.name_product);
+            TextView product_price_qty = view.findViewById(R.id.price_qty);
+
+            final Product product = cart.getCartArrList().get(i);
+
+            Glide.with(getApplicationContext()).load(product.getAvatarURL()).into(product_pic);
+            product_name.setText(product.getName());
+
+            NumberFormat format = new DecimalFormat("#,###");
+            String formattedPrice = format.format(product.getPrice()) + " ₫";
+            product_price_qty.setText(formattedPrice + " x" + product.getQuantity());
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(PaymentActivity.this, ItemDetail.class);
+                    intent.putExtra("itemName", product.getName());
+                    intent.putExtra("itemType", product.getType());
+                    startActivity(intent);
+                }
+            });
+            linearLayout.addView(view);
+        }
     }
 
     private void AutoCorrectAddress() {
@@ -112,6 +151,20 @@ public class PaymentActivity extends AppCompatActivity {
                 textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
                 textInputLayout.setStartIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
                 textInputLayout.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+
+                double distance = Calc_Distance(address_tv.getText().toString());
+                shippingFee = distance * 2;
+                shippingFee = Math.round(shippingFee / 100) * 100;
+                if (shippingFee < 15000.0) shippingFee = 0;
+                if (shippingFee > 100000) shippingFee = 100000;
+
+                TextView tv_shipping = findViewById(R.id.shipping_fee_payment);
+                tv_shipping.setText(format.format(shippingFee) + "₫");
+
+
+                tv_total = findViewById(R.id.total_price);
+                tv_total.setText(format.format(shippingFee + Cart_totalcash) + "₫");
+
             }
         } catch (Exception e) {
             textView.setText(null);
@@ -162,7 +215,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     public void Check_out(View view) {
-        if (address.isFocusable()) {
+        if (address_tv.isFocusable()) {
             AutoCorrectAddress();
         }
         if (Check_null()) {
@@ -179,11 +232,7 @@ public class PaymentActivity extends AppCompatActivity {
                     tempOrder.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            double distance = Calc_Distance(address.getText().toString());
-                            double shippingFee = distance*2;
-                            shippingFee = Math.round(shippingFee/100)*100;
-                            if (shippingFee <15000.0) shippingFee = 0;//freeship
-                            if (shippingFee >1000000) shippingFee = 1000000;
+
                             String id = "Order-" + snapshot.getChildrenCount();
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
                                 tempOrder.child(id).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));
@@ -193,7 +242,7 @@ public class PaymentActivity extends AppCompatActivity {
                             SimpleDateFormat format = new SimpleDateFormat("hh:mm, dd/MM/yyyy");
 
                             tempOrder.child(id).child("Customer").child("Name").setValue(name.getText().toString());
-                            tempOrder.child(id).child("Customer").child("Address").setValue(address.getText().toString());
+                            tempOrder.child(id).child("Customer").child("Address").setValue(address_tv.getText().toString());
                             tempOrder.child(id).child("Customer").child("Phone Number").setValue(phone_number.getText().toString());
                             tempOrder.child(id).child("Customer").child("Date").setValue(format.format(currentTime));
                             tempOrder.child(id).child("Customer").child("Shipping Fee").setValue(shippingFee);
@@ -309,5 +358,41 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void Back_Payment(View view) {
         onBackPressed();
+    }
+
+    public void change_customer_detail(View view) {
+
+        LinearLayout input_data = findViewById(R.id.input_data);
+        input_data.setVisibility(View.VISIBLE);
+
+        LinearLayout package_detail = findViewById(R.id.package_detail);
+        package_detail.setVisibility(View.GONE);
+
+        LinearLayout price = findViewById(R.id.price_payment);
+        price.setVisibility(View.GONE);
+    }
+
+    public void confirm_detail(View view) {
+
+        if (Check_null()) {
+            Toast.makeText(this, "Please fill in all of your information", Toast.LENGTH_SHORT).show();
+        }
+
+        else{
+            TextView name_phonenum = findViewById(R.id.customer_namephonenum);
+            name_phonenum.setText(name.getText().toString() + " - " + phone_number.getText().toString());
+
+            TextView address = findViewById(R.id.customer_address);
+            address.setText(address_tv.getText().toString());
+
+            LinearLayout input_data = findViewById(R.id.input_data);
+            input_data.setVisibility(View.GONE);
+
+            LinearLayout package_detail = findViewById(R.id.package_detail);
+            package_detail.setVisibility(View.VISIBLE);
+
+            LinearLayout price = findViewById(R.id.price_payment);
+            price.setVisibility(View.VISIBLE);
+        }
     }
 }

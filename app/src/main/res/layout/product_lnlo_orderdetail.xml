@@ -23,6 +23,7 @@
             android:id="@+id/name_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:text="Ten product cac thu abc"
             android:textColor="@android:color/black"
             android:textSize="20sp"/>

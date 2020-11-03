@@ -181,7 +181,9 @@ public class PaymentActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             double distance = Calc_Distance(address.getText().toString());
                             double shippingFee = distance*2;
-
+                            shippingFee = Math.round(shippingFee/100)*100;
+                            if (shippingFee <15000.0) shippingFee = 0;//freeship
+                            if (shippingFee >1000000) shippingFee = 1000000;
                             String id = "Order-" + snapshot.getChildrenCount();
                             for (int i = 0; i < cart.getNoOfItem(); i++) {
                                 tempOrder.child(id).child(cart.getCartArrList().get(i).getName()).setValue(cart.getCartArrList().get(i));

@@ -7,51 +7,260 @@
     android:orientation="vertical"
     tools:context=".PaymentActivity">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/proceed_to_check_out"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/appTheme"
-        android:minHeight="@android:dimen/app_icon_size">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:background="@color/appTheme"
-            android:onClick="Back_Payment"
-            android:src="@drawable/back_icon" />
+            android:minHeight="@android:dimen/app_icon_size">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/muli_black"
-            android:text="Payment"
-            android:textColor="@color/colorSecondary"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@color/appTheme"
+                android:onClick="Back_Payment"
+                android:src="@drawable/back_icon" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_weight="7"
-        android:layout_height="0dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/muli_black"
+                android:text="Payment"
+                android:textColor="@color/colorSecondary"
+                android:textSize="22sp"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/package_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="change_customer_detail"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="15dp"
+                        android:text="Customer detail"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/customer_namephonenum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:text="Tran Nguyen Minh Dao - 0785031xx"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/customer_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:text="380 Huynh Van Banh, Phuong 14, Quan Phu Nhuan,
+                        Ho Chi Minh"
+                        android:textColor="@android:color/black" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#E6E5E5" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="15dp"
+                        android:text="Shipping method"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/radio_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/color_gray_circle_button"
+                        android:text="Standard" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="15dp"
+                        android:text="Package Detail"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Notional price" />
+
+                        <TextView
+                            android:id="@+id/notional_price_payment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="0đ"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shipping Fee" />
+
+                        <TextView
+                            android:id="@+id/shipping_fee_payment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="0đ"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/muli_black"
+                android:gravity="left"
+                android:paddingTop="4dp"
+                android:text="Total:"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/total_cash"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/muli_black"
+                android:gravity="right"
+                android:maxLines="1"
+                android:textColor="@color/colorRed"
+                android:textSize="35sp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/color_primary_circle_button"
+            android:fontFamily="@font/muli_black"
+            android:onClick="Check_out"
+            android:text="Proceed to checkout"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/choose_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/appTheme"
+            android:minHeight="@android:dimen/app_icon_size">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/muli_black"
+                android:text="Payment"
+                android:textColor="@color/colorSecondary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
 
             <LinearLayout
-                android:id="@+id/input_data"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:visibility="gone">
+                android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -124,186 +333,25 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="confirm_detail"
-                    android:text="hihi"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:onClick="change_customer_detail"
-                android:id="@+id/package_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        </ScrollView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="22dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="15dp"
-                    android:text="Customer detail"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/customer_namephonenum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="22dp"
-                    android:text="Tran Nguyen Minh Dao - 0785031xx"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/customer_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="22dp"
-                    android:text="380 Huynh Van Banh, Phuong 14, Quan Phu Nhuan,
-                        Ho Chi Minh"
-                    android:textColor="@android:color/black" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="7dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#E6E5E5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="22dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="15dp"
-                    android:text="Shipping method"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/color_gray_circle_button"
-                    android:text="Standard" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="22dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="15dp"
-                    android:text="Package Detail"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/price_payment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Notional price" />
-
-                    <TextView
-                        android:id="@+id/notional_price_payment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="89.000 đ"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Shipping Fee" />
-
-                    <TextView
-                        android:id="@+id/shipping_fee_payment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="15.000 đ"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-    </ScrollView>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.5"
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/color_primary_circle_button"
             android:fontFamily="@font/muli_black"
-            android:gravity="left"
-            android:paddingTop="4dp"
-            android:text="Total:"
-            android:textSize="30sp" />
+            android:onClick="confirm_detail"
+            android:text="Proceed"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/total_cash"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/muli_black"
-            android:gravity="right"
-            android:maxLines="1"
-            android:textColor="@color/colorRed"
-            android:textSize="35sp" />
     </LinearLayout>
-
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/color_primary_circle_button"
-        android:fontFamily="@font/muli_black"
-        android:onClick="Check_out"
-        android:text="Proceed to checkout"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
 
 </LinearLayout>
 

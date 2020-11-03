@@ -50,7 +50,6 @@ import java.util.regex.Pattern;
 
 
 public class MainUI extends AppCompatActivity {
-    //TODO upload to database
     private ArrayList<String> imageURLList;
     private CarouselView carouselView;
     private FrameLayout frameLayout;

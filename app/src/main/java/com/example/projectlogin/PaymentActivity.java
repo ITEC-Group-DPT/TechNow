@@ -155,14 +155,15 @@ public class PaymentActivity extends AppCompatActivity {
                 double distance = Calc_Distance(address_tv.getText().toString());
                 shippingFee = distance * 2;
                 shippingFee = Math.round(shippingFee / 100) * 100;
-                if (shippingFee < 15000.0) shippingFee = 0;
-                if (shippingFee > 100000) shippingFee = 100000;
+                if (shippingFee < 10000) shippingFee = 0;
+                if (shippingFee > 50000) shippingFee = 50000;
 
                 TextView tv_shipping = findViewById(R.id.shipping_fee_payment);
+
                 tv_shipping.setText(format.format(shippingFee) + "₫");
 
 
-                tv_total = findViewById(R.id.total_price);
+                tv_total = findViewById(R.id.total_cash);
                 tv_total.setText(format.format(shippingFee + Cart_totalcash) + "₫");
 
             }
@@ -362,14 +363,11 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void change_customer_detail(View view) {
 
-        LinearLayout input_data = findViewById(R.id.input_data);
-        input_data.setVisibility(View.VISIBLE);
+        LinearLayout change_address = findViewById(R.id.choose_address);
+        change_address.setVisibility(View.VISIBLE);
 
-        LinearLayout package_detail = findViewById(R.id.package_detail);
-        package_detail.setVisibility(View.GONE);
-
-        LinearLayout price = findViewById(R.id.price_payment);
-        price.setVisibility(View.GONE);
+        LinearLayout proceed = findViewById(R.id.proceed_to_check_out);
+        proceed.setVisibility(View.GONE);
     }
 
     public void confirm_detail(View view) {
@@ -379,20 +377,11 @@ public class PaymentActivity extends AppCompatActivity {
         }
 
         else{
-            TextView name_phonenum = findViewById(R.id.customer_namephonenum);
-            name_phonenum.setText(name.getText().toString() + " - " + phone_number.getText().toString());
+            LinearLayout change_address = findViewById(R.id.choose_address);
+            change_address.setVisibility(View.GONE);
 
-            TextView address = findViewById(R.id.customer_address);
-            address.setText(address_tv.getText().toString());
-
-            LinearLayout input_data = findViewById(R.id.input_data);
-            input_data.setVisibility(View.GONE);
-
-            LinearLayout package_detail = findViewById(R.id.package_detail);
-            package_detail.setVisibility(View.VISIBLE);
-
-            LinearLayout price = findViewById(R.id.price_payment);
-            price.setVisibility(View.VISIBLE);
+            LinearLayout proceed = findViewById(R.id.proceed_to_check_out);
+            proceed.setVisibility(View.VISIBLE);
         }
     }
 }

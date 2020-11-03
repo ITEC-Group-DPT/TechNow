@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:minHeight="@android:dimen/app_icon_size">
 
@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/muli_black"
-            android:text="Shopping Cart"
+            android:text="Order History"
             android:textColor="@color/colorSecondary"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 

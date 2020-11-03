@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:background="@color/appTheme"
         android:minHeight="@android:dimen/app_icon_size"
@@ -32,7 +32,7 @@
             android:fontFamily="@font/muli_black"
             android:text="TechNow"
             android:textColor="@color/colorSecondary"
-            android:textSize="23sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -46,7 +46,6 @@
                 android:id="@+id/cart_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:background="@color/appTheme"
                 android:src="@drawable/shoppingcart"
                 android:tint="@color/colorSecondary" />
@@ -85,9 +84,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:paddingRight="8dp"
         android:paddingLeft="8dp"
-        android:paddingTop="8dp">
+        android:paddingTop="8dp"
+        android:paddingRight="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,16 +225,29 @@
                 android:textSize="15sp"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/view_more_btn"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="viewMoreOnClick"
-                android:text="View More"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary" />
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/view_more_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View More"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary" />
+
+                <ImageView
+                    android:id="@+id/expand_arrrow_IV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/drop_down_arrow"
+                    app:tint="@color/colorPrimary" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -278,10 +290,10 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:onClick="addToFavorite"
                 android:background="@null"
-                android:tint="@color/colorBlack"
-                android:src="@drawable/favorite_icon" />
+                android:onClick="addToFavorite"
+                android:src="@drawable/favorite_icon"
+                android:tint="@color/colorBlack" />
         </LinearLayout>
 
         <RelativeLayout
@@ -297,17 +309,19 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:fontFamily="@font/muli_black"
                     android:text="Add To Cart"
                     android:textColor="@color/colorSecondary"
-                    android:layout_gravity="center_vertical"
                     android:textSize="16sp" />
+
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

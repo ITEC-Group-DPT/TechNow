@@ -56,11 +56,11 @@ public class Product_Catalog extends Fragment {
         protected String doInBackground(ArrayList... arrayLists) {
             spinnerList.add("Price lowest");
             spinnerList.add("Price highest");
-            spinnerList.add("Sold lowest");
-            spinnerList.add("Sold highest");
             spinnerList.add("Rating lowest");
             spinnerList.add("Rating highest");
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerList);
+            spinnerList.add("Sold lowest");
+            spinnerList.add("Sold highest");
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_sort_item, spinnerList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
             AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {

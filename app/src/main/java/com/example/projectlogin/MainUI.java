@@ -244,6 +244,10 @@ public class MainUI extends AppCompatActivity {
                         catalog = "Mouse";
                         changeFragment(catalog);
                         break;
+                    case(R.id.cpu):
+                        catalog = "CPU";
+                        changeFragment(catalog);
+                        break;
                     case (R.id.screen):
                         catalog = "Monitor";
                         changeFragment(catalog);

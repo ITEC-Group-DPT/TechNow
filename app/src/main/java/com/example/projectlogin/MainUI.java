@@ -235,12 +235,32 @@ public class MainUI extends AppCompatActivity {
                         intent = new Intent(MainUI.this, ReenterPassword.class);
                         startActivity(intent);
                         break;
+                    case (R.id.mouse):
+                        catalog = "Mouse";
+                        changeFragment(catalog);
+                        break;
                     case (R.id.keyboard):
                         catalog = "Keyboard";
                         changeFragment(catalog);
                         break;
-                    case (R.id.mouse):
-                        catalog = "Mouse";
+                    case (R.id.headphone):
+                        catalog = "Headphone";
+                        changeFragment(catalog);
+                        break;
+                    case (R.id.speaker):
+                        catalog = "Speaker";
+                        changeFragment(catalog);
+                        break;
+                    case (R.id.monitor):
+                        catalog = "Monitor";
+                        changeFragment(catalog);
+                        break;
+                    case(R.id.gaming_chair):
+                        catalog = "Gaming Chair";
+                        changeFragment(catalog);
+                        break;
+                    case (R.id.laptop):
+                        catalog = "Laptop";
                         changeFragment(catalog);
                         break;
                     case(R.id.cpu):
@@ -251,12 +271,24 @@ public class MainUI extends AppCompatActivity {
                         catalog = "VGA";
                         changeFragment(catalog);
                         break;
-                    case (R.id.screen):
-                        catalog = "Monitor";
+                    case(R.id.ram):
+                        catalog = "RAM";
                         changeFragment(catalog);
                         break;
-                    case (R.id.laptop):
-                        catalog = "Laptop";
+                    case (R.id.ssd):
+                        catalog = "SSD";
+                        changeFragment(catalog);
+                        break;
+                    case (R.id.mainboard):
+                        catalog = "Mainboard";
+                        changeFragment(catalog);
+                        break;
+                    case (R.id.case_pc):
+                        catalog = "Case";
+                        changeFragment(catalog);
+                        break;
+                    case (R.id.psu):
+                        catalog = "PSU";
                         changeFragment(catalog);
                         break;
                     case (R.id.nav_home):
@@ -346,34 +378,21 @@ public class MainUI extends AppCompatActivity {
             reff.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    DataSnapshot snapshotKeyboard = snapshot.child("Keyboard");
-                    for (DataSnapshot dataSnapshot : snapshotKeyboard.getChildren()) {
-                        Product product = dataSnapshot.getValue(Product.class);
-                        product.setType("Keyboard");
-                        productList.add(product);
-                    }
-
-                    DataSnapshot snapshotLaptop = snapshot.child("Laptop");
-                    for (DataSnapshot dataSnapshot : snapshotLaptop.getChildren()) {
-                        Product product = dataSnapshot.getValue(Product.class);
-                        product.setType("Laptop");
-                        productList.add(product);
-                    }
-
-                    DataSnapshot snapshotMonitor = snapshot.child("Monitor");
-                    for (DataSnapshot dataSnapshot : snapshotMonitor.getChildren()) {
-                        Product product = dataSnapshot.getValue(Product.class);
-                        product.setType("Monitor");
-                        productList.add(product);
-                    }
-
-                    DataSnapshot snapshotMouse = snapshot.child("Mouse");
-                    for (DataSnapshot dataSnapshot : snapshotMouse.getChildren()) {
-                        Product product = dataSnapshot.getValue(Product.class);
-                        product.setType("Mouse");
-                        productList.add(product);
-                    }
-
+                    getProductData("Mouse", snapshot);
+                    getProductData("Keyboard", snapshot);
+                    getProductData("Headphone", snapshot);
+                    getProductData("Speaker", snapshot);
+                    getProductData("Monitor", snapshot);
+                    getProductData("GamingChair", snapshot);
+                    getProductData("Laptop", snapshot);
+                    getProductData("CPU", snapshot);
+                    getProductData("VGA", snapshot);
+                    getProductData("RAM", snapshot);
+                    getProductData("SSD", snapshot);
+                    getProductData("Mainboard", snapshot);
+                    getProductData("Case", snapshot);
+                    getProductData("PSU", snapshot);
+                    
                     Collections.sort(productList, new Comparator<Product>() {
                         public int compare(Product p1, Product p2) {
                             if (p1.getSold() > p2.getSold()) return -1;
@@ -403,6 +422,14 @@ public class MainUI extends AppCompatActivity {
             return null;
         }
 
+        protected void getProductData(String productType, DataSnapshot snapshot){
+            DataSnapshot snapshotProduct = snapshot.child(productType);
+            for (DataSnapshot dataSnapshot : snapshotProduct.getChildren()) {
+                Product product = dataSnapshot.getValue(Product.class);
+                product.setType(productType);
+                productList.add(product);
+            }
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -423,13 +450,13 @@ public class MainUI extends AppCompatActivity {
             }
         }
     }
+
     private void loadTopSeller() {
         productList = new ArrayList<>();
         topSellerProductList = new ArrayList<>();
 
         new AsyncTask_TopSeller().execute(productList);
     }
-
 
     public void Card_onClick(View view) {
         switch (view.getId()) {
@@ -466,17 +493,47 @@ public class MainUI extends AppCompatActivity {
         open_FrameLayout();
         drawerLayout.closeDrawer(GravityCompat.START);
         switch (Catalog) {
-            case ("Keyboard"):
-                navigationView.setCheckedItem(R.id.keyboard);
-                break;
             case ("Mouse"):
                 navigationView.setCheckedItem(R.id.mouse);
                 break;
+            case ("Keyboard"):
+                navigationView.setCheckedItem(R.id.keyboard);
+                break;
+            case ("Headphone"):
+                navigationView.setCheckedItem(R.id.headphone);
+                break;
+            case ("Speaker"):
+                navigationView.setCheckedItem(R.id.speaker);
+                break;
             case ("Monitor"):
-                navigationView.setCheckedItem(R.id.screen);
+                navigationView.setCheckedItem(R.id.monitor);
+                break;
+            case ("GamingChair"):
+                navigationView.setCheckedItem(R.id.gaming_chair);
                 break;
             case ("Laptop"):
                 navigationView.setCheckedItem(R.id.laptop);
+                break;
+            case ("CPU"):
+                navigationView.setCheckedItem(R.id.cpu);
+                break;
+            case ("VGA"):
+                navigationView.setCheckedItem(R.id.vga);
+                break;
+            case ("RAM"):
+                navigationView.setCheckedItem(R.id.ram);
+                break;
+            case ("SSD"):
+                navigationView.setCheckedItem(R.id.ssd);
+                break;
+            case ("Mainboard"):
+                navigationView.setCheckedItem(R.id.mainboard);
+                break;
+            case ("Case"):
+                navigationView.setCheckedItem(R.id.case_pc);
+                break;
+            case ("PSU"):
+                navigationView.setCheckedItem(R.id.psu);
                 break;
         }
 

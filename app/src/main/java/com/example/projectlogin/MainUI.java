@@ -111,7 +111,7 @@ public class MainUI extends AppCompatActivity {
         searchView.setFocusable(false);
         searchView.setIconified(false);
         searchView.clearFocus();
-        setSearchviewTextSize(searchView, 15);
+        setSearchviewTextSize(searchView, 14);
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override

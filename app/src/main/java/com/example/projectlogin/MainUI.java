@@ -38,6 +38,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mhmtk.twowaygrid.TwoWayAdapterView;
+import com.mhmtk.twowaygrid.TwoWayGridView;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -80,6 +82,9 @@ public class MainUI extends AppCompatActivity {
     private ArrayList<Product> tempArrayList;
     private SwipeRefreshLayout refreshLayout;
 
+    private TwoWayGridView categoryGridView;
+    private ArrayList<Catalog> catalogList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,18 +97,45 @@ public class MainUI extends AppCompatActivity {
         loadCarouselView();
         loadTopSeller();
         loadsearchview();
+        loadCategories();
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadData();
                 loadCarouselView();
                 loadTopSeller();
+                loadCategories();
                 refreshLayout.setRefreshing(false);
             }
         });
+    }
 
+    private void loadCategories(){
+        categoryGridView = findViewById(R.id.category_grid_view);
+        catalogList = new ArrayList<>();
+        Catalog a =  new Catalog();
+        for (int i = 0; i < 14; i++) {
+            Catalog temp = new Catalog();
+            temp.setName("Keyboard");
+            temp.setAvatarURL("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2FbestSeller1.png?alt=media&token=02429f59-88c1-4124-85d6-d086f207345a");
+            catalogList.add(temp);
+        }
 
+        CatalogGridViewAdapter adapter = new CatalogGridViewAdapter(MainUI.this, R.layout.catalog_gridview_layout, catalogList);
 
+        categoryGridView.setAdapter(adapter);
+
+        TwoWayAdapterView.OnItemClickListener onItemClickListener = new TwoWayAdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(TwoWayAdapterView<?> twoWayAdapterView, View view, int position, long l) {
+                catalog = "Mouse";
+                changeFragment(catalog);
+                /*Intent intent = new Intent(getApplicationContext(), Product_Catalog.class);
+                startActivity(intent);*/
+            }
+        };
+
+        categoryGridView.setOnItemClickListener(onItemClickListener);
     }
 
     private void loadsearchview() {
@@ -494,7 +526,7 @@ public class MainUI extends AppCompatActivity {
         new AsyncTask_TopSeller().execute(productList);
     }
 
-    public void Card_onClick(View view) {
+/*    public void Card_onClick(View view) {
         switch (view.getId()) {
             case (R.id.keyboard_cv):
                 catalog = "Keyboard";
@@ -511,7 +543,7 @@ public class MainUI extends AppCompatActivity {
         }
         changeFragment(catalog);
 
-    }
+    }*/
 
     private void close_FrameLayout() {
         if (frameLayout.getVisibility() != View.GONE) {

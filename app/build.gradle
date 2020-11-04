@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'com.firebaseui:firebase-ui-storage:6.2.0'
     implementation 'com.dk.animation.circle:library:0.1.0@aar'
+    implementation 'com.github.mhmtk:two-way-grid-view-jess-anders:0.1.1'
 }

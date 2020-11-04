@@ -161,8 +161,10 @@ public class MainUI extends AppCompatActivity {
                         }
                     }
                 }
-                ProductListViewAdapter adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_listview_layout, tempArrayList);
+
+                ProductListViewAdapter adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_searchbar, tempArrayList);
                 listView.setAdapter(adapter);
+
                 return false;
             }
         });

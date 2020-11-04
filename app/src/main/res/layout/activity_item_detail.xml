@@ -247,6 +247,9 @@
                     android:src="@drawable/drop_down_arrow"
                     app:tint="@color/colorPrimary" />
             </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
 
         </LinearLayout>
     </ScrollView>

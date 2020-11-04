@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,7 +33,7 @@ public class Product_Catalog extends Fragment {
 
     private ArrayList<Product> productList;
     private LinearLayout lnlo;
-    private ListView productLV;
+    private GridView productLV;
     private ProductListViewAdapter productListViewAdapter;
     private DatabaseReference reff;
     private ArrayList<String> spinnerList;

@@ -2,39 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:padding="8dp"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
     <ImageView
         android:id="@+id/iv_ava"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        android:layout_weight="3" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
-        android:layout_weight="6"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="8"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stepSize="0.1"
+        android:theme="@style/RatingBar" />
 
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="2"
-            android:textAlignment="viewStart"
-            android:textColor="@color/colorPrice"
-            android:textSize="16sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorPrice"
+        android:textSize="15sp" />
 </LinearLayout>

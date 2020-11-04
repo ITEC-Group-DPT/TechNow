@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp"
     android:transitionName="trans_catalog">
 
     <ProgressBar
@@ -23,7 +26,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:padding="8dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -48,12 +50,23 @@
                 />
         </LinearLayout>
 
-        <ListView
+<!--        <ListView
             android:id="@+id/catalog_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animationCache="false"
-            android:scrollingCache="false" />
+            android:scrollingCache="false" />-->
+
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="1dp"
+            android:background="#C1C1C1"
+            android:animationCache="false"
+            android:scrollingCache="false"
+            android:id="@+id/catalog_lv" />
 
     </LinearLayout>
 </LinearLayout>

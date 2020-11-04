@@ -215,8 +215,8 @@ public class ItemDetail extends AppCompatActivity {
         noOfRating = findViewById(R.id.no_of_rating);
 
         noOfRating.setText("Total: " + product.getRateNo());
-        if (product.getRating() != 0)
-            ratingBar.setRating(Float.parseFloat(String.format("%.1f", product.getRating())));
+
+        ratingBar.setRating(Float.parseFloat(String.format("%.1f", product.getRating())));
 
         productName_TV.setText(product.getName());
         String formattedPrice = format.format(product.getPrice()) + "₫";
@@ -283,10 +283,11 @@ public class ItemDetail extends AppCompatActivity {
         });
     }
 
-    public int countLines(String str){
+    public int countLines(String str) {
         String[] lines = str.split("\r\n|\r|\n");
         return lines.length;
     }
+
     public void viewMoreOnClick(View view) {
         if (expanded) {
             fullDetail_TV.setVisibility(View.GONE);

@@ -11,5 +11,5 @@
 
 
     <!-- Round Corners -->
-    <corners android:radius="10dp" />
+    <corners android:radius="50dp" />
 </shape>

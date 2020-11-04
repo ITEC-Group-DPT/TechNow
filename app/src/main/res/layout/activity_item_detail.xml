@@ -84,7 +84,6 @@
         android:layout_height="0dp"
         android:layout_weight="9"
         android:paddingLeft="8dp"
-        android:paddingTop="8dp"
         android:paddingRight="8dp">
 
         <LinearLayout

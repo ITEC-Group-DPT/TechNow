@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"/>
 
                 <View
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:background="#E6E5E5" />
@@ -70,6 +70,20 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/back_to_payment"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/button_setting"
+                    android:fontFamily="@font/muli_black"
+                    android:text="Back to payment"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -87,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginBottom="20dp"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:text="Fill in your information "/>
                 <com.google.android.material.textfield.TextInputLayout
@@ -165,13 +180,13 @@
                     android:layout_width="300dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/color_primary_circle_button"
+                    android:background="@drawable/button_setting"
                     android:fontFamily="@font/muli_black"
                     android:text="Proceed"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/appTheme"
                     android:textSize="20sp" />
             </LinearLayout>
 

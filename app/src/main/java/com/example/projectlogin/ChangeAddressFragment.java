@@ -119,6 +119,13 @@ public class ChangeAddressFragment extends Fragment {
             }
         });
 
+        root.findViewById(R.id.back_to_payment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

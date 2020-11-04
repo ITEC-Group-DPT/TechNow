@@ -105,33 +105,43 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Total cash: "
-                android:textColor="@color/colorRed"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/muli_black"
+                android:gravity="left"
+                android:paddingTop="4dp"
+                android:text="Total:"
                 android:textSize="30sp" />
+
             <TextView
                 android:id="@+id/tv_totalCash"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:text="0đ"
                 android:layout_weight="1"
-                android:layout_gravity="right"
+                android:fontFamily="@font/muli_black"
                 android:gravity="right"
+                android:maxLines="1"
                 android:textColor="@color/colorRed"
-                android:textSize="30sp" />
+                android:textSize="35sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/submit"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:background="@drawable/color_primary_circle_button"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_setting"
             android:fontFamily="@font/muli_black"
             android:onClick="submit"
             android:text="Confirm"
             android:textAllCaps="false"
-            android:textColor="@color/colorSecondary"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -34,7 +33,7 @@ public class Product_Catalog extends Fragment {
     private ArrayList<Product> productList;
     private LinearLayout lnlo;
     private GridView productLV;
-    private ProductListViewAdapter productListViewAdapter;
+    private ProductGridViewAdapter productListViewAdapter;
     private DatabaseReference reff;
     private ArrayList<String> spinnerList;
     private Spinner spinner;
@@ -106,7 +105,7 @@ public class Product_Catalog extends Fragment {
                         product.setType(catalog);
                         monitors.add(product);
                     }
-                    productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
+                    productListViewAdapter = new ProductGridViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
                     productLV.setAdapter(productListViewAdapter);
 
                     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {

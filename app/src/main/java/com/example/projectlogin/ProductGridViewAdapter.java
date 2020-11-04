@@ -29,13 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductListViewAdapter extends ArrayAdapter<Product> {
+public class ProductGridViewAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int layoutID;
     private ArrayList<Product> Products;
     private NumberFormat format = new DecimalFormat("#,###");
 
-    public ProductListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
+    public ProductGridViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
@@ -59,6 +59,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(layoutID, null, false);
+            convertView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 800));
         } else {
             System.gc();
         }

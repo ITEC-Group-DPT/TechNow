@@ -175,6 +175,8 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
                         cus_namephone_tv.setText(cus_name + " - " + cus_phone);
                         cus_address_tv.setText(cus_address);
                         tv_shipping.setText(format.format(Calc_ShippingFee(cus_address)) + "₫");
+
+                        tv_total.setText(format.format(Calc_ShippingFee(cus_address) + Cart_totalcash) + "đ");
                     }
 
                     ProgressBar progressBar = findViewById(R.id.progress_bar_payment);

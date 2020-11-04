@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
 
     <ScrollView
@@ -12,56 +13,89 @@
         android:layout_weight="7">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingTop="15dp"
+            android:paddingLeft="22dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/choose_address_lnlo"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:textColorHint="@color/colorBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorBlack"
-                app:startIconDrawable="@drawable/name_icon"
-                app:startIconTint="@color/colorBlack">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/payment_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/muli_black"
-                    android:hint="Name"
-                    android:inputType="text"
-                    android:textColor="@color/colorBlack" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColorHint="@color/colorBlack"
-                app:boxStrokeColor="@color/colorBlack"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorBlack"
-                app:hintTextColor="@color/colorBlack"
-                app:startIconDrawable="@drawable/address_icon"
-                app:startIconTint="@color/colorBlack">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/muli_black"
-                    android:hint="Address "
-                    android:onClick="onasd"
-                    android:textColor="@color/colorBlack" />
+                    android:text="Choose address"
+                    android:textStyle="bold"
+                    android:textSize="17sp"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/address_book_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:id="@+id/lnlo_add_new_address"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="9"
+                        android:textStyle="bold"
+                        android:id="@+id/add_new_address_button"
+                        android:layout_height="wrap_content"
+                        android:text="Add new address"
+                        android:textColor="@color/appTheme" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/see_more"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/input_address"
+                android:layout_marginTop="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="7dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:textColorHint="@color/colorBlack"
+                    app:boxStrokeColor="@color/colorBlack"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/colorBlack"
+                    app:hintTextColor="@color/colorBlack"
+                    app:startIconDrawable="@drawable/name_icon"
+                    app:startIconTint="@color/colorBlack">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/payment_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/muli_black"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:textColor="@color/colorBlack" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -74,19 +108,44 @@
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/colorBlack"
                     app:hintTextColor="@color/colorBlack"
-                    app:startIconDrawable="@drawable/phone_icon"
+                    app:startIconDrawable="@drawable/address_icon"
                     app:startIconTint="@color/colorBlack">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/payment_phonenum"
+                        android:id="@+id/address"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/muli_black"
-                        android:hint="Phone Number"
-                        android:inputType="number"
+                        android:hint="Address "
+                        android:onClick="onasd"
                         android:textColor="@color/colorBlack" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColorHint="@color/colorBlack"
+                        app:boxStrokeColor="@color/colorBlack"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/colorBlack"
+                        app:hintTextColor="@color/colorBlack"
+                        app:startIconDrawable="@drawable/phone_icon"
+                        app:startIconTint="@color/colorBlack">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/payment_phonenum"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/muli_black"
+                            android:hint="Phone Number"
+                            android:inputType="number"
+                            android:textColor="@color/colorBlack" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </com.google.android.material.textfield.TextInputLayout>
-            </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -324,7 +324,7 @@ public class MainUI extends AppCompatActivity {
                         changeFragment(catalog);
                         break;
                     case(R.id.gaming_chair):
-                        catalog = "Gaming Chair";
+                        catalog = "GamingChair";
                         changeFragment(catalog);
                         break;
                     case (R.id.laptop):

@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -71,6 +67,7 @@ public class MainUI extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     protected static String username;
     protected ImageButton cart_btn;
+    private FrameLayout frame_search;
     private String catalog;
 
     private RecyclerView recyclerView;
@@ -136,16 +133,14 @@ public class MainUI extends AppCompatActivity {
                 //Toast.makeText(MainUI.this, newText, Toast.LENGTH_SHORT).show();
                 if (newText.isEmpty()) {
                     listView.setVisibility(View.GONE);
+                    frame_search.setVisibility(View.GONE);
                     return false;
                 }
 
                 listView.setVisibility(View.VISIBLE);
-                if (newText.isEmpty()) {
-                    listView.setVisibility(View.GONE);
-                    return false;
-                }
 
-                listView.setVisibility(View.VISIBLE);
+                frame_search.setVisibility(View.VISIBLE);
+
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
                 for (int i = 0; i < productList.size(); i++) {
@@ -228,6 +223,7 @@ public class MainUI extends AppCompatActivity {
     }
 
     private void onCreateDrawerLayout() {
+        frame_search = findViewById(R.id.search_view_frame);
         drawerLayout = findViewById(R.id.drawer_lo);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -587,9 +583,15 @@ public class MainUI extends AppCompatActivity {
     public void onBackPressed() {
         drawerLayout.closeDrawer(GravityCompat.START);
         navigationView.setCheckedItem(R.id.nav_home);
-        close_FrameLayout();
-        if (listView.getVisibility() == View.VISIBLE)
+
+        if (listView.getVisibility() == View.VISIBLE) {
             listView.setVisibility(View.GONE);
+            frame_search.setVisibility(View.GONE);
+        }
+        else
+        {
+            close_FrameLayout();
+        }
     }
 
     @Override

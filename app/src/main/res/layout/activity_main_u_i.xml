@@ -94,6 +94,12 @@
             android:visibility="gone" />
 
         <FrameLayout
+            android:background="#D6D5D5"
+            android:id="@+id/search_view_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+        <FrameLayout
             android:id="@+id/Frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

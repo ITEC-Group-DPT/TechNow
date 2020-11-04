@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,20 +42,73 @@ public class ChangeAddressFragment extends Fragment {
     private TextInputEditText phone_number;
     private Button proceed;
     private OnDataPass dataPasser;
+
+    private LinearLayout addAdress;
+    private LinearLayout address_change;
+    private LinearLayout choose_address_lnlo;
+
+    private LinearLayout input_address;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.change_address,null,false);
-        
+
         initComponents();
         return root;
     }
 
     private void initComponents() {
+        choose_address_lnlo = root.findViewById(R.id.choose_address_lnlo);
+        addAdress = root.findViewById(R.id.lnlo_add_new_address);
         address_tv = root.findViewById(R.id.address);
         name = root.findViewById(R.id.payment_name);
         phone_number = root.findViewById(R.id.payment_phonenum);
         proceed = root.findViewById(R.id.proceed_btn);
+        address_change = root.findViewById(R.id.address_book_change);
+        input_address = root.findViewById(R.id.input_address);
+
+        addAdress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                input_address.setVisibility(View.VISIBLE);
+                choose_address_lnlo.setVisibility(View.GONE);
+            }
+        });
+
+        DatabaseReference databaseReference =  DatabaseRef.getDatabaseReference().child("Address book");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+                    View view = LayoutInflater.from(getContext()).inflate(R.layout.choose_address, address_change, false);
+                    TextView name_phone = view.findViewById(R.id.namephonenum_choose);
+                    TextView add = view.findViewById(R.id.address_change);
+
+                    final String name = (String) dataSnapshot.child("Name").getValue();
+                    final String phonenum = (String) dataSnapshot.child("Phone Number").getValue();
+                    final String address_s = (String) dataSnapshot.child("Address").getValue();
+
+                    name_phone.setText( name + " - " + phonenum);
+                    add.setText(address_s);
+
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dataPasser.onDataPass(name,phonenum,address_s);
+                            ((PaymentActivity)getActivity()).close_frame();
+                        }
+                    });
+
+                    address_change.addView(view);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         address_tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -71,7 +132,7 @@ public class ChangeAddressFragment extends Fragment {
                                             ,address_tv.getText().toString());
                     ((PaymentActivity)getActivity()).close_frame();
 
-                    InputMethodManager imm = (InputMethodManager) ((PaymentActivity)getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
                 }

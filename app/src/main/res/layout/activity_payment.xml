@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     android:background="@android:color/white"
     tools:context=".PaymentActivity">
 
@@ -138,7 +139,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="#E6E5E5" />
 
         </LinearLayout>

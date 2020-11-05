@@ -44,7 +44,7 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         String formattedPrice = format.format(temp.getPrice()) + "₫";
         formattedPrice = formattedPrice.replace(',', '.');
         holder.priceTV.setText(formattedPrice);
-        holder.soldTV.setText("Sold: " + temp.getSold());
+        holder.soldTV.setText("Sold " + temp.getSold());
 
         holder.setItemClickListener(new ReyclerViewItemClickListener() {
             @Override

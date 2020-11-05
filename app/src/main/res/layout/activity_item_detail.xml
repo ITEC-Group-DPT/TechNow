@@ -91,24 +91,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                app:cardCornerRadius="10dp">
+                app:fillColor="@color/colorPrimary"
+                app:radius="5dp"
+                app:slideInterval="5000"
+                app:strokeColor="@color/colorBlack"
+                app:strokeWidth="1dp" />
 
-                <com.synnapps.carouselview.CarouselView
-                    android:id="@+id/carouselView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:fillColor="@color/colorPrimary"
-                    app:radius="5dp"
-                    app:slideInterval="5000"
-                    app:strokeColor="@color/colorBlack"
-                    app:strokeWidth="1dp" />
-
-            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/productName_TV"
@@ -165,11 +158,17 @@
                 android:textColor="@color/colorPrice"
                 android:textSize="20sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#F4F4F4" />
+
             <TextView
                 android:id="@+id/descriptionTitle_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/muli_black"
                 android:text="Description:"
                 android:textColor="#686868"
@@ -184,12 +183,17 @@
                 android:text="something something something"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#F4F4F4" />
 
             <TextView
                 android:id="@+id/detailTitle_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/muli_black"
                 android:text="Detail:"
                 android:textColor="#686868"
@@ -226,8 +230,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="viewMoreOnClick"
                 android:layout_gravity="center"
+                android:onClick="viewMoreOnClick"
                 android:orientation="horizontal">
 
                 <TextView
@@ -246,9 +250,10 @@
                     android:src="@drawable/drop_down_arrow"
                     app:tint="@color/colorPrimary" />
             </LinearLayout>
+
             <View
                 android:layout_width="0dp"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -269,8 +274,6 @@
             android:id="@+id/btn_favorite"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:layout_weight="3"
@@ -303,8 +306,6 @@
             android:id="@+id/btn_add"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="7"

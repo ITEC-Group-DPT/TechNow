@@ -123,7 +123,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:background="@drawable/color_gray_circle_button"
-                    android:text="Standard   " />
+                    android:text="Standard" />
 
                 <TextView
                     android:layout_width="wrap_content"

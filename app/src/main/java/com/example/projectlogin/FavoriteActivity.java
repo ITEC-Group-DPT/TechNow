@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 public class FavoriteActivity extends AppCompatActivity {
-    protected FavoriteListViewAdapter adapter;
+    protected ProductListViewAdapter adapter;
     protected ListView lv_favorite;
     private Cart cart = new Cart();
     private SwipeRefreshLayout refreshLayout;
@@ -51,7 +51,7 @@ public class FavoriteActivity extends AppCompatActivity {
                         cart.addItem(product);
                     }
                 }
-                adapter = new FavoriteListViewAdapter(getBaseContext(), R.layout.favorite_listview_layout, cart.getCartArrList());
+                adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_searchbar, cart.getCartArrList(),true);
                 lv_favorite.setAdapter(adapter);
             }
 

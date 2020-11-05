@@ -179,11 +179,11 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
                         cus_namephone_tv.setText(cus_name + " - " + cus_phone);
                         cus_address_tv.setText(cus_address);
                         String temp1 = format.format(Calc_ShippingFee(cus_address)) + "₫";
-                        temp1.replace(',','.');
+                        temp1 = temp1.replace(',','.');
                         tv_shipping.setText(temp1);
 
                         String temp2= format.format(Calc_ShippingFee(cus_address) + Cart_totalcash) + "đ";
-                        temp2.replace(',','.');
+                        temp2 = temp2.replace(',','.');
                         tv_total.setText(temp2);
                     }
 

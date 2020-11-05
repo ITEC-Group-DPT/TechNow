@@ -18,11 +18,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:paddingTop="10dp"
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_weight="8"
+            android:layout_weight="1"
             android:gravity="top|left"
             android:text="a"
             android:textColor="@android:color/black"
@@ -31,8 +32,7 @@
         <RatingBar
             android:id="@+id/rating_bar"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_marginLeft="10dp"
             android:stepSize="0.1"

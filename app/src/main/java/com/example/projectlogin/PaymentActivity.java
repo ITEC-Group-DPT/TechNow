@@ -50,7 +50,8 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
     private NumberFormat format = new DecimalFormat("#,###");
     private String formattedTotalCash;
     private int Cart_totalcash;
-    private DatabaseReference address_book = DatabaseRef.getDatabaseReference().child("Address book");;
+    private DatabaseReference address_book = DatabaseRef.getDatabaseReference().child("Address book");
+    ;
 
     private double shippingFee;
 
@@ -73,9 +74,13 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
         cus_namephone_tv.setText(name + " - " + phone);
         cus_address_tv.setText(address);
 
-        tv_shipping.setText(format.format(Calc_ShippingFee(address)) + "₫");
+        String temp1 = format.format(Calc_ShippingFee(address)) + "₫";
+        temp1 = temp1.replace(',', '.');
+        tv_shipping.setText(temp1);
 
-        tv_total.setText(format.format(shippingFee + Cart_totalcash) + "₫");
+        String temp2 = format.format(shippingFee + Cart_totalcash) + "₫";
+        temp2 = temp2.replace(',', '.');
+        tv_total.setText(temp2);
 
     }
 
@@ -87,8 +92,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
         packageDetailonCreate();
     }
 
-    private class AsyncTaskLoadPayment extends AsyncTask<String, String, String>
-    {
+    private class AsyncTaskLoadPayment extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -104,7 +108,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
                     }
                     Cart_totalcash = cart.calTotalCash();
                     formattedTotalCash = format.format(Cart_totalcash) + "₫";
-
+                    formattedTotalCash = formattedTotalCash.replace(',', '.');
                     onPostExecute("Completed");
                 }
 
@@ -127,11 +131,11 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
         @Override
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
-            if (command.equals("Completed"))
-            {
+            if (command.equals("Completed")) {
                 TextView notional_price = findViewById(R.id.notional_price_payment);
-                notional_price.setText(formattedTotalCash);
 
+                formattedTotalCash = formattedTotalCash.replace(',','.');
+                notional_price.setText(formattedTotalCash);
                 tv_total.setText(formattedTotalCash);
 
                 LinearLayout linearLayout = findViewById(R.id.package_detail);
@@ -148,6 +152,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
 
                     NumberFormat format = new DecimalFormat("#,###");
                     String formattedPrice = format.format(product.getPrice()) + " ₫";
+                    formattedPrice = formattedPrice.replace(',', '.');
                     product_price_qty.setText(formattedPrice + " x" + product.getQuantity());
 
                     view.setOnClickListener(new View.OnClickListener() {
@@ -166,17 +171,20 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     DataSnapshot dataSnapshot = snapshot.child("Address - 01");
-                    if (dataSnapshot.exists())
-                    {
+                    if (dataSnapshot.exists()) {
                         cus_name = (String) dataSnapshot.child("Name").getValue();
                         cus_phone = (String) dataSnapshot.child("Phone Number").getValue();
                         cus_address = (String) dataSnapshot.child("Address").getValue();
 
                         cus_namephone_tv.setText(cus_name + " - " + cus_phone);
                         cus_address_tv.setText(cus_address);
-                        tv_shipping.setText(format.format(Calc_ShippingFee(cus_address)) + "₫");
+                        String temp1 = format.format(Calc_ShippingFee(cus_address)) + "₫";
+                        temp1.replace(',','.');
+                        tv_shipping.setText(temp1);
 
-                        tv_total.setText(format.format(Calc_ShippingFee(cus_address) + Cart_totalcash) + "đ");
+                        String temp2= format.format(Calc_ShippingFee(cus_address) + Cart_totalcash) + "đ";
+                        temp2.replace(',','.');
+                        tv_total.setText(temp2);
                     }
 
                     ProgressBar progressBar = findViewById(R.id.progress_bar_payment);
@@ -190,6 +198,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
             });
         }
     }
+
     private void packageDetailonCreate() {
 
         tv_total = findViewById(R.id.total_cash);
@@ -244,12 +253,11 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
                     address_book.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                            {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 if (dataSnapshot.child("Address").getValue().equals(cus_address))
                                     return;
                             }
-                            DatabaseReference book = address_book.child("Address - 0" + ((int) snapshot.getChildrenCount()  +1));
+                            DatabaseReference book = address_book.child("Address - 0" + ((int) snapshot.getChildrenCount() + 1));
                             book.child("Name").setValue(cus_name);
                             book.child("Address").setValue(cus_address);
                             book.child("Phone Number").setValue(cus_phone);
@@ -314,17 +322,16 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
 
         FrameLayout frameLayout = findViewById(R.id.frame_payment);
 
-        if(frameLayout.getVisibility() == View.VISIBLE)
+        if (frameLayout.getVisibility() == View.VISIBLE)
             frameLayout.setVisibility(View.GONE);
         else
             super.onBackPressed();
     }
 
-    public void close_frame()
-    {
+    public void close_frame() {
         FrameLayout frameLayout = findViewById(R.id.frame_payment);
 
-        if(frameLayout.getVisibility() == View.VISIBLE)
+        if (frameLayout.getVisibility() == View.VISIBLE)
             frameLayout.setVisibility(View.GONE);
     }
 

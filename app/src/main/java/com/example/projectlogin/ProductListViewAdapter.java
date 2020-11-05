@@ -34,7 +34,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
     private int layoutID;
     private ArrayList<Product> Products;
     private NumberFormat format = new DecimalFormat("#,###");
-    private  boolean listviewC ;
+    private boolean listviewC;
 
     public ProductListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
@@ -43,7 +43,8 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         this.Products = (ArrayList<Product>) objects;
         listviewC = false;
     }
-    public ProductListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects,boolean listviewFlag) {
+
+    public ProductListViewAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects, boolean listviewFlag) {
         super(context, resource, objects);
         this.context = context;
         this.layoutID = resource;
@@ -51,6 +52,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         listviewC = true;
 
     }
+
     @Override
     public int getCount() {
         return Products.size();
@@ -68,7 +70,8 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(layoutID, null, false);
-            if (listviewC == false) convertView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 800));
+            if (listviewC == false)
+                convertView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 800));
         } else {
             System.gc();
         }
@@ -83,9 +86,11 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         Glide.with(context).load(temp.getAvatarURL()).into(imageView);
         tv_name.setText(temp.getName());
 
-       ratingBar.setRating(Float.parseFloat(String.format("%.1f", temp.getRating())));
+        ratingBar.setRating(Float.parseFloat(String.format("%.1f", temp.getRating())));
 
         String formattedPrice = format.format(temp.getPrice()) + "₫";
+        formattedPrice = formattedPrice.replace(',', '.');
+
         tv_price.setText(formattedPrice);
 
 

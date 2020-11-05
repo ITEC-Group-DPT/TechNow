@@ -220,6 +220,7 @@ public class ItemDetail extends AppCompatActivity {
 
         productName_TV.setText(product.getName());
         String formattedPrice = format.format(product.getPrice()) + "₫";
+        formattedPrice = formattedPrice.replace(',', '.');
         productPrice_TV.setText(formattedPrice);
         sold_TV.setText("  |  Sold: " + product.getSold());
 

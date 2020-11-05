@@ -42,6 +42,7 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
         Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2FbestSeller1.png?alt=media&token=02429f59-88c1-4124-85d6-d086f207345a").into(holder.topSellerIV);
         holder.nameTV.setText(temp.getName());
         String formattedPrice = format.format(temp.getPrice()) + "₫";
+        formattedPrice = formattedPrice.replace(',', '.');
         holder.priceTV.setText(formattedPrice);
         holder.soldTV.setText("Sold: " + temp.getSold());
 
@@ -63,10 +64,10 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
     }
 
     public interface ReyclerViewItemClickListener {
-        void onClick(View view, int position,boolean isLongClick);
+        void onClick(View view, int position, boolean isLongClick);
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView avatar;
         private ImageView topSellerIV;
         private TextView nameTV;
@@ -84,14 +85,13 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerAdapter.MyVi
             itemView.setOnClickListener(this);
         }
 
-        public void setItemClickListener(ReyclerViewItemClickListener itemClickListener)
-        {
+        public void setItemClickListener(ReyclerViewItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),false);
+            itemClickListener.onClick(v, getAdapterPosition(), false);
         }
     }
 }

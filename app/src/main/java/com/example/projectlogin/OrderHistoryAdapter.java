@@ -70,7 +70,8 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
 
 
         int price = tempProduct.getQuantity() * tempProduct.getPrice();
-        String formatedTotal = "Quantity: " + tempProduct.getQuantity() + " | $" + format.format(price) + "₫";
+        String formatedTotal = "Quantity: " + tempProduct.getQuantity() + " | " + format.format(price) + "₫";
+        formatedTotal = formatedTotal.replace(',', '.');
         tv_order_quantity_price.setText(formatedTotal);
 
         /*final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Order History");

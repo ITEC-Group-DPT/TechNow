@@ -101,8 +101,10 @@ public class CartActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public static void setTV_totalCash(int _totalCash){
+    public static void setTV_totalCash(int _totalCash) {
         String formattedTotal = format.format(_totalCash) + "₫";
-        tv_totalCash.setText(formattedTotal);;
+        formattedTotal = formattedTotal.replace(',', '.');
+        tv_totalCash.setText(formattedTotal);
+        ;
     }
 }

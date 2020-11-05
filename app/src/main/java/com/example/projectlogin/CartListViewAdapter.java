@@ -89,6 +89,7 @@ public class CartListViewAdapter extends ArrayAdapter<Product> {
             }
         });
         String formattedTotal = format.format(temp.getPrice()) + "₫";
+        formattedTotal = formattedTotal.replace(',','.');
         price.setText(formattedTotal);
 
         ImageButton sub_quantity = convertView.findViewById(R.id.sub_quantity_btn);

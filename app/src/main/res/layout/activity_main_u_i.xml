@@ -150,12 +150,13 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="7dp"
+                        android:layout_height="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="#E6E5E5" />
+                        android:background="#F4F4F4" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="8dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Categories"
@@ -175,12 +176,13 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="7dp"
+                        android:layout_height="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="#E6E5E5" />
+                        android:background="#F4F4F4" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="8dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Top Seller"

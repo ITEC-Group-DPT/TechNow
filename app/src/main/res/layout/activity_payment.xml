@@ -242,7 +242,7 @@
             android:gravity="left"
             android:paddingTop="4dp"
             android:text="Total:"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/total_cash"
@@ -251,20 +251,20 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:text="0đ"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:fontFamily="@font/muli_black"
             android:gravity="right"
             android:maxLines="1"
             android:textColor="@color/colorRed"
-            android:textSize="35sp" />
+            android:textSize="25sp" />
     </LinearLayout>
 
     <Button
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/button_setting"
         android:fontFamily="@font/muli_black"
         android:onClick="Check_out"

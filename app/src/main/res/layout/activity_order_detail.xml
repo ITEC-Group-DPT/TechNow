@@ -22,6 +22,7 @@
             android:layout_height="40dp"
             android:background="@color/appTheme"
             android:onClick="Back_favorite"
+            android:tint="#FFFFFF"
             android:src="@drawable/back_icon" />
 
         <TextView

@@ -23,6 +23,7 @@
                 android:id="@+id/back_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:tint="#FFFFFF"
                 android:src="@drawable/back_icon"
                 android:background="@color/appTheme"
                 />

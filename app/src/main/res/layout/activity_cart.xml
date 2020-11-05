@@ -21,6 +21,7 @@
             android:layout_height="40dp"
             android:background="@color/appTheme"
             android:onClick="Back_cart"
+            android:tint="#FFFFFF"
             android:src="@drawable/back_icon" />
 
         <TextView
@@ -87,7 +88,8 @@
             android:id="@+id/lv_cart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="15dp"
+            android:divider="#F4F4F4"
+            android:dividerHeight="10dp"
             android:layout_weight="8">
 
         </ListView>
@@ -110,9 +112,8 @@
                 android:layout_weight="0.5"
                 android:fontFamily="@font/muli_black"
                 android:gravity="left"
-                android:paddingTop="4dp"
                 android:text="Total:"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/tv_totalCash"
@@ -121,21 +122,21 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:text="0đ"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:fontFamily="@font/muli_black"
                 android:gravity="right"
                 android:maxLines="1"
                 android:textColor="@color/colorRed"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/submit"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/button_setting"
             android:fontFamily="@font/muli_black"
             android:onClick="submit"

@@ -21,6 +21,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@color/appTheme"
+            android:tint="#FFFFFF"
             android:onClick="backBtn"
             android:src="@drawable/back_icon" />
 

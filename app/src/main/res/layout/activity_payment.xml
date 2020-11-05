@@ -23,6 +23,7 @@
             android:layout_marginLeft="20dp"
             android:background="@color/appTheme"
             android:onClick="Back_Payment"
+            android:tint="#FFFFFF"
             android:src="@drawable/back_icon" />
 
         <TextView

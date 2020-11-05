@@ -7,12 +7,16 @@
 
     <ImageView
         android:id="@+id/iv_ava_catalog"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"/>
     <TextView
         android:id="@+id/tv_name_catalog"
-        android:layout_width="100dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"/>
 
 </LinearLayout>

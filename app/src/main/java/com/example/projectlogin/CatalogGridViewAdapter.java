@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.mhmtk.twowaygrid.TwoWayGridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
         if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(layoutID, null, false);
+            convertView.setLayoutParams(new TwoWayGridView.LayoutParams(200, 220));
         } else {
             System.gc();
         }

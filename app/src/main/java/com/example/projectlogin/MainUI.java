@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -113,11 +115,26 @@ public class MainUI extends AppCompatActivity {
     private void loadCategories(){
         categoryGridView = findViewById(R.id.category_grid_view);
         catalogList = new ArrayList<>();
-        Catalog a =  new Catalog();
+        String[] nameList = {"Mouse", "Keyboard", "Headphone", "Speaker", "Monitor", "Gaming Chair", "Laptop", "CPU", "VGA", "RAM", "SSD", "Mainboard", "Case", "PSU"};
+        String[] urlList = {"https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fmouse_icon.png?alt=media&token=67cb21e9-10c7-4e49-a9db-ac15d6cc7d12",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fkeyboard_icon.png?alt=media&token=40843f62-d535-4a71-9e7b-a0b19d30ab96",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fheadphone_icon.png?alt=media&token=038c353c-8fba-465a-b3d0-936c8be4f124",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fspeaker_icon.png?alt=media&token=53e9db3b-92ae-46b2-997d-8a39b9d3ea5d",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fmonitor_icon.png?alt=media&token=147645e3-6ead-4b13-a32e-cc7831d4c9c7",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fgaming_chair_icon.png?alt=media&token=7ada5b9d-8286-42b0-9250-3470393f62b3",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Flaptop_icon.png?alt=media&token=6bf101d4-4d9e-4b8c-9086-8a97d9c372bb",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcpu_icon.png?alt=media&token=c94a1289-ea1c-4ebb-9f47-64104e8f763b",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fvga_icon.png?alt=media&token=fc2bfab5-ab96-4fa1-a3f1-60b9a6690479",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fram_icon.png?alt=media&token=2cda162b-1809-425b-92e8-a9e52614cd72",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fssd_icon.png?alt=media&token=5122f4d0-37bb-44a7-a91e-54def40310d7",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fmainboard_icon.png?alt=media&token=d7990809-583e-45b4-bf33-de49ddf65e02",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fcase_icon.png?alt=media&token=313b08f7-787d-4c41-a5ef-ffe6cb81ffbb",
+                "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fpsu_icon.png?alt=media&token=76ea5990-f77d-4096-a7f6-b1547daf2b9f"};
+
         for (int i = 0; i < 14; i++) {
             Catalog temp = new Catalog();
-            temp.setName("Keyboard");
-            temp.setAvatarURL("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2FbestSeller1.png?alt=media&token=02429f59-88c1-4124-85d6-d086f207345a");
+            temp.setName(nameList[i]);
+            temp.setAvatarURL(urlList[i]);
             catalogList.add(temp);
         }
 
@@ -128,10 +145,11 @@ public class MainUI extends AppCompatActivity {
         TwoWayAdapterView.OnItemClickListener onItemClickListener = new TwoWayAdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(TwoWayAdapterView<?> twoWayAdapterView, View view, int position, long l) {
-                catalog = "Mouse";
+                Catalog temp = catalogList.get(position);
+
+                Log.d("@@@LOG", temp.getName());
+                catalog = temp.getName();
                 changeFragment(catalog);
-                /*Intent intent = new Intent(getApplicationContext(), Product_Catalog.class);
-                startActivity(intent);*/
             }
         };
 
@@ -323,7 +341,7 @@ public class MainUI extends AppCompatActivity {
                         changeFragment(catalog);
                         break;
                     case(R.id.gaming_chair):
-                        catalog = "GamingChair";
+                        catalog = "Gaming Chair";
                         changeFragment(catalog);
                         break;
                     case (R.id.laptop):
@@ -526,25 +544,6 @@ public class MainUI extends AppCompatActivity {
         new AsyncTask_TopSeller().execute(productList);
     }
 
-/*    public void Card_onClick(View view) {
-        switch (view.getId()) {
-            case (R.id.keyboard_cv):
-                catalog = "Keyboard";
-                break;
-            case (R.id.mouse_cv):
-                catalog = "Mouse";
-                break;
-            case (R.id.screen_cv):
-                catalog = "Monitor";
-                break;
-            case (R.id.laptop_cv):
-                catalog = "Laptop";
-                break;
-        }
-        changeFragment(catalog);
-
-    }*/
-
     private void close_FrameLayout() {
         if (frameLayout.getVisibility() != View.GONE) {
             toolbar_title.setText("TechNow");
@@ -576,7 +575,7 @@ public class MainUI extends AppCompatActivity {
             case ("Monitor"):
                 navigationView.setCheckedItem(R.id.monitor);
                 break;
-            case ("GamingChair"):
+            case ("Gaming Chair"):
                 navigationView.setCheckedItem(R.id.gaming_chair);
                 break;
             case ("Laptop"):

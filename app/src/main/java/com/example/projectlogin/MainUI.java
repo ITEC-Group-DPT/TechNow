@@ -194,9 +194,8 @@ public class MainUI extends AppCompatActivity {
                     }
                 }
 
-                Product_searchbar_Adapter adapter = new Product_searchbar_Adapter(getApplicationContext(), R.layout.product_searchbar, tempArrayList);
+                ProductListViewAdapter adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_searchbar, tempArrayList,true);
                 listView.setAdapter(adapter);
-
                 return false;
             }
         });

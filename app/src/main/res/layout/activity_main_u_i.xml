@@ -126,14 +126,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:isScrollContainer="true"
-                    android:orientation="vertical"
-                    android:padding="8dp">
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         app:cardCornerRadius="10dp">
 
                         <com.synnapps.carouselview.CarouselView
@@ -147,10 +148,15 @@
                             app:strokeWidth="1dp" />
                     </androidx.cardview.widget.CardView>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#E6E5E5" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="8dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Categories"
                         android:textColor="@color/colorBlack"
@@ -158,16 +164,24 @@
 
                     <com.mhmtk.twowaygrid.TwoWayGridView
                         android:layout_marginTop="15dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:id="@+id/category_grid_view"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         app:horizontalSpacing="22dp"
                         app:scrollDirectionPortrait="horizontal"
                         app:numRows="2" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#E6E5E5" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="8dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Top Seller"
                         android:textColor="@color/colorBlack"
@@ -176,6 +190,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_height="150dp" />
 
                     <View

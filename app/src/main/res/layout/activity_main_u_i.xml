@@ -170,7 +170,7 @@
                         android:id="@+id/category_grid_view"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        app:horizontalSpacing="22dp"
+                        app:horizontalSpacing="25dp"
                         app:scrollDirectionPortrait="horizontal"
                         app:numRows="2" />
 
@@ -193,7 +193,7 @@
                         android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="8dp" />
 
                     <View

@@ -113,15 +113,18 @@ public class ChangeAddressFragment extends Fragment {
 
             }
         });
+            address_tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (!b) {
+                        AutoCorrectAddress();
+                    }
+                    else  return;
+               }
+            });
 
-        address_tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    AutoCorrectAddress();
-                }
-            }
-        });
+
+
 
         root.findViewById(R.id.back_to_payment).setOnClickListener(new View.OnClickListener() {
             @Override

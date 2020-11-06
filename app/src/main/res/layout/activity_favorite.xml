@@ -37,14 +37,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#BDBABA"/>
+        android:layout_height="2dp"
+        android:background="#F6F5F5"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <ListView
             android:id="@+id/lv_favorite"
             android:layout_width="match_parent"

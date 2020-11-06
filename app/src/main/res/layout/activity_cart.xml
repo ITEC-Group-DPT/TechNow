@@ -88,8 +88,8 @@
             android:id="@+id/lv_cart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:divider="#F4F4F4"
-            android:dividerHeight="10dp"
+            android:divider="#F6F5F5"
+            android:dividerHeight="2dp"
             android:layout_weight="8">
 
         </ListView>
@@ -97,7 +97,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:background="#F6F5F5" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,12 +137,12 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/button_setting"
+            android:background="@drawable/color_primary_circle_button"
             android:fontFamily="@font/muli_black"
             android:onClick="submit"
             android:text="Confirm"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorSecondary"
             android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

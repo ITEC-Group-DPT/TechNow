@@ -51,7 +51,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
     private String formattedTotalCash;
     private int Cart_totalcash;
     private DatabaseReference address_book = DatabaseRef.getDatabaseReference().child("Address book");
-    ;
+    private TextView blank_address;
 
     private double shippingFee;
 
@@ -81,6 +81,9 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
         String temp2 = format.format(shippingFee + Cart_totalcash) + "₫";
         temp2 = temp2.replace(',', '.');
         tv_total.setText(temp2);
+
+        blank_address.setVisibility(View.GONE);
+        cus_address_tv.setVisibility(View.VISIBLE);
 
     }
 
@@ -186,6 +189,10 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
                         temp2 = temp2.replace(',','.');
                         tv_total.setText(temp2);
                     }
+                    else{
+                        blank_address.setVisibility(View.VISIBLE);
+                        cus_address_tv.setVisibility(View.GONE);
+                    }
 
                     ProgressBar progressBar = findViewById(R.id.progress_bar_payment);
                     progressBar.setVisibility(View.GONE);
@@ -200,7 +207,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
     }
 
     private void packageDetailonCreate() {
-
+        blank_address = findViewById(R.id.blank_address);
         tv_total = findViewById(R.id.total_cash);
         tv_shipping = findViewById(R.id.shipping_fee_payment);
         cus_namephone_tv = findViewById(R.id.customer_namephonenum);

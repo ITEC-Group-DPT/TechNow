@@ -83,11 +83,20 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:visibility="gone"
+                        android:id="@+id/blank_address"
+                        android:layout_width="match_parent"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_height="match_parent"
+                        android:text="+ Add new address"
+                        android:gravity="center"/>
+
+                    <TextView
                         android:id="@+id/customer_namephonenum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="22dp"
-                        android:text="Tran Nguyen Minh Dao - 0785031xx"
                         android:textColor="@android:color/black"
                         android:textStyle="bold" />
 
@@ -96,8 +105,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="22dp"
-                        android:text="380 Huynh Van Banh, Phuong 14, Quan Phu Nhuan,
-                        Ho Chi Minh"
                         android:textColor="@android:color/black" />
                 </LinearLayout>
 
@@ -105,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="7dp"
                     android:layout_marginTop="10dp"
-                    android:background="#E6E5E5" />
+                    android:background="#F6F5F5" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -141,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
                 android:layout_marginTop="20dp"
-                android:background="#E6E5E5" />
+                android:background="#F6F5F5" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -164,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
                 android:layout_marginTop="10dp"
-                android:background="#E6E5E5" />
+                android:background="#F6F5F5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -221,7 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
                 android:layout_marginTop="20dp"
-                android:background="#E6E5E5" />
+                android:background="#F6F5F5" />
         </LinearLayout>
 
     </ScrollView>
@@ -265,12 +272,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/button_setting"
+        android:background="@drawable/color_primary_circle_button"
         android:fontFamily="@font/muli_black"
         android:onClick="Check_out"
         android:text="Proceed to checkout"
         android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorSecondary"
         android:textSize="20sp" />
 
 

@@ -102,6 +102,10 @@ public class ChangeAddressFragment extends Fragment {
 
                     address_change.addView(view);
                 }
+                if (snapshot.getChildrenCount() == 0) {
+                    input_address.setVisibility(View.VISIBLE);
+                    choose_address_lnlo.setVisibility(View.GONE);
+                }
             }
 
             @Override

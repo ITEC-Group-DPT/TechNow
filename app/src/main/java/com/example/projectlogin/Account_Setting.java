@@ -79,6 +79,10 @@ public class Account_Setting extends AppCompatActivity {
         Intent intent;
         switch (view.getId())
         {
+            case (R.id.address_book):
+                intent = new Intent(this, AddressBook.class);
+                startActivity(intent);
+                break;
             case (R.id.lnlo_order_history):
                 intent = new Intent(this, OrderHistoryActivity.class);
                 startActivity(intent);

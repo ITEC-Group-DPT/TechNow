@@ -3,6 +3,7 @@ package com.example.projectlogin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,7 @@ public class AddressBook extends AppCompatActivity {
         onBackPressed();
     }
 
-    public void delete_item(View view) {
+    public void backToStore(View view) {
+        startActivity(new Intent(this, MainUI.class));
     }
 }

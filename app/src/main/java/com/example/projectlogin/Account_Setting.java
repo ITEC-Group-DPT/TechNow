@@ -79,6 +79,10 @@ public class Account_Setting extends AppCompatActivity {
         Intent intent;
         switch (view.getId())
         {
+            case(R.id.paymenr_card):
+                intent = new Intent(this, PaymentMethod.class);
+                startActivity(intent);
+                break;
             case (R.id.address_book):
                 intent = new Intent(this, AddressBook.class);
                 startActivity(intent);

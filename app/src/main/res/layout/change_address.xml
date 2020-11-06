@@ -8,67 +8,36 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/choose_address_lnlo"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
                     android:paddingLeft="22dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:paddingRight="10dp"
+                    android:paddingBottom="15dp"
                     android:text="Choose address"
-                    android:textStyle="bold"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:id="@+id/address_book_change"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
 
-                <View
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="#F6F5F5" />
-                <LinearLayout
-                    android:paddingLeft="22dp"
-                    android:paddingBottom="15dp"
-                    android:paddingRight="10dp"
-                    android:id="@+id/lnlo_add_new_address"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
-                        android:textStyle="bold"
-                        android:id="@+id/add_new_address_button"
-                        android:layout_height="wrap_content"
-                        android:text="Add new address"
-                        android:textColor="@color/appTheme" />
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/see_more"/>
-
-                </LinearLayout>
 
                 <Button
                     android:id="@+id/back_to_payment"
@@ -77,24 +46,26 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/button_setting"
+                    android:background="@drawable/color_red_circle_button"
                     android:fontFamily="@font/muli_black"
-                    android:text="Back to payment"
+                    android:text="Create new address"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
             </LinearLayout>
 
+
+
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/input_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="15dp"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -184,11 +155,11 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/button_setting"
+                    android:background="@drawable/color_red_circle_button"
                     android:fontFamily="@font/muli_black"
                     android:text="Proceed"
                     android:textAllCaps="false"
-                    android:textColor="@color/appTheme"
+                    android:textColor="@color/colorSecondary"
                     android:textSize="20sp" />
             </LinearLayout>
 

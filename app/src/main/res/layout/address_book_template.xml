@@ -12,16 +12,17 @@
             android:id="@+id/ab_name"
             android:layout_width="0dp"
             android:layout_weight="9"
+            android:textColor="@color/colorBlack"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:paddingLeft="20dp"
             android:text="Tran Nguyen Minh Dao"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            />
 
         <ImageButton
             android:id="@+id/delete_item_ab"
-            android:padding="15dp"
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -33,12 +34,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:paddingRight="10dp"
+        android:paddingRight="15dp"
         android:text="380 Huynh Van Banh, Phuong 14, Quan Phu Nhuan, Thanh Pho Ho Chi Minh"
         android:textSize="15sp" />
 
     <TextView
-        android:paddingBottom="10dp"
+        android:paddingBottom="5dp"
         android:id="@+id/ab_phonenum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,24 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF"
-    tools:context=".AddressBook">
-
+    tools:context=".PaymentMethod">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_method"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="50dp"
+        android:background="@color/appTheme"
         android:minHeight="@android:dimen/app_icon_size">
 
         <ImageButton
             android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:background="@color/appTheme"
+            android:onClick="Back_Payment"
             android:tint="#FFFFFF"
-            android:onClick="Back_btn"
             android:src="@drawable/back_icon" />
 
         <TextView
@@ -30,34 +29,35 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/muli_black"
-            android:text="Address book"
+            android:text="Payment method"
             android:textColor="@color/colorSecondary"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sweeting"/>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8.5">
-
-        <LinearLayout
-            android:id="@+id/address_book_lnlo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:text="Hmm... Sorry, there's nothing to see here"
+        android:textColor="#474545"
+        android:paddingTop="20dp"
+        android:textSize="15sp"
+        android:gravity="center"/>
 
     <Button
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginBottom="20dp"
         android:onClick="backToStore"
         android:background="@drawable/color_red_circle_button"

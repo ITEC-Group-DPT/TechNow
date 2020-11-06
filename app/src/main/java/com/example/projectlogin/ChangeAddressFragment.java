@@ -43,7 +43,6 @@ public class ChangeAddressFragment extends Fragment {
     private Button proceed;
     private OnDataPass dataPasser;
 
-    private LinearLayout addAdress;
     private LinearLayout address_change;
     private LinearLayout choose_address_lnlo;
 
@@ -59,7 +58,6 @@ public class ChangeAddressFragment extends Fragment {
 
     private void initComponents() {
         choose_address_lnlo = root.findViewById(R.id.choose_address_lnlo);
-        addAdress = root.findViewById(R.id.lnlo_add_new_address);
         address_tv = root.findViewById(R.id.address);
         name = root.findViewById(R.id.payment_name);
         phone_number = root.findViewById(R.id.payment_phonenum);
@@ -67,13 +65,6 @@ public class ChangeAddressFragment extends Fragment {
         address_change = root.findViewById(R.id.address_book_change);
         input_address = root.findViewById(R.id.input_address);
 
-        addAdress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                input_address.setVisibility(View.VISIBLE);
-                choose_address_lnlo.setVisibility(View.GONE);
-            }
-        });
 
         DatabaseReference databaseReference =  DatabaseRef.getDatabaseReference().child("Address book");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -129,7 +120,8 @@ public class ChangeAddressFragment extends Fragment {
         root.findViewById(R.id.back_to_payment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+                input_address.setVisibility(View.VISIBLE);
+                choose_address_lnlo.setVisibility(View.GONE);
             }
         });
 

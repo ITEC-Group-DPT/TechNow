@@ -44,11 +44,11 @@
                 <Button
                     android:id="@+id/back_to_payment"
                     android:layout_width="300dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="60dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/color_red_circle_button"
+                    android:background="@drawable/color_primary_circle_button"
                     android:fontFamily="@font/muli_black"
                     android:text="Create new address"
                     android:textAllCaps="false"

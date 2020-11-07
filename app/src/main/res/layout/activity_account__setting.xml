@@ -160,7 +160,7 @@
                     android:layout_weight="9"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="Favourite"
+                    android:text="Favorite"
                     android:textColor="@android:color/black" />
                 <ImageView
                     android:layout_gravity="center"

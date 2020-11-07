@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,12 +51,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.regex.Pattern;
 
-
 public class MainUI extends AppCompatActivity {
     private ArrayList<String> imageURLList;
     private CarouselView carouselView;
     private FrameLayout frameLayout;
-
     protected LinearLayout linearLayout;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
@@ -73,17 +70,16 @@ public class MainUI extends AppCompatActivity {
     protected ImageButton cart_btn;
     private FrameLayout frame_search;
     private String catalog;
-
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewTopSeller;
+    private RecyclerView recyclerViewTopRating;
     private ArrayList<Product> productList;
     private ArrayList<Product> topSellerProductList;
+    private ArrayList<Product> topRatingProductList;
     private DatabaseReference reff;
-
     private SearchView searchView;
     private ListView listView;
     private ArrayList<Product> tempArrayList;
     private SwipeRefreshLayout refreshLayout;
-
     private TwoWayGridView categoryGridView;
     private ArrayList<Catalog> catalogList;
 
@@ -93,26 +89,28 @@ public class MainUI extends AppCompatActivity {
         setContentView(R.layout.activity_main_u_i);
 
         onCreateDrawerLayout();
-        navigationView.setCheckedItem(R.id.nav_home);
-        refreshLayout = findViewById(R.id.refresh);
         loadData();
         loadCarouselView();
-        loadTopSeller();
-        loadsearchview();
         loadCategories();
+        loadTopTen();
+        loadSearchView();
+        loadRefreshLayout();
+    }
+
+    private void loadRefreshLayout() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadData();
                 loadCarouselView();
-                loadTopSeller();
                 loadCategories();
+                loadTopTen();
                 refreshLayout.setRefreshing(false);
             }
         });
     }
 
-    private void loadCategories(){
+    private void loadCategories() {
         categoryGridView = findViewById(R.id.category_grid_view);
         catalogList = new ArrayList<>();
         String[] nameList = {"Mouse", "Keyboard", "Headphone", "Speaker", "Monitor", "Gaming Chair", "Laptop", "CPU", "VGA", "RAM", "SSD", "Mainboard", "Case", "PSU"};
@@ -156,7 +154,7 @@ public class MainUI extends AppCompatActivity {
         categoryGridView.setOnItemClickListener(onItemClickListener);
     }
 
-    private void loadsearchview() {
+    private void loadSearchView() {
         listView = findViewById(R.id.searchMain);
         searchView = findViewById(R.id.search_bar);
         searchView.setFocusable(false);
@@ -194,25 +192,23 @@ public class MainUI extends AppCompatActivity {
                 int length = newText.length();
                 tempArrayList = new ArrayList<>();
                 for (int i = 0; i < productList.size(); i++) {
-                    if (length<= productList.get(i).getName().length())
-                    {
+                    if (length <= productList.get(i).getName().length()) {
                         newText = newText.toLowerCase();
-                        newText= Normalizer.normalize(newText,Normalizer.Form.NFD);
+                        newText = Normalizer.normalize(newText, Normalizer.Form.NFD);
                         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
                         newText = pattern.matcher(newText).replaceAll("");
 
                         String str = productList.get(i).getName().toLowerCase();
-                        str = Normalizer.normalize(str,Normalizer.Form.NFD);
+                        str = Normalizer.normalize(str, Normalizer.Form.NFD);
                         pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
                         str = pattern.matcher(str).replaceAll("");
-                        if (str.contains(newText))
-                        {
+                        if (str.contains(newText)) {
                             tempArrayList.add(productList.get(i));
                         }
                     }
                 }
 
-                ProductListViewAdapter adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_searchbar, tempArrayList,true);
+                ProductListViewAdapter adapter = new ProductListViewAdapter(getApplicationContext(), R.layout.product_searchbar, tempArrayList, true);
                 listView.setAdapter(adapter);
                 return false;
             }
@@ -251,6 +247,7 @@ public class MainUI extends AppCompatActivity {
     }
 
     private void loadData() {
+        navigationView.setCheckedItem(R.id.nav_home);
         View newview = navigationView.getHeaderView(0);
         tv_username = newview.findViewById(R.id.username);
 
@@ -289,7 +286,7 @@ public class MainUI extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         linearLayout = findViewById(R.id.lnlo);
         toolbar_title = findViewById(R.id.toolbar_title);
-
+        refreshLayout = findViewById(R.id.refresh);
         noOfItemInCart = findViewById(R.id.number_of_item_in_cart);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         confirmSignOutBuilder = new AlertDialog.Builder(this);
@@ -325,7 +322,7 @@ public class MainUI extends AppCompatActivity {
                         intent = new Intent(MainUI.this, Account_Setting.class);
                         startActivity(intent);
                         break;
-                    case(R.id.nav_setting):
+                    case (R.id.nav_setting):
                         intent = new Intent(MainUI.this, ReenterPassword.class);
                         startActivity(intent);
                         break;
@@ -349,7 +346,7 @@ public class MainUI extends AppCompatActivity {
                         catalog = "Monitor";
                         changeFragment(catalog);
                         break;
-                    case(R.id.gaming_chair):
+                    case (R.id.gaming_chair):
                         catalog = "Gaming Chair";
                         changeFragment(catalog);
                         break;
@@ -357,15 +354,15 @@ public class MainUI extends AppCompatActivity {
                         catalog = "Laptop";
                         changeFragment(catalog);
                         break;
-                    case(R.id.cpu):
+                    case (R.id.cpu):
                         catalog = "CPU";
                         changeFragment(catalog);
                         break;
-                    case(R.id.vga):
+                    case (R.id.vga):
                         catalog = "VGA";
                         changeFragment(catalog);
                         break;
-                    case(R.id.ram):
+                    case (R.id.ram):
                         catalog = "RAM";
                         changeFragment(catalog);
                         break;
@@ -463,8 +460,7 @@ public class MainUI extends AppCompatActivity {
         });
     }
 
-    private class AsyncTask_TopSeller extends AsyncTask<ArrayList<Product>,String,String>
-    {
+    private class AsyncTask_TopTen extends AsyncTask<ArrayList<Product>, String, String> {
 
         @Override
         protected String doInBackground(ArrayList... arrayLists) {
@@ -500,13 +496,36 @@ public class MainUI extends AppCompatActivity {
                         topSellerProductList.add(productList.get(i));
                     }
 
-                    TopSellerAdapter adapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
-                    recyclerView = findViewById(R.id.recycler_view);
-                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                    recyclerView.setLayoutManager(mLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(adapter);
+                    Collections.sort(productList, new Comparator<Product>() {
+                        public int compare(Product p1, Product p2) {
+                            if (p1.getRating() > p2.getRating()) return -1;
+                            else if (p1.getRating() < p2.getRating()) return 1;
+                            else return 0;
+                        }
+                    });
+
+                    for (int i = 0; i < 10; i++) {
+                        topRatingProductList.add(productList.get(i));
+                    }
+
+                    LinearLayoutManager layoutManagerTopSeller = new LinearLayoutManager(getApplicationContext());
+                    layoutManagerTopSeller.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+                    LinearLayoutManager layoutManagerTopRating = new LinearLayoutManager(getApplicationContext());
+                    layoutManagerTopRating.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+                    TopSellerAdapter topSellerAdapter = new TopSellerAdapter(MainUI.this, topSellerProductList);
+                    recyclerViewTopSeller = findViewById(R.id.recycler_view_top_seller);
+                    recyclerViewTopSeller.setLayoutManager(layoutManagerTopSeller);
+                    recyclerViewTopSeller.setItemAnimator(new DefaultItemAnimator());
+                    recyclerViewTopSeller.setAdapter(topSellerAdapter);
+
+                    TopRatingAdapter topRatingAdapter = new TopRatingAdapter(MainUI.this, topRatingProductList);
+                    recyclerViewTopRating = findViewById(R.id.recycler_view_top_rating);
+                    recyclerViewTopRating.setLayoutManager(layoutManagerTopRating);
+                    recyclerViewTopRating.setItemAnimator(new DefaultItemAnimator());
+                    recyclerViewTopRating.setAdapter(topRatingAdapter);
+
                     onPostExecute("Completed");
                 }
 
@@ -517,7 +536,7 @@ public class MainUI extends AppCompatActivity {
             return null;
         }
 
-        protected void getProductData(String productType, DataSnapshot snapshot){
+        protected void getProductData(String productType, DataSnapshot snapshot) {
             DataSnapshot snapshotProduct = snapshot.child(productType);
             for (DataSnapshot dataSnapshot : snapshotProduct.getChildren()) {
                 Product product = dataSnapshot.getValue(Product.class);
@@ -525,6 +544,7 @@ public class MainUI extends AppCompatActivity {
                 productList.add(product);
             }
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -537,8 +557,7 @@ public class MainUI extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (s != null)
-            {
+            if (s != null) {
                 ProgressBar progressBar = findViewById(R.id.progress_bar);
                 progressBar.setVisibility(View.GONE);
                 refreshLayout.setVisibility(View.VISIBLE);
@@ -546,12 +565,13 @@ public class MainUI extends AppCompatActivity {
         }
     }
 
-    private void loadTopSeller() {
+    private void loadTopTen() {
         productList = new ArrayList<>();
         topSellerProductList = new ArrayList<>();
-
-        new AsyncTask_TopSeller().execute(productList);
+        topRatingProductList = new ArrayList<>();
+        new AsyncTask_TopTen().execute(productList);
     }
+
 
     private void close_FrameLayout() {
         if (frameLayout.getVisibility() != View.GONE) {
@@ -617,10 +637,10 @@ public class MainUI extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Product_Catalog()).commit();
     }
 
-    public String getCatalog()
-    {
+    public String getCatalog() {
         return catalog;
     }
+
     @Override
     public void onBackPressed() {
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -629,9 +649,7 @@ public class MainUI extends AppCompatActivity {
         if (listView.getVisibility() == View.VISIBLE) {
             listView.setVisibility(View.GONE);
             frame_search.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             close_FrameLayout();
         }
     }

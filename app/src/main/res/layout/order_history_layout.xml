@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="220dp"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,8 +30,8 @@
             android:clickable="true"
             android:gravity="right|center"
             android:text="Review"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp" />
+            android:textColor="@color/appTheme"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

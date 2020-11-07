@@ -379,7 +379,7 @@ public class PaymentActivity extends AppCompatActivity implements ChangeAddressF
 
         shippingFee = res * 2;
         shippingFee = Math.round(shippingFee / 100) * 100;
-        if (shippingFee < 10000) shippingFee = 0;
+
         if (shippingFee > 50000) shippingFee = 50000;
 
         return shippingFee;

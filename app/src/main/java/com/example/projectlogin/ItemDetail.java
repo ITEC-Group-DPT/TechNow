@@ -63,7 +63,14 @@ public class ItemDetail extends AppCompatActivity {
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+                //noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+                noOfItem = 0;
+                DataSnapshot snapshotProduct = snapshot.child("Cart");
+                for (DataSnapshot dataSnapshot : snapshotProduct.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    noOfItem = noOfItem + product.getQuantity();
+                }
+
                 if (noOfItem == 0) {
                     noOfItemInCart.setVisibility(View.GONE);
                 } else {

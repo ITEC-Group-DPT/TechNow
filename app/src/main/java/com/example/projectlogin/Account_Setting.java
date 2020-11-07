@@ -47,7 +47,13 @@ public class Account_Setting extends AppCompatActivity {
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+                int noOfItem = 0;
+                DataSnapshot snapshotProduct = snapshot.child("Cart");
+                for (DataSnapshot dataSnapshot : snapshotProduct.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    noOfItem = noOfItem + product.getQuantity();
+                }
+
                 if (noOfItem == 0) {
                     noOfItemInCart.setVisibility(View.GONE);
                 } else {

@@ -253,12 +253,21 @@ public class MainUI extends AppCompatActivity {
     private void loadData() {
         View newview = navigationView.getHeaderView(0);
         tv_username = newview.findViewById(R.id.username);
+
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.getKey();
                 tv_username.setText(username);
-                noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+                noOfItem = 0;
+                //noOfItem = (int) snapshot.child("Cart").getChildrenCount();
+
+                DataSnapshot snapshotProduct = snapshot.child("Cart");
+                for (DataSnapshot dataSnapshot : snapshotProduct.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    noOfItem = noOfItem + product.getQuantity();
+                }
+
                 if (noOfItem == 0) {
                     noOfItemInCart.setVisibility(View.GONE);
                 } else {

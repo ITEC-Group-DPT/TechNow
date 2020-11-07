@@ -1,6 +1,5 @@
 package com.example.projectlogin;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -91,33 +90,12 @@ public class UserSignUp extends AppCompatActivity {
             case (R.id.signup_btn):
                 String name_str = et_usn.getText().toString();
                 String pass_str = et_pw.getText().toString();
-                final User user = new User(name_str, pass_str);
-                new AsyncTaskSignUp().execute(user);
-                /*databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
-                databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        if (!snapshot.exists()) {
-                            databaseRef.child("Information").setValue(user);
-                            Log.d("!LOG", "intent USERLOGIN");
-                            Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
-                            startActivity(intent1, options.toBundle());
-                        }
-
-                        else
-                        {
-                            //do nothing
-                            Toast.makeText(UserSignUp.this, "There's already a user with the username " + "'" + user.getUsername() + "'", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });*/
+                if (name_str.length() < 4 || pass_str.length() < 6) {
+                    Toast.makeText(this, "Username must be atleast 4 characters\nPassword must be atleast 6 characters", Toast.LENGTH_SHORT).show();
+                } else {
+                    final User user = new User(name_str, pass_str);
+                    new AsyncTaskSignUp().execute(user);
+                }
                 break;
             case (R.id.tvLogin):
                 Intent intent2 = new Intent(getApplicationContext(), UserLogin.class);

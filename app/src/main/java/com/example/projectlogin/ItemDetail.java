@@ -200,7 +200,7 @@ public class ItemDetail extends AppCompatActivity {
         ImageListener imageListener = new ImageListener() {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
-                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 Glide.with(getApplicationContext()).load(imageURLList.get(position)).into(imageView);
             }
         };

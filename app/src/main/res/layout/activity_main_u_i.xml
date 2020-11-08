@@ -132,8 +132,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="8dp"
                         app:cardCornerRadius="10dp">
 
@@ -151,39 +151,73 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="25dp"
                         android:background="#F4F4F4" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Categories"
                         android:textColor="@color/colorBlack"
                         android:textSize="18sp" />
 
                     <com.mhmtk.twowaygrid.TwoWayGridView
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
                         android:id="@+id/category_grid_view"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="8dp"
                         app:horizontalSpacing="25dp"
-                        app:scrollDirectionPortrait="horizontal"
-                        app:numRows="2" />
+                        app:numRows="2"
+                        app:scrollDirectionPortrait="horizontal" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:layout_marginTop="10dp"
                         android:background="#F4F4F4" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/muli_black"
+                        android:text="Asus"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="8dp"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/asus_IV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="25dp"
+                        android:background="#F4F4F4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Top Seller"
                         android:textColor="@color/colorBlack"
@@ -193,9 +227,9 @@
                         android:id="@+id/recycler_view_top_seller"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"/>
+                        android:layout_marginRight="8dp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -206,8 +240,41 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/muli_black"
+                        android:text="Razer"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="8dp"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/razer_IV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="25dp"
+                        android:background="#F4F4F4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
                         android:fontFamily="@font/muli_black"
                         android:text="Top Rating"
                         android:textColor="@color/colorBlack"
@@ -217,9 +284,72 @@
                         android:id="@+id/recycler_view_top_rating"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#F4F4F4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/muli_black"
+                        android:text="Msi"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"/>
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/msi_IV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="25dp"
+                        android:background="#F4F4F4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/muli_black"
+                        android:text="Recommended"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp" />
+
+                    <GridView
+                        android:id="@+id/recommended_GV"
+                        android:layout_width="match_parent"
+                        android:layout_height="4950dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="8dp"
+                        android:animationCache="false"
+                        android:background="#D3D3D3"
+                        android:fastScrollEnabled="true"
+                        android:horizontalSpacing="1dp"
+                        android:numColumns="2"
+                        android:scrollingCache="false"
+                        android:verticalSpacing="1dp" />
 
                     <View
                         android:layout_width="match_parent"

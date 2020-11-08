@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -82,6 +83,10 @@ public class MainUI extends AppCompatActivity {
     private SwipeRefreshLayout refreshLayout;
     private TwoWayGridView categoryGridView;
     private ArrayList<Catalog> catalogList;
+    private ImageView asusIV;
+    private ImageView msiIV;
+    private ImageView razerIV;
+    private GridView recommendedGV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +98,67 @@ public class MainUI extends AppCompatActivity {
         loadCarouselView();
         loadCategories();
         loadTopTen();
+        loadBrand();
         loadSearchView();
         loadRefreshLayout();
+    }
+
+    private void loadBrand() {
+        asusIV = findViewById(R.id.asus_IV);
+        razerIV = findViewById(R.id.razer_IV);
+        msiIV = findViewById(R.id.msi_IV);
+
+        Glide.with(getApplicationContext()).load("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fasus_logo.jpg?alt=media&token=dab9745b-c965-465a-ba4f-b35c4cc28978").into(asusIV);
+        Glide.with(getApplicationContext()).load("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fmsi_logo.jpg?alt=media&token=521b7b16-923b-4de3-a902-e05d5ed26133").into(msiIV);
+        Glide.with(getApplicationContext()).load("https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Frazer_icon.jpg?alt=media&token=fc5c346e-6446-41cc-806b-72bde9a24818").into(razerIV);
+
+        asusIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bannerOnClick("asus");
+            }
+
+        });
+
+        razerIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bannerOnClick("razer");
+            }
+        });
+
+        msiIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bannerOnClick("msi");
+            }
+        });
+    }
+
+    private void bannerOnClick(String bannerName) {
+        int length = bannerName.length();
+
+        ArrayList bannerArrayList = new ArrayList<>();
+        for (int i = 0; i < productList.size(); i++) {
+            if (length <= productList.get(i).getName().length()) {
+                bannerName = bannerName.toLowerCase();
+                bannerName = Normalizer.normalize(bannerName, Normalizer.Form.NFD);
+                Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+                bannerName = pattern.matcher(bannerName).replaceAll("");
+
+                String str = productList.get(i).getName().toLowerCase();
+                str = Normalizer.normalize(str, Normalizer.Form.NFD);
+                pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+                str = pattern.matcher(str).replaceAll("");
+                if (str.contains(bannerName)) {
+                    bannerArrayList.add(productList.get(i));
+                }
+            }
+        }
+
+        ProductListViewAdapter bannerAdapter = new ProductListViewAdapter(MainUI.this, R.layout.catalog_gridview_layout, bannerArrayList);
+
     }
 
     private void loadRefreshLayout() {
@@ -105,6 +169,7 @@ public class MainUI extends AppCompatActivity {
                 loadCarouselView();
                 loadCategories();
                 loadTopTen();
+                loadBrand();
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -257,7 +322,6 @@ public class MainUI extends AppCompatActivity {
                 username = snapshot.getKey();
                 tv_username.setText(username);
                 noOfItem = 0;
-                //noOfItem = (int) snapshot.child("Cart").getChildrenCount();
 
                 DataSnapshot snapshotProduct = snapshot.child("Cart");
                 for (DataSnapshot dataSnapshot : snapshotProduct.getChildren()) {
@@ -291,6 +355,7 @@ public class MainUI extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         confirmSignOutBuilder = new AlertDialog.Builder(this);
         frameLayout = findViewById(R.id.Frame_layout);
+        recommendedGV = findViewById(R.id.recommended_GV);
 
         cart_btn = findViewById(R.id.cart_btn);
         cart_btn.setOnClickListener(new View.OnClickListener() {
@@ -500,9 +565,21 @@ public class MainUI extends AppCompatActivity {
                         }
                     });
 
+
                     for (int i = 0; i < 10; i++) {
                         topRatingProductList.add(productList.get(i));
                     }
+
+                    Collections.sort(productList, new Comparator<Product>() {
+                        public int compare(Product p1, Product p2) {
+                            double p1Value = (p1.getSold() * p1.getRating()) / 2;
+                            double p2Value = (p2.getSold() * p2.getRating()) / 2;
+
+                            if (p1Value > p2Value) return -1;
+                            else if (p1Value < p2Value) return 1;
+                            else return 0;
+                        }
+                    });
 
                     LinearLayoutManager layoutManagerTopSeller = new LinearLayoutManager(getApplicationContext());
                     layoutManagerTopSeller.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -521,6 +598,21 @@ public class MainUI extends AppCompatActivity {
                     recyclerViewTopRating.setLayoutManager(layoutManagerTopRating);
                     recyclerViewTopRating.setItemAnimator(new DefaultItemAnimator());
                     recyclerViewTopRating.setAdapter(topRatingAdapter);
+
+                    ProductListViewAdapter recommendedAdapter = new ProductListViewAdapter(MainUI.this, R.layout.product_listview_layout, productList);
+                    recommendedGV.setAdapter(recommendedAdapter);
+
+                    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Product product = productList.get(position);
+                            Intent intent = new Intent(MainUI.this, ItemDetail.class);
+                            intent.putExtra("itemName", product.getName());
+                            intent.putExtra("itemType", product.getType());
+                            startActivity(intent);
+                        }
+                    };
+                    recommendedGV.setOnItemClickListener(onItemClickListener);
 
                     onPostExecute("Completed");
                 }

@@ -93,7 +93,6 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
 
         tv_price.setText(formattedPrice);
 
-
         return convertView;
     }
 }

@@ -409,7 +409,7 @@ public class MainUI extends AppCompatActivity {
                         changeFragment(catalog);
                         break;
                     case (R.id.gaming_chair):
-                        catalog = "Gaming Chair";
+                        catalog = "GamingChair";
                         changeFragment(catalog);
                         break;
                     case (R.id.laptop):
@@ -688,7 +688,7 @@ public class MainUI extends AppCompatActivity {
             case ("Monitor"):
                 navigationView.setCheckedItem(R.id.monitor);
                 break;
-            case ("Gaming Chair"):
+            case ("GamingChair"):
                 navigationView.setCheckedItem(R.id.gaming_chair);
                 break;
             case ("Laptop"):

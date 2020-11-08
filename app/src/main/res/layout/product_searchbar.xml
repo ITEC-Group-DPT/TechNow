@@ -27,7 +27,7 @@
             android:gravity="top|left"
             android:text="a"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <RatingBar
             android:id="@+id/rating_bar"
@@ -47,6 +47,7 @@
             android:layout_weight="3"
             android:textAlignment="viewStart"
             android:textColor="@color/colorPrice"
-            android:textSize="16sp" />
+            android:textStyle="bold"
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

@@ -41,25 +41,30 @@ public class UserSignUp extends AppCompatActivity {
         @Override
         protected String doInBackground(User... users) {
             final User user = users[0];
-            databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
-            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.exists()) {
-                        databaseRef.child("Information").setValue(user);
-                        Log.d("!LOG", "intent USERLOGIN");
-                        Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
-                        startActivity(intent1, options.toBundle());
-                    } else {
-                        onPostExecute(user.getUsername());
-                    }
-                }
+            try {
+                databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
+                databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            databaseRef.child("Information").setValue(user);
+                            Log.d("!LOG", "intent USERLOGIN");
+                            Intent intent1 = new Intent(getApplicationContext(), UserLogin.class);
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignUp.this, findViewById(R.id.signup_btn), "trans_login");
+                            startActivity(intent1, options.toBundle());
+                        } else {
+                            onPostExecute(user.getUsername());
+                        }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            } catch (Exception e) {
+                return "invalid";
+            }
             return null;
         }
 
@@ -76,7 +81,11 @@ public class UserSignUp extends AppCompatActivity {
         protected void onPostExecute(String command) {
             super.onPostExecute(command);
             if (command != null) {
-                Toast.makeText(UserSignUp.this, "There's already a user with the username " + "'" + command + "'", Toast.LENGTH_SHORT).show();
+                if (command.equals("invalid")) {
+                    Toast.makeText(UserSignUp.this, "Invalid username", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(UserSignUp.this, "There's already a user with the username " + "'" + command + "'", Toast.LENGTH_SHORT).show();
+                }
                 Button button = findViewById(R.id.signup_btn);
                 ProgressBar progressBar = findViewById(R.id.progress_signup);
                 button.setVisibility(View.VISIBLE);

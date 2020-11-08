@@ -62,39 +62,46 @@ public class UserLogin extends AppCompatActivity {
         @Override
         protected String doInBackground(User... users) {
             final User user = users[0];
-            databaseRef = FirebaseDatabase.getInstance().getReference("Users");
-            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.child(user.getUsername()).exists()) {
-                        String account_pass = (String) snapshot.child(user.getUsername()).child("Information").child("password").getValue();
 
-                        if (account_pass.equals(user.getPassword())) {
-                            if (rememberMe.isChecked()) {
-                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putBoolean(user.getUsername(), true);
-                                editor.commit();
+                databaseRef = FirebaseDatabase.getInstance().getReference("Users");
+                databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        try {
+                        if (snapshot.child(user.getUsername()).exists()) {
+                            String account_pass = (String) snapshot.child(user.getUsername()).child("Information").child("password").getValue();
 
-                            } else {
-                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putBoolean(user.getUsername(), false);
-                                editor.commit();
+                            if (account_pass.equals(user.getPassword())) {
+                                if (rememberMe.isChecked()) {
+                                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean(user.getUsername(), true);
+                                    editor.commit();
+
+                                } else {
+                                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean(user.getUsername(), false);
+                                    editor.commit();
+                                }
+                                DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
+                                Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
+                                startActivity(intent1);
+                                return;
                             }
-                            DatabaseRef.setDatabaseReference(FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername()));
-                            Intent intent1 = new Intent(getApplicationContext(), MainUI.class);
-                            startActivity(intent1);
-                            return;
+                        }
+                        onPostExecute("NaN");
+
+                        } catch (Exception e){
+                            onPostExecute("NaN");
                         }
                     }
-                    onPostExecute("NaN");
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
             return "do_NoThing";
         }
 
@@ -117,7 +124,6 @@ public class UserLogin extends AppCompatActivity {
                 button.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             }
-
         }
     }
 

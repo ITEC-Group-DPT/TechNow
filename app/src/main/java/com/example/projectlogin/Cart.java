@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Cart {
     private ArrayList<Product> CartArrList = new ArrayList<>();
+    private String cus_name;
+    private String cus_phonenum;
+    private String cus_address;
+    private String datetime;
     private int totalCash = 0;
 
     public int getTotalCash() {

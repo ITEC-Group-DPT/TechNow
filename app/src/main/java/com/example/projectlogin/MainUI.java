@@ -76,6 +76,7 @@ public class MainUI extends AppCompatActivity {
     private ArrayList<Product> productList;
     private ArrayList<Product> topSellerProductList;
     private ArrayList<Product> topRatingProductList;
+    private ArrayList<Product> recommendedProductList;
     private DatabaseReference reff;
     private SearchView searchView;
     private ListView listView;
@@ -553,9 +554,7 @@ public class MainUI extends AppCompatActivity {
                         }
                     });
 
-                    for (int i = 0; i < 10; i++) {
-                        topSellerProductList.add(productList.get(i));
-                    }
+                    topSellerProductList = new ArrayList<>(productList.subList(0, 10));
 
                     Collections.sort(productList, new Comparator<Product>() {
                         public int compare(Product p1, Product p2) {
@@ -565,10 +564,7 @@ public class MainUI extends AppCompatActivity {
                         }
                     });
 
-
-                    for (int i = 0; i < 10; i++) {
-                        topRatingProductList.add(productList.get(i));
-                    }
+                    topRatingProductList = new ArrayList<>(productList.subList(0, 10));
 
                     Collections.sort(productList, new Comparator<Product>() {
                         public int compare(Product p1, Product p2) {
@@ -580,6 +576,8 @@ public class MainUI extends AppCompatActivity {
                             else return 0;
                         }
                     });
+
+                    recommendedProductList = new ArrayList<>(productList.subList(0, 30));
 
                     LinearLayoutManager layoutManagerTopSeller = new LinearLayoutManager(getApplicationContext());
                     layoutManagerTopSeller.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -599,7 +597,7 @@ public class MainUI extends AppCompatActivity {
                     recyclerViewTopRating.setItemAnimator(new DefaultItemAnimator());
                     recyclerViewTopRating.setAdapter(topRatingAdapter);
 
-                    ProductListViewAdapter recommendedAdapter = new ProductListViewAdapter(MainUI.this, R.layout.product_listview_layout, productList);
+                    ProductListViewAdapter recommendedAdapter = new ProductListViewAdapter(MainUI.this, R.layout.product_listview_layout, recommendedProductList);
                     recommendedGV.setAdapter(recommendedAdapter);
 
                     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -655,8 +653,6 @@ public class MainUI extends AppCompatActivity {
 
     private void loadTopTen() {
         productList = new ArrayList<>();
-        topSellerProductList = new ArrayList<>();
-        topRatingProductList = new ArrayList<>();
         new AsyncTask_TopTen().execute(productList);
     }
 

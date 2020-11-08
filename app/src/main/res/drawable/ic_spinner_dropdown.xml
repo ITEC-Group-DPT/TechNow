@@ -4,7 +4,7 @@
             android:shape="rectangle" />
     </item>
     <item
-        android:width="11dp"
+        android:width="12dp"
         android:height="12dp"
         android:gravity="end|center_vertical">
         <bitmap

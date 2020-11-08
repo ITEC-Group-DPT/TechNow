@@ -179,7 +179,7 @@ public class MainUI extends AppCompatActivity {
     private void loadCategories() {
         categoryGridView = findViewById(R.id.category_grid_view);
         catalogList = new ArrayList<>();
-        String[] nameList = {"Mouse", "Keyboard", "Headphone", "Speaker", "Monitor", "Gaming Chair", "Laptop", "CPU", "VGA", "RAM", "SSD", "Mainboard", "Case", "PSU"};
+        String[] nameList = {"Mouse", "Keyboard", "Headphone", "Speaker", "Monitor", "GamingChair", "Laptop", "CPU", "VGA", "RAM", "SSD", "Mainboard", "Case", "PSU"};
         String[] urlList = {"https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fmouse_icon.png?alt=media&token=67cb21e9-10c7-4e49-a9db-ac15d6cc7d12",
                 "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fkeyboard_icon.png?alt=media&token=40843f62-d535-4a71-9e7b-a0b19d30ab96",
                 "https://firebasestorage.googleapis.com/v0/b/technow-4b3ab.appspot.com/o/UI%2Fheadphone_icon.png?alt=media&token=038c353c-8fba-465a-b3d0-936c8be4f124",

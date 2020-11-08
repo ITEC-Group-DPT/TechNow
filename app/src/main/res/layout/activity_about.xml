@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Version 1.0 Build 101120"
+            android:text="Version 2.0 Build 110820"
             android:fontFamily="@font/muli_black"
             android:textSize="28sp" />
     </LinearLayout>

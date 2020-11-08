@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DDDCDC"
+    android:background="@color/colorSecondary"
     android:orientation="vertical">
 
     <ScrollView
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginRight="15dp"
                 android:orientation="vertical">
 
@@ -82,7 +82,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:textColorHint="@color/colorBlack"
                     app:boxStrokeColor="@color/colorBlack"
                     app:boxStrokeWidthFocused="2dp"
@@ -106,8 +106,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:textColorHint="@color/colorBlack"
                     app:boxStrokeColor="@color/colorBlack"
                     app:boxStrokeWidthFocused="2dp"
@@ -129,7 +128,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:textColorHint="@color/colorBlack"
                         app:boxStrokeColor="@color/colorBlack"
                         app:boxStrokeWidthFocused="2dp"
@@ -152,14 +151,13 @@
 
                 <Button
                     android:id="@+id/proceed_btn"
-                    android:layout_width="300dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/color_primary_circle_button"
                     android:fontFamily="@font/muli_black"
-                    android:text="Proceed"
+                    android:text="Confirm address"
                     android:textAllCaps="false"
                     android:textColor="@color/colorSecondary"
                     android:textSize="20sp" />
@@ -169,6 +167,5 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 </LinearLayout>

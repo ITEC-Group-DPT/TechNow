@@ -14,6 +14,11 @@
         <item name="ratingBarStyle">@style/Base.Widget.AppCompat.RatingBar.Small</item>
     </style>
 
+    <style name="RatingBarYellow" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#858585</item>
+        <item name="colorControlActivated">#FFD500</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

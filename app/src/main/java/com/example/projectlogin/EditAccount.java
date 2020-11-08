@@ -1,20 +1,19 @@
 package com.example.projectlogin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class EditAccount extends AppCompatActivity {
@@ -53,9 +52,13 @@ public class EditAccount extends AppCompatActivity {
         switch (view.getId()) {
             case (R.id.save_btn):
                 String newPassword = et_new_pw.getText().toString();
-                DatabaseRef.getDatabaseReference().child("Information").child("password").setValue(newPassword);
-                Intent intent = new Intent(getApplicationContext(), MainUI.class);
-                startActivity(intent);
+                if (newPassword.length() < 6 || newPassword.length() > 20) {
+                    Toast.makeText(this, "Password must be between 6 and 20 characters", Toast.LENGTH_SHORT).show();
+                } else {
+                    DatabaseRef.getDatabaseReference().child("Information").child("password").setValue(newPassword);
+                    Intent intent = new Intent(getApplicationContext(), MainUI.class);
+                    startActivity(intent);
+                }
                 break;
             case (R.id.delacc_btn):
                 confirmSignOutBuilder.setTitle("Confirmation");

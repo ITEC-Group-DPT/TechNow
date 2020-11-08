@@ -79,7 +79,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:numStars="5"
-        android:stepSize="1" />
+        android:stepSize="1"
+        android:theme="@style/RatingBarYellow"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/feedback_text"

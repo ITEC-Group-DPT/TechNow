@@ -506,18 +506,22 @@ public class MainUI extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         catalog = "Mouse";
+                        changeFragment(catalog);
                         break;
                     case 1:
                         catalog = "Keyboard";
+                        changeFragment(catalog);
                         break;
                     case 2:
                         catalog = "Monitor";
+                        changeFragment(catalog);
                         break;
                     case 3:
                         catalog = "Laptop";
+                        changeFragment(catalog);
                         break;
                 }
-                changeFragment(catalog);
+
             }
         });
     }

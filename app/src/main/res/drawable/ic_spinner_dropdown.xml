@@ -4,9 +4,9 @@
             android:shape="rectangle" />
     </item>
     <item
-        android:width="20dp"
-        android:height="20dp"
+        android:width="11dp"
+        android:height="12dp"
         android:gravity="end|center_vertical">
         <bitmap
-            android:src="@drawable/drop_down_arrow" />
+            android:src="@drawable/drop_down_icon" />
     </item></layer-list>

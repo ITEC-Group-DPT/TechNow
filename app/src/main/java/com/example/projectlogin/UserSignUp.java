@@ -90,8 +90,8 @@ public class UserSignUp extends AppCompatActivity {
             case (R.id.signup_btn):
                 String name_str = et_usn.getText().toString();
                 String pass_str = et_pw.getText().toString();
-                if (name_str.length() < 4 || pass_str.length() < 6) {
-                    Toast.makeText(this, "Username must be atleast 4 characters\nPassword must be atleast 6 characters", Toast.LENGTH_SHORT).show();
+                if (name_str.length() < 4 || pass_str.length() < 6 || name_str.length() > 15 || pass_str.length() > 20) {
+                    Toast.makeText(this, "Username must be between 4 and 15 characters\nPassword must be between 6 and 20 characters", Toast.LENGTH_SHORT).show();
                 } else {
                     final User user = new User(name_str, pass_str);
                     new AsyncTaskSignUp().execute(user);

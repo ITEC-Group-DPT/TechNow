@@ -60,7 +60,8 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
         ImageView iv_order_ava = convertView.findViewById(R.id.iv_order_ava);
         TextView tv_orderID = convertView.findViewById(R.id.tv_shipping_status);
         final TextView tv_order_name = convertView.findViewById(R.id.tv_order_name);
-        final TextView tv_order_quantity_price = convertView.findViewById(R.id.tv_order_quantity_price);
+        final TextView tv_order_price = convertView.findViewById(R.id.tv_order_price);
+        final TextView tv_order_quantity = convertView.findViewById(R.id.tv_order_quantity);
 
         //final Cart tempCart = orderHistory.getOrderHistory().get(position);
 
@@ -70,9 +71,11 @@ public class OrderHistoryAdapter extends ArrayAdapter<Product> {
 
 
         int price = tempProduct.getQuantity() * tempProduct.getPrice();
-        String formatedTotal = "Quantity: " + tempProduct.getQuantity() + " | " + format.format(price) + "₫";
+        String formatedTotal = format.format(price) + "₫";
         formatedTotal = formatedTotal.replace(',', '.');
-        tv_order_quantity_price.setText(formatedTotal);
+        tv_order_price.setText(formatedTotal);
+
+        tv_order_quantity.setText(" x " + tempProduct.getQuantity());
 
         /*final DatabaseReference databaseReference = DatabaseRef.getDatabaseReference().child("Order History");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

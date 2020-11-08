@@ -9,7 +9,7 @@
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:scaleType="centerInside"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="85dp"
         android:src="@drawable/add_image" />
 
@@ -17,10 +17,12 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20sp"
-        android:paddingTop="10dp"
-        android:textSize="23sp"
-        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:text="Welcome, EZZZZZZZZZZZZZZZZZZZ"
+        android:textColor="@color/colorSecondary"
+        android:fontFamily="@font/muli_black"
         android:layout_marginBottom="5dp"/>
 
 </LinearLayout>

@@ -87,6 +87,7 @@
                     android:layout_height="80dp"/>
                 <TextView
                     android:id="@+id/username_TV"
+                    android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
                     android:layout_gravity="center"
@@ -261,7 +262,7 @@
                     android:layout_weight="9"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="Setting"
+                    android:text="Account setting"
                     android:textColor="@android:color/black" />
                 <ImageView
                     android:layout_gravity="center"

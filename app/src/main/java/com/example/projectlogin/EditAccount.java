@@ -30,9 +30,9 @@ public class EditAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
 
-        backgroundAnim();
         et_new_pw = findViewById(R.id.et_new_pw);
         tv_username = findViewById(R.id.et_usn);
+        scrollView = findViewById(R.id.scroll_view);
         DatabaseRef.getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -82,17 +82,13 @@ public class EditAccount extends AppCompatActivity {
         }
     }
 
-    public void backgroundAnim() {
-        scrollView = findViewById(R.id.scroll_view);
-        AnimationDrawable animationDrawable = (AnimationDrawable) scrollView.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-    }
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), MainUI.class);
         startActivity(intent);
+    }
+
+    public void backBtn(View view) {
+        onBackPressed();
     }
 }

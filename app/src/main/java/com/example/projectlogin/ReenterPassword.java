@@ -25,9 +25,9 @@ public class ReenterPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reenter_password);
 
-        backgroundAnim();
         tv_username = findViewById(R.id.et_usn);
         et_pw = findViewById(R.id.et_pw);
+        scrollView = findViewById(R.id.scroll_view);
 
         DatabaseRef.getDatabaseReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -42,25 +42,10 @@ public class ReenterPassword extends AppCompatActivity {
         });
     }
 
-    public void backgroundAnim() {
-        scrollView = findViewById(R.id.scroll_view);
-        AnimationDrawable animationDrawable = (AnimationDrawable) scrollView.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-    }
 
     public void onClick(View view) {
-        //manageUser = new ManageUser(this);
         final String pass_str = et_pw.getText().toString();
 
-/*        User user = new User(username, pass_str);
-        if (manageUser.checkLoginUser(user) == true) {
-
-            //intent.putExtra("username_edit", username);
-            //intent.putExtra("noItem", noOfItem);
-
-        }*/
         DatabaseRef.getDatabaseReference().child("Information").child("password").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,5 +61,9 @@ public class ReenterPassword extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    public void backBtn(View view) {
+        onBackPressed();
     }
 }

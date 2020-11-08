@@ -99,7 +99,7 @@
                 android:layout_height="300dp"
                 app:fillColor="@color/colorPrimary"
                 app:radius="5dp"
-                app:slideInterval="5000"
+                app:slideInterval="4000"
                 app:strokeColor="@color/colorBlack"
                 app:strokeWidth="1dp" />
 
@@ -173,7 +173,7 @@
                 android:fontFamily="@font/muli_black"
                 android:text="Description:"
                 android:textColor="#686868"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/description_TV"
@@ -198,7 +198,7 @@
                 android:fontFamily="@font/muli_black"
                 android:text="Detail:"
                 android:textColor="#686868"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/short_detail_TV"

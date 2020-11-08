@@ -322,10 +322,6 @@ public class MainUI extends AppCompatActivity {
                         intent = new Intent(MainUI.this, Account_Setting.class);
                         startActivity(intent);
                         break;
-                    case (R.id.nav_setting):
-                        intent = new Intent(MainUI.this, ReenterPassword.class);
-                        startActivity(intent);
-                        break;
                     case (R.id.mouse):
                         catalog = "Mouse";
                         changeFragment(catalog);

@@ -39,6 +39,17 @@ public class Product_Catalog extends Fragment {
     private ArrayList<String> spinnerList;
     private Spinner spinner;
     private View root;
+    private boolean isBrand;
+
+    public Product_Catalog(ArrayList<Product> list) {
+        isBrand = true;
+        productList = new ArrayList<>(list);
+    }
+
+    public Product_Catalog() {
+        productList = new ArrayList<>();
+        isBrand = false;
+    }
 
     @Nullable
     @Override
@@ -53,7 +64,7 @@ public class Product_Catalog extends Fragment {
 
     private class AsyncTaskMonitor extends AsyncTask<ArrayList, String, String> {
         @Override
-        protected String doInBackground(ArrayList... arrayLists) {
+        protected String doInBackground(final ArrayList... arrayLists) {
             spinnerList.add("Price lowest");
             spinnerList.add("Price highest");
             spinnerList.add("Rating lowest");
@@ -95,39 +106,59 @@ public class Product_Catalog extends Fragment {
             };
             spinner.setOnItemSelectedListener((onItemSelectedListener));
 
-            final ArrayList<Product> monitors = arrayLists[0];
-            final String catalog = ((MainUI) getActivity()).getCatalog();
-            reff = FirebaseDatabase.getInstance().getReference("Products").child(catalog);
-            reff.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Product product = dataSnapshot.getValue(Product.class);
-                        product.setType(catalog);
-                        monitors.add(product);
-                    }
-                    productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
-                    productLV.setAdapter(productListViewAdapter);
-
-                    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Product product = monitors.get(position);
-                            Intent intent = new Intent(getContext(), ItemDetail.class);
-                            intent.putExtra("itemName", product.getName());
-                            intent.putExtra("itemType", product.getType());
-                            startActivity(intent);
+            if (!isBrand){
+                final ArrayList<Product> monitors = arrayLists[0];
+                final String catalog = ((MainUI) getActivity()).getCatalog();
+                reff = FirebaseDatabase.getInstance().getReference("Products").child(catalog);
+                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Product product = dataSnapshot.getValue(Product.class);
+                            product.setType(catalog);
+                            monitors.add(product);
                         }
-                    };
+                        productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, monitors);
+                        productLV.setAdapter(productListViewAdapter);
 
-                    productLV.setOnItemClickListener(onItemClickListener);
-                    onPostExecute("completed");
-                }
+                        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Product product = monitors.get(position);
+                                Intent intent = new Intent(getContext(), ItemDetail.class);
+                                intent.putExtra("itemName", product.getName());
+                                intent.putExtra("itemType", product.getType());
+                                startActivity(intent);
+                            }
+                        };
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+                        productLV.setOnItemClickListener(onItemClickListener);
+                        onPostExecute("completed");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+            else{
+                productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, productList);
+                productLV.setAdapter(productListViewAdapter);
+
+                AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Product product = productList.get(position);
+                        Intent intent = new Intent(getContext(), ItemDetail.class);
+                        intent.putExtra("itemName", product.getName());
+                        intent.putExtra("itemType", product.getType());
+                        startActivity(intent);
+                    }
+                };
+
+                productLV.setOnItemClickListener(onItemClickListener);
+                onPostExecute("completed");
+            }
             return null;
         }
 
@@ -151,7 +182,6 @@ public class Product_Catalog extends Fragment {
     }
 
     private void loadData() {
-        productList = new ArrayList<>();
         spinnerList = new ArrayList<>();
 
         new AsyncTaskMonitor().execute(productList);

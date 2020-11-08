@@ -115,7 +115,6 @@ public class MainUI extends AppCompatActivity {
         asusIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 bannerOnClick("asus");
             }
 
@@ -157,7 +156,8 @@ public class MainUI extends AppCompatActivity {
             }
         }
 
-        ProductListViewAdapter bannerAdapter = new ProductListViewAdapter(MainUI.this, R.layout.catalog_gridview_layout, bannerArrayList);
+        open_FrameLayout();
+        getSupportFragmentManager().beginTransaction().replace(R.id.Frame_layout, new Product_Catalog(bannerArrayList)).commit();
 
     }
 

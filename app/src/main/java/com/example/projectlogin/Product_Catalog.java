@@ -65,6 +65,7 @@ public class Product_Catalog extends Fragment {
     private class AsyncTaskMonitor extends AsyncTask<ArrayList, String, String> {
         @Override
         protected String doInBackground(final ArrayList... arrayLists) {
+
             spinnerList.add("Price lowest");
             spinnerList.add("Price highest");
             spinnerList.add("Rating lowest");
@@ -106,7 +107,7 @@ public class Product_Catalog extends Fragment {
             };
             spinner.setOnItemSelectedListener((onItemSelectedListener));
 
-            if (!isBrand){
+            if (!isBrand) {
                 final ArrayList<Product> monitors = arrayLists[0];
                 final String catalog = ((MainUI) getActivity()).getCatalog();
                 reff = FirebaseDatabase.getInstance().getReference("Products").child(catalog);
@@ -141,7 +142,7 @@ public class Product_Catalog extends Fragment {
                     }
                 });
             }
-            else{
+            else {
                 productListViewAdapter = new ProductListViewAdapter(getContext(), R.layout.product_listview_layout, productList);
                 productLV.setAdapter(productListViewAdapter);
 
@@ -157,7 +158,12 @@ public class Product_Catalog extends Fragment {
                 };
 
                 productLV.setOnItemClickListener(onItemClickListener);
-                onPostExecute("completed");
+                try {
+                    Thread.sleep(600);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "completed";
             }
             return null;
         }

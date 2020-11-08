@@ -115,9 +115,9 @@ public class OrderDetail extends AppCompatActivity {
                         Glide.with(getApplicationContext()).load(product.getAvatarURL()).into(product_pic);
                         product_name.setText(product.getName());
 
-                        String formattedPrice = format.format(product.getPrice()) + " ₫";
+                        String formattedPrice = format.format(product.getPrice()) + "₫";
                         formattedPrice = formattedPrice.replace(',', '.');
-                        product_price_qty.setText(formattedPrice + " x" + product.getQuantity());
+                        product_price_qty.setText(formattedPrice + " x " + product.getQuantity());
 
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override

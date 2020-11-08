@@ -10,12 +10,12 @@
         android:id="@+id/order_pic"
         android:layout_gravity="right"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_weight="3"/>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_weight="7"
         android:orientation="vertical">
 
@@ -26,7 +26,7 @@
             android:paddingRight="15dp"
             android:text="Ten product cac thu abc"
             android:textColor="@android:color/black"
-            android:textSize="20sp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/price_qty"

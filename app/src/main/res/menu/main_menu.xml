@@ -18,6 +18,33 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/laptop"
+                    android:title="Laptop" />
+                <item
+                    android:id="@+id/cpu"
+                    android:title="CPU" />
+                <item
+                    android:id="@+id/mainboard"
+                    android:title="Mainboard" />
+                <item
+                    android:id="@+id/vga"
+                    android:title="VGA" />
+                <item
+                    android:id="@+id/ram"
+                    android:title="RAM" />
+                <item
+                    android:id="@+id/ssd"
+                    android:title="SSD" />
+                <item
+                    android:id="@+id/monitor"
+                    android:title="Monitor" />
+                <item
+                    android:id="@+id/psu"
+                    android:title="PSU" />
+                <item
+                    android:id="@+id/case_pc"
+                    android:title="Case" />
+                <item
                     android:id="@+id/mouse"
                     android:title="Mouse" />
                 <item
@@ -30,35 +57,9 @@
                     android:id="@+id/speaker"
                     android:title="Speaker" />
                 <item
-                    android:id="@+id/monitor"
-                    android:title="Monitor" />
-                <item
                     android:id="@+id/gaming_chair"
                     android:title="Gaming chair" />
-                <item
-                    android:id="@+id/laptop"
-                    android:title="Laptop" />
-                <item
-                    android:id="@+id/cpu"
-                    android:title="CPU" />
-                <item
-                    android:id="@+id/vga"
-                    android:title="VGA" />
-                <item
-                    android:id="@+id/ram"
-                    android:title="RAM" />
-                <item
-                    android:id="@+id/ssd"
-                    android:title="SSD" />
-                <item
-                    android:id="@+id/mainboard"
-                    android:title="Mainboard" />
-                <item
-                    android:id="@+id/case_pc"
-                    android:title="Case" />
-                <item
-                    android:id="@+id/psu"
-                    android:title="PSU" />
+
             </group>
         </menu>
     </item>

@@ -116,7 +116,7 @@ public class MainUI extends AppCompatActivity {
         asusIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bannerOnClick("asus");
+                bannerOnClick("Asus");
             }
 
         });
@@ -124,19 +124,20 @@ public class MainUI extends AppCompatActivity {
         razerIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bannerOnClick("razer");
+                bannerOnClick("Razer");
             }
         });
 
         msiIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bannerOnClick("msi");
+                bannerOnClick("Msi");
             }
         });
     }
 
     private void bannerOnClick(String bannerName) {
+        toolbar_title.setText(bannerName);
         int length = bannerName.length();
 
         ArrayList bannerArrayList = new ArrayList<>();
